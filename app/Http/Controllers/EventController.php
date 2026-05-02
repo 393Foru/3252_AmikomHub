@@ -8,11 +8,11 @@ class EventController extends Controller
 {
         public function show($id)
     {
-        return view('pages.event-detail');
+        return view('event-detail');
     }
 
     public function checkout($id)
     {
-        return view('pages.checkout');
+        return view('checkout');
     }
 }
