@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 
-    <main class="flex-1 p-10 overflow-y-auto">
+    <section class="flex-1 p-10 overflow-y-auto">
         <header class="flex justify-between items-center mb-10">
             <div>
                 <h1 class="text-3xl font-black">Kelola Event</h1>
@@ -108,6 +108,6 @@
                 </table>
             </div>
         </div>
-    </main>
+    </section>
 
 @endsection

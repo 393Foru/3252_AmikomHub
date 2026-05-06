@@ -20,64 +20,105 @@
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-violet-50/50 antialiased text-zinc-800 selection:bg-violet-200 selection:text-violet-900">
 
     <!-- Navigation -->
-    <nav
-        class="glass sticky top-8 z-40 mx-4 mt-4 px-6 py-4 rounded-2xl border border-white/20 shadow-lg flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div
-                class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
-                AH</div>
-            <span class="text-xl font-bold tracking-tight">AmikomEventHub</span>
-        </div>
-        <div class="hidden md:flex gap-8 font-medium">
-            <a href="#" class="text-indigo-600">Jelajahi</a>
-            <a href="#" class="hover:text-indigo-600 transition">Kategori</a>
-            <a href="#" class="hover:text-indigo-600 transition">Tentang Kami</a>
-        </div>
-        <!-- <div class="flex gap-3">
-            <button class="px-5 py-2.5 rounded-xl font-semibold hover:bg-slate-200 transition">Login</button>
-            <button
-                class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition">Daftar</button>
-        </div> -->
-    </nav>
+    <div class="sticky top-6 z-50 mx-4 sm:mx-6 lg:mx-auto max-w-5xl transition-all duration-500">
+        <nav class="bg-white/70 backdrop-blur-2xl border border-zinc-200/50 shadow-xl shadow-zinc-200/40 rounded-full px-2 py-2 flex justify-between items-center transition-all duration-300">
+            
+            <div class="flex-shrink-0 flex items-center pl-5 hover:scale-105 transition-transform duration-300">
+                <a href="{{ route('home')}}" class="flex items-center gap-2">
+                    <div class="text-xs w-8 h-8 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                        AE
+                    </div>
+                    <span class="font-extrabold text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-violet-800 to-fuchsia-700">
+                        AmikomEventHub
+                    </span>
+                </a>
+            </div>
 
-    @yield('content')
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="#" class="px-5 py-2.5 rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 font-semibold text-sm transition-all duration-300">
+                    Jelajahi
+                </a>
+                <a href="#" class="px-5 py-2.5 rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 font-semibold text-sm transition-all duration-300">
+                    Kategori
+                </a>
+                <a href="#" class="px-5 py-2.5 rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 font-semibold text-sm transition-all duration-300">
+                    Tentang Kami
+                </a>
+            </div>
+            <!-- <div class="flex gap-3">
+                <button class="px-5 py-2.5 rounded-xl font-semibold hover:bg-slate-200 transition">Login</button>
+                <button
+                class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition">Daftar</button>
+            </div> -->
+        </nav>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-4 sm: px-6 lg:px-8 py-6 min-h-[70vh]">
+        @yield('content')
+    </main>
+
 
     <!-- Footer -->
-    <footer class="bg-indigo-900 text-indigo-100 py-20 px-6 mt-20">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div class="space-y-4 col-span-2">
-                <div class="flex items-center gap-2">
-                    <div
-                        class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-indigo-900 font-bold text-xl">
-                        AH</div>
-                    <span class="text-2xl font-bold text-white">AmikomEventHub</span>
+<footer class="bg-indigo-950 text-indigo-200 py-12 px-12 mt-12 border-t border-indigo-800/50">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div class="space-y-6 col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-indigo-500 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/20">
+                        AH
+                    </div>
+                    <span class="text-2xl font-extrabold text-white tracking-tight">Amikom<span class="text-indigo-400">EventHub</span></span>
                 </div>
-                <p class="max-w-xs text-indigo-300">Platform reservasi tiket event online terbaik untuk mahasiswa dan
-                    penyelenggara profesional.</p>
+                <p class="max-w-sm leading-relaxed text-indigo-300/80">
+                    Platform reservasi tiket event online terbaik untuk mahasiswa dan penyelenggara profesional. Temukan pengalaman seru di kampusmu.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-8 h-8 rounded-full bg-indigo-900 flex items-center justify-center hover:bg-indigo-500 transition-all duration-300 group">
+                        <i class="fab fa-instagram group-hover:text-white"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-indigo-900 flex items-center justify-center hover:bg-indigo-500 transition-all duration-300 group">
+                        <i class="fab fa-twitter group-hover:text-white"></i>
+                    </a>
+                </div>
             </div>
+
             <div>
-                <h4 class="text-white font-bold mb-6">Navigasi</h4>
-                <ul class="space-y-4">
-                    <li><a href="#" class="hover:text-white transition">Home</a></li>
-                    <li><a href="#" class="hover:text-white transition">Semua Event</a></li>
-                    <li><a href="#" class="hover:text-white transition">Cara Bayar</a></li>
+                <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-6">Navigasi</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Home</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Semua Event</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Cara Bayar</a></li>
                 </ul>
             </div>
+
             <div>
-                <h4 class="text-white font-bold mb-6">Hubungi Kami</h4>
-                <ul class="space-y-4">
-                    <li>support@eventtiket.com</li>
-                    <li>+62 812 3456 7890</li>
+                <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-6">Hubungi Kami</h4>
+                <ul class="space-y-4 text-sm">
+                    <li class="flex items-start gap-3">
+                        <span class="text-indigo-400">Email:</span>
+                        <a href="mailto:rahmat.ramadhan.0712@students.amikom.ac.id" class="hover:text-white transition-colors break-all">
+                            rahmat.ramadhan.0712@students.amikom.ac.id
+                        </a>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="text-indigo-400">Telp:</span>
+                        <a href="tel:+62882003859191" class="hover:text-white transition-colors">
+                            +62 88 200 385 9191
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto pt-12 mt-12 border-t border-indigo-800 text-center text-indigo-400 text-sm">
-            &copy; 2024 AmikomEventHub. Built with Laravel & Tailwind CSS.
+
+        <div class="pt-8 border-t border-indigo-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-indigo-400/60 uppercase tracking-widest">
+            <p>&copy; 2026 - 24.12.3252 - Rahmat Ramadhan - All rights reserved.</p>
+            <p>Built with <span class="text-indigo-400">Laravel</span> & <span class="text-indigo-400">Tailwind CSS</span></p>
         </div>
-    </footer>
+    </div>
+</footer>
 
 </body>
 

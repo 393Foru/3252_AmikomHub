@@ -1,9 +1,9 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('content')
 
 
-    <main class="max-w-3xl mx-auto px-6 py-20">
+    <section class="max-w-3xl mx-auto px-6 py-20">
         <div class="mb-12">
             <a href="event-detail.html" class="text-indigo-600 font-bold flex items-center gap-2 mb-6">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -20,7 +20,7 @@
             <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
                 <h3 class="text-xl font-bold mb-6 border-b pb-4">Pesanan Anda</h3>
                 <div class="flex gap-6 items-start">
-                    <img src="assets/concert.png" alt="Event" class="w-24 h-24 rounded-2xl object-cover">
+                    <img src="{{ asset('assets/concert.png') }}" alt="Event" class="w-24 h-24 rounded-2xl object-cover">
                     <div>
                         <h4 class="font-extrabold text-lg">Jazz Night 2024: A Celebration</h4>
                         <p class="text-slate-500">16 Nov 2024 • The Blue Note Lounge</p>
@@ -84,10 +84,10 @@
             </div>
 
         </div>
-    </main>
+    </section>
 
     <!-- Overlay Midtrans Simulation -->
-    <div id="midtrans-overlay"
+    <section id="midtrans-overlay"
         class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-6">
         <div class="bg-white w-full max-w-sm rounded-[2rem] overflow-hidden shadow-2xl animate-bounce-in">
             <div class="bg-slate-50 p-6 flex justify-between items-center border-b">
@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <script>
         function showMidtrans() {

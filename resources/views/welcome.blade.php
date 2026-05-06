@@ -3,18 +3,28 @@
 @section('content')
 
     <!-- Hero Section -->
-    <section class="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-12">
+    <section class="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-12">
         <div class="flex-1 space-y-8">
-            <span
-                class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-bold uppercase tracking-wider">#1
-                Event Platform</span>
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
-                Temukan & Pesan <span class="text-indigo-600">Tiket Event</span> Impianmu.
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-100 text-indigo-700 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest shadow-sm">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
+                </span>
+                #1 Event Platform di Amikom
+            </div>
+
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.1] tracking-tight">
+                Temukan & Pesan <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+                    Tiket Event
+                </span> 
+                Impianmu.
             </h1>
-            <p class="text-lg text-slate-500 max-w-lg leading-relaxed">
-                Dari konser musik hingga workshop teknologi, semua ada di genggamanmu. Pesan aman & cepat dengan
-                Midtrans.
-            </p>
+        
+        <p class="text-lg md:text-xl text-slate-600 max-w-xl mx-auto md:mx-0 leading-relaxed font-medium">
+            Dari konser musik hingga workshop teknologi, semua ada di genggamanmu. Pesan <span class="text-slate-900 font-bold underline decoration-indigo-300">aman & cepat</span> dengan Midtrans.
+        </p>
+        
             <div class="flex gap-4">
                 <a href="#events"
                     class="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold text-lg shadow-xl shadow-indigo-200 hover:scale-105 transition-transform">
@@ -25,6 +35,14 @@
                     Cara Pesan
                 </a>
             </div>
+            <div class="pt-4 flex items-center justify-center md:justify-start gap-4 text-slate-400">
+            <div class="flex -space-x-2">
+                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://ui-avatars.com/api/?name=User+1&bg=6366f1&color=fff" alt="">
+                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://ui-avatars.com/api/?name=User+2&bg=a855f7&color=fff" alt="">
+                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://ui-avatars.com/api/?name=User+3&bg=ec4899&color=fff" alt="">
+            </div>
+            <p class="text-sm font-medium"><span class="text-slate-900 font-bold">1,000+</span> Mahasiswa sudah bergabung</p>
+        </div>
         </div>
         <div class="flex-1 relative">
             <div
@@ -54,7 +72,7 @@
     </section>
 
     <!-- Events Grid -->
-    <section id="events" class="max-w-7xl mx-auto px-6 py-20">
+    <section id="events" class="max-w-7xl mx-auto px-6 py-12">
         <div class="flex justify-between items-end mb-12">
             <div>
                 <h2 class="text-3xl font-extrabold mb-2">Event Terdekat</h2>

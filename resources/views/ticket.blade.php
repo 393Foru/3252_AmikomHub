@@ -1,4 +1,5 @@
-
+@extends('layouts.app')
+@section('content')
 
     <div class="max-w-md w-full">
         <!-- Success Banner -->
@@ -84,3 +85,4 @@
             </div>
         </div>
     </div>
+@endsection
