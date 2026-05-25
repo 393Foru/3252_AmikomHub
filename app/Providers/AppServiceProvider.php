@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        //public function boot(): void
+        
+        // Beri tahu Laravel untuk menggunakan Tailwind di fitur Paginasi
+        Paginator::useTailwind();
     }
 }
