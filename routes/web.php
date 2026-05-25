@@ -6,11 +6,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketController;
 
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController; 
-use App\Http\Controllers\Admin\EventController as EventAdminController;
-
-// use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 
 // Route User Area
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -25,7 +24,18 @@ Route::get('/tickets', [TicketController::class, 'ticket'])
 // Route Admin Area sesuai modul praktikum 5
 Route::prefix('admin')->name('admin.')->group(function ()
 {
-    Route::resource('events, EventAdminController::class');
+    // Ini untuk URL: /admin (Halaman Dashboard)
+    Route::get('/', [AdminDashboardController::class, 'index'])
+    ->name('dashboard');
+
+    // ini untuk URL: /admin/categories (Halaman CRUD Kategori)
+    Route::resource('categories', AdminCategoryController::class);
+
+    // Ini untuk URL: /admin/events (Halaman CRUD Event)
+    Route::resource('events', AdminEventController::class);
+    
+    // Ini untuk URL: /admin/transactions (Halaman CRUD Transaksi)
+    Route::resource('transactions', AdminTransactionController::class);
 });
 
 // // Route Admin Area

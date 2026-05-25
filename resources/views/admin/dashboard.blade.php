@@ -4,7 +4,7 @@
     <!-- Main Content -->
     <section class="flex-1 p-10 overflow-y-auto">
         <!-- Header -->
-        <header class="flex justify-between items-center mb-10">
+        <!-- <header class="flex justify-between items-center mb-10">
             <div>
                 <h1 class="text-3xl font-black">Dashboard Ringkasan</h1>
                 <p class="text-slate-500 font-medium">Selamat datang kembali, Admin!</p>
@@ -19,7 +19,7 @@
                         class="rounded-xl">
                 </div>
             </div>
-        </header>
+        </header> -->
 
         <!-- Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

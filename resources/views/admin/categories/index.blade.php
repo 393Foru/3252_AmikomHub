@@ -23,13 +23,13 @@
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
-                    <thead class="bg-slate-50/80 text-slate-500 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
-                        <tr>
-                            <th class="px-6 py-4 w-16 text-center">No</th>
-                            <th class="px-6 py-4">Nama Kategori</th>
-                            <th class="px-6 py-4 text-right">Aksi</th>
-                        </tr>
-                    </thead>
+            <thead class="bg-slate-50 text-slate-400 uppercase text-[10px] font-black tracking-widest">
+                <tr>
+                    <th class="px-8 py-4 w-16">No</th>
+                    <th class="px-8 py-4">Nama Kategori</th>
+                    <th class="px-8 py-4 w-16 text-center">Aksi</th>
+                </tr>
+            </thead>
                     <tbody class="divide-y divide-slate-100 text-slate-700">
                         
                         <!-- Row 1 -->

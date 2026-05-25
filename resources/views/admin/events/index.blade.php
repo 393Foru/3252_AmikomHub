@@ -21,7 +21,7 @@
                     <th class="px-8 py-4">Poster</th>
                     <th class="px-8 py-4">Event</th>
                     <th class="px-8 py-4">Harga / Stok</th>
-                    <th class="px-8 py-4">Aksi</th>
+                    <th class="px-8 py-4 text-right">Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y border-t">
