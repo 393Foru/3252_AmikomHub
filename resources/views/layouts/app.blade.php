@@ -40,14 +40,17 @@
             <div class="flex items-center gap-3 pr-1">
                 
                 <div class="hidden md:flex items-center bg-zinc-100/50 p-1 rounded-full border border-zinc-200/50">
+                    
                     <a href="{{ route('home') }}" 
-                       class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 bg-white text-indigo-600 shadow-sm ring-1 ring-zinc-200/50">
+                    class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 {{ request()->routeIs('home') ? 'bg-white text-indigo-600 shadow-sm ring-1 ring-zinc-200/50' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100' }}">
                         Beranda
                     </a>
-                    <a href="{{ route('home') }}#events" 
-                       class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100">
+                    
+                    <a href="{{ route('events.index') }}" 
+                    class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 {{ request()->routeIs('events.index') ? 'bg-white text-indigo-600 shadow-sm ring-1 ring-zinc-200/50' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100' }}">
                         Event
                     </a>
+
                 </div>
 
                 <div class="hidden md:block w-[1.5px] h-6 bg-zinc-200 rounded-full mx-1"></div>
