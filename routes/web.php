@@ -15,7 +15,8 @@ use App\Http\Controllers\Admin\TransactionController as AdminTransactionControll
 // Route User Area
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/events', [EventController::class, 'index'])
-->name('events.index'); 
+->name('events.index');
+ 
 Route::get('/events/{id}', [EventController::class,'show'])
 ->name('events.show');
 Route::get('/checkout/{id}', [EventController::class, 'checkout'])
@@ -23,8 +24,8 @@ Route::get('/checkout/{id}', [EventController::class, 'checkout'])
 Route::get('/tickets', [TicketController::class, 'ticket'])
 ->name('ticket');
 
-
-
+Route::get('/cara-pesan', [HomeController::class, 'howToOrder'])
+->name('how-to-order');
 
 // Route Admin Area sesuai modul praktikum 5
 Route::prefix('admin')->name('admin.')->group(function ()

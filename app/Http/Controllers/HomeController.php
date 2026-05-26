@@ -34,4 +34,9 @@ class HomeController extends Controller
         
         return view('welcome', compact('events', 'categories'));
     }
+
+    public function howToOrder()
+    {
+        return view('how-to-order');
+    }
 }

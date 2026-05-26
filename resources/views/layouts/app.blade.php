@@ -100,7 +100,9 @@
                     <div class="w-12 h-12 bg-indigo-500 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/20">
                         AH
                     </div>
-                    <span class="text-2xl font-extrabold text-white tracking-tight">Amikom<span class="text-indigo-400">EventHub</span></span>
+                    <span class="text-2xl font-extrabold text-white tracking-tight">Amikom
+                        <span class="text-indigo-400">EventHub</span>
+                    </span>
                 </div>
                 <p class="max-w-sm leading-relaxed text-indigo-300/80">
                     Platform reservasi tiket event online terbaik untuk mahasiswa dan penyelenggara profesional. Temukan pengalaman seru di kampusmu.
@@ -118,9 +120,9 @@
             <div>
                 <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-6">Navigasi</h4>
                 <ul class="space-y-3">
-                    <li><a href="#" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Home</a></li>
-                    <li><a href="#" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Semua Event</a></li>
-                    <li><a href="#" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Cara Bayar</a></li>
+                    <li><a href="{{ route('home') }}" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Home</a></li>
+                    <li><a href="{{ route('events.index') }}" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Semua Event</a></li>
+                    <li><a href="{{ route('how-to-order') }}" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Cara Pesan</a></li>
                 </ul>
             </div>
 
