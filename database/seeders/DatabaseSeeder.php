@@ -50,6 +50,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $category6 = \App\Models\Category::firstOrCreate([
+            'name' => 'job fair',
+            'slug' => 'job-fair',
+        ]);
+
+        $category7 = \App\Models\Category::firstOrCreate([
+            'name' => 'pameran',
+            'slug' => 'pameran',
+        ]);
+
+        $category8 = \App\Models\Category::firstOrCreate([
             'name' => 'lainnya',
             'slug' => 'lainnya',
         ]);
