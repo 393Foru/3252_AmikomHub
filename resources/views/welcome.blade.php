@@ -176,4 +176,28 @@
     </div>
 </section>
 
+<section class="py-16 bg-slate-50 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <p class="text-xs font-bold uppercase tracking-widest text-indigo-600 mb-2">Our Network</p>
+            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Didukung Oleh Partner Terbaik</h2>
+            <p class="text-slate-500 font-medium mt-1">Kolaborasi erat bersama berbagai instansi dan perusahaan terpercaya.</p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+            @forelse($partners as $partner)
+                <div class="group relative flex items-center justify-center p-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <div class="w-32 h-16 flex items-center justify-center">
+                        <img src="{{ Storage::url($partner->logo_url) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain transform group-hover:scale-105 transition-transform" title="{{ $partner->name }}">
+                    </div>
+                </div>
+            @empty
+                <div class="text-center text-slate-400 text-sm font-medium py-4">
+                    AmikomEventHub membuka peluang kolaborasi bersama partner baru.
+                </div>
+            @endforelse
+        </div>
+    </div>
+</section>
+
 @endsection
