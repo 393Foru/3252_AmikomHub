@@ -9,9 +9,16 @@ use Illuminate\Support\Str; // <-- 1. Tambahkan baris ini di atas untuk membuat 
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::latest()->get(); 
+        // Mengambil keyword pencarian dari input bernama 'search'
+        $search = $request->input('search');
+
+        // Query dasar: jika ada keyword, lakukan LIKE search. Jika tidak, ambil semua.
+        $categories = Category::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', '%' . $search . '%');
+        })->latest()->get();
+
         return view('admin.categories.index', compact('categories'));
     }
 

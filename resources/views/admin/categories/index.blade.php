@@ -4,6 +4,33 @@
 
     <section class="flex-1 p-10 overflow-y-auto bg-slate-50 min-h-screen">
         
+        <div class="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <form action="{{ route('admin.categories.index') }}" method="GET" class="w-full md:w-96 flex gap-2">
+                <div class="relative w-full">
+                    <input type="text" name="search" value="{{ request('search') }}" 
+                        placeholder="Cari nama kategori..." 
+                        class="w-full rounded-xl border border-slate-300 pl-11 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                </div>
+                <button type="submit" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-colors shadow-sm">
+                    Cari
+                </button>
+                @if(request('search'))
+                    <a href="{{ route('admin.categories.index') }}" class="px-4 py-2.5 bg-slate-200 text-slate-700 rounded-xl text-sm font-bold hover:bg-slate-300 transition-colors flex items-center">
+                        Reset
+                    </a>
+                @endif
+            </form>
+
+            @if(request('search'))
+                <p class="text-sm text-slate-500 self-start md:self-center">
+                    Hasil pencarian untuk: <span class="font-bold text-slate-800">"{{ request('search') }}"</span>
+                </p>
+            @endif
+        </div>
+        
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
                 <h1 class="text-3xl font-black text-slate-900">Kategori Event</h1>
