@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Category;
+use App\Models\Partner;
 
 class HomeController extends Controller
 {
@@ -31,8 +32,15 @@ class HomeController extends Controller
 
         // 4. eksekusi query dan kirim data hasilnya ke template blade
         $events = $query->paginate(6);
+
+        // Mengambil semua kategori untuk menu/navigasi pencarian di homepage
+        $categories = Category::all();
+
+        // Mengambil seluruh partner terbaru untuk ditampilkan di section sponsor
+        $partners = Partner::latest()->get();
+
         
-        return view('welcome', compact('events', 'categories'));
+        return view('welcome', compact('events', 'categories', 'partners'));
     }
 
     public function howToOrder()
