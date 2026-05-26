@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController; 
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
+use App\Http\Controllers\Admin\PartnerController as AdminPartnerController;
 
 // Route User Area
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -42,6 +43,9 @@ Route::prefix('admin')->name('admin.')->group(function ()
     
     // Ini untuk URL: /admin/transactions (Halaman CRUD Transaksi)
     Route::resource('transactions', AdminTransactionController::class);
+
+    // Ini untuk URL: /admin/partners (Halaman CRUD Partner)
+    Route::resource('partners', AdminPartnerController::class);
 });
 
 // // Route Admin Area
