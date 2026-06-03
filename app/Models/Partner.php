@@ -10,4 +10,10 @@ class Partner extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'logo_url'];
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_partner');
+    }
 }
+

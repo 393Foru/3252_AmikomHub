@@ -121,12 +121,10 @@
         <div
             class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col">
             <div class="relative overflow-hidden aspect-[3/4]">
-                <img src="https://placehold.co/400x600/e2e8f0/6366f1?text={{ urlencode($event->title) }}"
+                <img src="{{ empty(trim($event->poster_path)) ? 'https://placehold.co/400x600/e2e8f0/6366f1?text=' . urlencode($event->title) : asset($event->poster_path) }}"
                     alt="{{ $event->title }}"
                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div
-                    class="absolute top-4 left-4 px-3 py-1 bg-white/95 backdrop-blur rounded-lg text-xs font-bold uppercase text-indigo-600 shadow-sm">
+                <div class="absolute top-4 left-4 px-3 py-1 bg-white/95 backdrop-blur rounded-lg text-xs font-bold uppercase text-indigo-600 shadow-sm">
                     {{ $event->category->name ?? 'Uncategorized' }}
                 </div>
             </div>

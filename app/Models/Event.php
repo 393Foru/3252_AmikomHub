@@ -26,4 +26,9 @@ class Event extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function partners()
+    {
+        return $this->belongsToMany(Partner::class, 'event_partner');
+    }
 }
