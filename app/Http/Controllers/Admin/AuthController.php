@@ -25,7 +25,7 @@ class AuthController extends Controller
         }
         return back()->withErrors([
             'email'=>'Email atau password yang anda berikan tidak terdaftar di sistem kami. Silahkan coba lagi.'
-        ]);
+        ])->onlyInput('email');
     }
 
     // 3. Fungsi memproses Logout (Keluar)

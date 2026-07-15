@@ -2,26 +2,23 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\DashboardConntroller;
-use App\Http\Controllers\Admin\EventContrller;
-use App\Http\Controllers\Admin\TransactionController;
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/login', function (){
-    return redirect()->route('admin.login');
-})->name('login');
-
-// Grouping untuk URL berawalan /admin
-Route::prefix('admin')->name('admin.')->group(function(){
-    // rute login bebas akses
-    Route::get('login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('login', [AuthController::class, 'login'])->name('login.post');
-    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-
-    // Mengamankan Route Administrasi di balik tembok (Middleware)
-    Route::middleware(['auth', 'admin'])->group(function(){
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::resource('events', EventController::class);
-        Route::get('transactions', [TransactionController::class, 'index'])->name('transaction.index');
-    });
-});
+class AdminMiddleware
+{
+    /**
+     * Handle an incoming request.
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+        // Mengecek apakah user sudah login DAN memiliki role 'admin'
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return $next($request);
+        }
+        // jika user biasa yang mencoba akses, tendang kembali ke halaman utama
+        return redirect('/')->with('error', 'Kami tidak memiliki akses ke halaman admin.');
+    }
+}
