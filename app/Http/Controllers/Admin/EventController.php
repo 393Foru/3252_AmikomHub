@@ -33,7 +33,7 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:1',
-            'poster' => 'nullable|image|max:2048' // Maksimal 2MB
+            'poster' => 'nullable|image|max:15360' // Maksimal 15MB
         ]);
 
         if ($request->hasFile('poster')) {
@@ -48,8 +48,16 @@ class EventController extends Controller
 
     public function destroy(Event $event)
     {
+        // Mengecek apakah event memiliki gambar poster yang tersimpan
+        if ($event->poster_path) {
+            // Menghapus file gambar fisik dari direktori storage
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($event->poster_path);
+        }
+
+        // Menghapus data event dari database
         $event->delete();
-        return redirect()->route('admin.events.index')->with('success', 'Data event berhasil dihapus secara permanen.');
+
+        return redirect()->route('admin.events.index')->with('success', 'Data event beserta posternya berhasil dihapus secara permanen.');
     }
 
     public function edit(Event $event)
@@ -68,7 +76,7 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:1',
-            'poster' => 'nullable|image|max:2048' // Maksimal 2MB
+            'poster' => 'nullable|image|max:15360' // Maksimal 15MB
         ]);
 
         if ($request->hasFile('poster')) {
