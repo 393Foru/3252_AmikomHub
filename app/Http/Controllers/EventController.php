@@ -32,9 +32,13 @@ class EventController extends Controller
         return view('events.index', compact('events', 'categories'));
     }
     
-        public function show($id)
+        public function show(Event $event)
     {
-        return view('event-detail');
+        // Mengambil daftar kategori untuk keperluan menu footer
+        $categories = Category::all();
+
+        // me-render view dengan membawa data kategori dan data spesifik acara tersebut
+        return view('event-detail', compact('event', 'categories'));
     }
 
     public function checkout($id)
