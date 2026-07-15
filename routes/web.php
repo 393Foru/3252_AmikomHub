@@ -20,7 +20,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/events', [EventController::class, 'index'])
 ->name('events.index');
  
-Route::get('/events/{id}', [EventController::class,'show'])
+Route::get('/events/{event}', [EventController::class,'show'])
 ->name('events.show');
 Route::get('/checkout/{id}', [EventController::class, 'checkout'])
 ->name('checkout');

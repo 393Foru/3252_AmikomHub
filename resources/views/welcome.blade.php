@@ -58,7 +58,7 @@
         <div
             class="absolute -bottom-10 -right-10 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
         </div>
-        <img src="assets/concert.png" alt="Concert"
+        <img src="{{ asset('storage/assets/concert.png') }}" alt="Concert"
             class="rounded-[2rem] shadow-2xl relative z-10 w-full object-cover aspect-[4/5] object-center">
 
         <div class="absolute -bottom-6 -left-6 glass p-6 rounded-2xl shadow-xl z-20 border border-white">
@@ -121,8 +121,8 @@
         <div
             class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col">
             <div class="relative overflow-hidden aspect-[3/4]">
-                <img src="{{ empty(trim($event->poster_path)) ? 'https://placehold.co/400x600/e2e8f0/6366f1?text=' . urlencode($event->title) : asset($event->poster_path) }}"
-                    alt="{{ $event->title }}"
+                <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/400x600/e2e8f0/6366f1?text=' . urlencode($event->title) }}"
+                    alt="{{ $event->title }}"                   
                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 <div class="absolute top-4 left-4 px-3 py-1 bg-white/95 backdrop-blur rounded-lg text-xs font-bold uppercase text-indigo-600 shadow-sm">
                     {{ $event->category->name ?? 'Uncategorized' }}

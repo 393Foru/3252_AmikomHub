@@ -5,8 +5,7 @@
 
 @section('content')
 <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm max-w-3xl">
-    <form action="{{ route('admin.events.update', $event->id) }}" method="POST" enctype="multipart/form-data"
-        class="space-y-6">
+    <form action="{{ route('admin.events.update', $event->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
         @method('PUT')
 
@@ -114,8 +113,8 @@
         </div>
 
         <div>
-            <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Poster Event
-                (Opsional)
+            <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                Poster Event (Opsional)
             </label>
             <input type="file" name="poster" accept="image/*" class="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 outline-none transition font-medium">
             @if($event->poster_path)

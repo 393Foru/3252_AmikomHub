@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
             'location' => 'Amikom Baru',
             'price' => 50000,
             'stock' => 100,
-            'poster_path' => 'public/posters/event-1.png',
+            'poster_path' => 'posters/event-1.png',
         ]);
 
         \App\Models\Event::create([
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
             'location' => 'inkubator Amikom',
             'price' => 50000,
             'stock' => 100,
-            'poster_path' => 'public/posters/event-2.png',
+            'poster_path' => 'posters/event-2.png',
         ]);
 
         \App\Models\Event::create([
@@ -103,7 +103,7 @@ class DatabaseSeeder extends Seeder
             'location' => 'Cinema Unit 6',
             'price' => 50000,
             'stock' => 100,
-            'poster_path' => 'public/posters/event-3.png',
+            'poster_path' => 'posters/event-3.png',
         ]);
 
         \App\Models\Event::create([
@@ -114,7 +114,7 @@ class DatabaseSeeder extends Seeder
             'location' => 'inkubator Amikom',
             'price' => 50000,
             'stock' => 100,
-            'poster_path' => '',
+            'poster_path' => 'posters/event-2.png',
         ]);
 
         \App\Models\Event::create([
@@ -125,7 +125,7 @@ class DatabaseSeeder extends Seeder
             'location' => 'inkubator Amikom',
             'price' => 50000,
             'stock' => 100,
-            'poster_path' => '',
+            'poster_path' => 'posters/event-1.png',
         ]);
 
         \App\Models\Event::create([
@@ -136,7 +136,7 @@ class DatabaseSeeder extends Seeder
             'location' => 'Cinema Unit 6',
             'price' => 50000,
             'stock' => 100,
-            'poster_path' => '',
+            'poster_path' => 'posters/event-5.png',
         ]);
 
             \App\Models\Event::create([
@@ -147,7 +147,7 @@ class DatabaseSeeder extends Seeder
             'location' => 'Amikom Baru',
             'price' => 50000,
             'stock' => 100,
-            'poster_path' => '',
+            'poster_path' => 'posters/event-6.png',
         ]);
     }
 }
