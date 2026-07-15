@@ -17,17 +17,15 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 
 // Route User Area
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/events', [EventController::class, 'index'])
-->name('events.index');
- 
-Route::get('/events/{event}', [EventController::class,'show'])
-->name('events.show');
-Route::get('/checkout/{id}', [EventController::class, 'checkout'])
-->name('checkout');
-Route::get('/tickets', [TicketController::class, 'ticket'])
-->name('ticket');
-Route::get('/cara-pesan', [HomeController::class, 'howToOrder'])
-->name('how-to-order');
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
+Route::get('/events/{event}', [EventController::class,'show'])->name('events.show');
+
+// Perbaikan Route Checkout sesuai Modul 10
+Route::get('/checkout/{event}', [\App\Http\Controllers\CheckoutController::class, 'create'])->name('checkout.create');
+Route::post('/checkout/{event}', [\App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout.store');
+
+Route::get('/tickets', [TicketController::class, 'ticket'])->name('ticket');
+Route::get('/cara-pesan', [HomeController::class, 'howToOrder'])->name('how-to-order');
 
 // =========================================================
 // ROUTE AUTENTIFIKASI USER (biasa)
@@ -49,30 +47,22 @@ Route::middleware('auth')->group(function (){
 Route::prefix('admin')->name('admin.')->group(function (){
     // 1. Admin Guest (Belum Login)
     Route::middleware('guest')->group(function () {
-        // ini untuk url: /admin/login
         Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
         Route::post('/login', [AdminAuthController::class, 'login'])->name('login.post');
     });
+    
     // 2. Admin Auth (Sudah Login)
-    // Catatan: pastikan nanti kamu punya middleware tambahan (misal: role: admin)
-    // agar user biasa yang login tidak masuk ke sini
     Route::middleware('auth')->group(function (){
         // ini untuk URL: /admin (halaman dashboard)
         Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+        
         // CRUD ADMIN
         Route::resource('categories', AdminCategoryController::class);
         Route::resource('events', AdminEventController::class);
-        Route::resource('transactions', AdminTransactionController::class);
         Route::resource('partners', AdminPartnerController::class);
-
-        // ini untuk URL: /admin (halaman dashboard)
-        Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
-
-        // CRUD admin
-        Route::resource('categories', AdminCategoryController::class);
-        Route::resource('events', AdminEventController::class);
-        Route::resource('transactions', AdminTransactionController::class);
-        Route::resource('partners', AdminPartnerController::class);
+        
+        // Perbaikan Route Transactions Admin sesuai Modul 10
+        Route::get('transactions', [AdminTransactionController::class, 'index'])->name('transactions.index');
 
         // Ini untuk URL: /admin/logout (mengatasi error RouteNotFoundExpection)
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
