@@ -32,6 +32,10 @@ Route::post('/checkout/{event}', [\App\Http\Controllers\CheckoutController::clas
 Route::get('/payment/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'payment'])->name('checkout.payment');
 Route::get('/success/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
 
+// Route Midtrans Callback
+Route::post('/midtrans/callback',
+[\App\Http\Controllers\MidtransWebhookController::class, 'handle']);
+
 Route::get('/tickets', [TicketController::class, 'ticket'])->name('ticket');
 Route::get('/cara-pesan', [HomeController::class, 'howToOrder'])->name('how-to-order');
 
