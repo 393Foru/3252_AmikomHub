@@ -24,9 +24,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class,'show'])->name('events.show');
 
-// Perbaikan Route Checkout sesuai Modul 10
+// Route Checkout
 Route::get('/checkout/{event}', [\App\Http\Controllers\CheckoutController::class, 'create'])->name('checkout.create');
 Route::post('/checkout/{event}', [\App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout.store');
+
+// Route Payment
+Route::get('/payment/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'payment'])->name('checkout.payment');
+Route::get('/success/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
 
 Route::get('/tickets', [TicketController::class, 'ticket'])->name('ticket');
 Route::get('/cara-pesan', [HomeController::class, 'howToOrder'])->name('how-to-order');
