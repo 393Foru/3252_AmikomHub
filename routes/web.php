@@ -6,7 +6,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\AuthController;
-
+// =====================================================
+// responsi UAS
+use App\Http\Controllers\Admin\JabatanController;
+use App\Http\Controllers\Admin\PengurusController;
+// =====================================================
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController; 
@@ -61,6 +65,14 @@ Route::prefix('admin')->name('admin.')->group(function (){
         Route::resource('events', AdminEventController::class);
         Route::resource('partners', AdminPartnerController::class);
         
+        // ==================================================================
+        // responsi UAS
+        Route::resource('jabatan', JabatanController::class);
+Route::resource('pengurus', PengurusController::class)->parameters([
+    'pengurus' => 'pengurus'
+]);
+        // ==================================================================
+
         // Perbaikan Route Transactions Admin sesuai Modul 10
         Route::get('transactions', [AdminTransactionController::class, 'index'])->name('transactions.index');
 
