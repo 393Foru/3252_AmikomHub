@@ -19,8 +19,7 @@ class HomeController extends Controller
         // - hanya tampilkan kegiatan dengan jadwal yang belum kadaluarsa
         // (>= hari ini)
         $query = Event::with('category')
-        ->where('date', '>=', now())
-        ->orderby('date', 'asc');
+        ->orderByRaw('ABS(UNIX_TIMESTAMP(date) - UNIX_TIMESTAMP(NOW())) ASC');
 
         // 3. filter query jika url memiliki parameter pencarian spesifik ?category=...
         if ($request->has('category')&& $request->category != ''){
@@ -30,11 +29,14 @@ class HomeController extends Controller
             });
         }
 
-        // 4. eksekusi query dan kirim data hasilnya ke template blade
-        $events = $query->paginate(6);
+        // 4. eksekusi query dan kirim data hasilnya ke template blade (dinamis berdasarkan perangkat)
+        $isMobile = false;
+        if ($request->hasHeader('User-Agent')) {
+            $isMobile = preg_match("/(android|webos|iphone|ipad|ipod|blackberry|windows phone)/i", $request->header('User-Agent'));
+        }
+        $limit = $isMobile ? 4 : 6;
+        $events = $query->paginate($limit);
 
-        // Mengambil semua kategori untuk menu/navigasi pencarian di homepage
-        $categories = Category::all();
 
         // Mengambil seluruh partner terbaru untuk ditampilkan di section sponsor
         $partners = Partner::latest()->get();
