@@ -41,8 +41,4 @@ class EventController extends Controller
         return view('event-detail', compact('event', 'categories'));
     }
 
-    public function checkout($id)
-    {
-        return view('checkout');
-    }
 }

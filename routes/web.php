@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\TicketController;
 use App\Http\Controllers\AuthController;
 // =====================================================
 // responsi UAS
@@ -36,7 +35,6 @@ Route::get('/success/{order_id}', [\App\Http\Controllers\CheckoutController::cla
 Route::post('/midtrans/callback',
 [\App\Http\Controllers\MidtransWebhookController::class, 'handle']);
 
-Route::get('/tickets', [TicketController::class, 'ticket'])->name('ticket');
 Route::get('/cara-pesan', [HomeController::class, 'howToOrder'])->name('how-to-order');
 
 // =========================================================
