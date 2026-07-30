@@ -22,6 +22,12 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             overflow: hidden;
         }
+        .poster-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
         .header {
             background: #4f46e5;
             background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
@@ -197,7 +203,7 @@
         <div class="ticket">
             <div class="header">
                 <div class="header-top">
-                    <span class="brand">Eventama</span>
+                    <span class="brand">EVENTAMA</span>
                     <span class="status">PAID</span>
                 </div>
                 <h2 class="event-title">{{ $transaction->event->title }}</h2>
@@ -211,8 +217,8 @@
                             <p class="value">{{ $transaction->customer_name }}</p>
                         </td>
                         <td style="width: 50%;">
-                            <p class="label">Pengelola</p>
-                            <p class="value">{{ $transaction->event->owner->name ?? 'Eventama' }}</p>
+                            <p class="label">Total Harga</p>
+                            <p class="value">Rp {{ number_format($transaction->total_price, 0, ',', '.') }}</p>
                         </td>
                     </tr>
                     <tr>
@@ -225,6 +231,12 @@
                             <p class="label">Lokasi</p>
                             <p class="value">{{ $transaction->event->location }}</p>
                             <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($transaction->event->location) }}" target="_blank" class="action-link">📍 Buka di Peta</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p class="label">Pengelola</p>
+                            <p class="value">{{ $transaction->event->owner->name ?? 'Eventama' }}</p>
                         </td>
                     </tr>
                 </table>
@@ -249,7 +261,7 @@
                 </div>
 
                 <div style="text-align: center;">
-                    <a href="javascript:window.print()" class="print-btn">🖨️ Cetak Tiket</a>
+                    <a href="javascript:window.print()" class="print-btn">Cetak Tiket</a>
                 </div>
             </div>
         </div>
