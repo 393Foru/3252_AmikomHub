@@ -3,7 +3,7 @@
 <div class="group relative bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-full">
     {{-- Poster Section --}}
     <div class="relative aspect-[3/4] overflow-hidden bg-slate-100 shrink-0">
-        <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/600x800/e2e8f0/4f46e5?text=' . urlencode(Str::limit($event->title, 15)) }}"
+        <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/600x800/e2e8f0/2563eb?text=' . urlencode(Str::limit($event->title, 15)) }}"
             alt="{{ $event->title }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
             
@@ -12,7 +12,7 @@
 
         {{-- Category Badge (Top Left) --}}
         <div class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
-            <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-white/95 backdrop-blur-sm text-[10px] sm:text-xs font-bold uppercase tracking-wider text-indigo-600 shadow-sm border border-white/20">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-white/95 backdrop-blur-sm text-[10px] sm:text-xs font-bold uppercase tracking-wider text-blue-600 shadow-sm border border-white/20">
                 {{ $event->category->name ?? 'Uncategorized' }}
             </span>
         </div>
@@ -58,16 +58,16 @@
         </div>
 
         {{-- Title --}}
-        <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-indigo-600 transition-colors leading-snug relative z-10 pointer-events-none">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors leading-snug relative z-10 pointer-events-none">
             {{ $event->title }}
         </h3>
 
         {{-- Meta Info (Calendar, Time & Location) --}}
         <div class="flex gap-3 sm:gap-4 mb-4 mt-auto relative z-10 pointer-events-none">
             {{-- Calendar Box --}}
-            <div class="flex flex-col items-center justify-center bg-indigo-50/50 rounded-xl px-2 py-1.5 min-w-[3rem] sm:min-w-[3.5rem] shrink-0 border border-indigo-100/50 h-fit">
-                <span class="text-[9px] sm:text-[10px] font-bold text-indigo-500 uppercase tracking-widest">{{ \Carbon\Carbon::parse($event->date)->translatedFormat('M') }}</span>
-                <span class="text-base sm:text-lg font-black text-indigo-700 leading-none mt-0.5">{{ \Carbon\Carbon::parse($event->date)->format('d') }}</span>
+            <div class="flex flex-col items-center justify-center bg-blue-50/50 rounded-xl px-2 py-1.5 min-w-[3rem] sm:min-w-[3.5rem] shrink-0 border border-blue-100/50 h-fit">
+                <span class="text-[9px] sm:text-[10px] font-bold text-blue-500 uppercase tracking-widest">{{ \Carbon\Carbon::parse($event->date)->translatedFormat('M') }}</span>
+                <span class="text-base sm:text-lg font-black text-blue-700 leading-none mt-0.5">{{ \Carbon\Carbon::parse($event->date)->format('d') }}</span>
             </div>
             
             {{-- Time & Location --}}
@@ -97,12 +97,12 @@
         <div class="pt-4 mt-auto flex items-center justify-between border-t border-slate-100 relative z-30">
             <div class="flex flex-col">
                 <span class="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Harga Tiket</span>
-                <span class="text-base sm:text-xl font-black text-indigo-600 leading-none">
+                <span class="text-base sm:text-xl font-black text-blue-600 leading-none">
                     {{ $event->price == 0 ? 'Gratis' : 'Rp ' . number_format($event->price, 0, ',', '.') }}
                 </span>
             </div>
             
-            <a href="{{ route('events.show', $event->id) }}" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-indigo-50 hover:bg-indigo-600 text-indigo-500 hover:text-white flex items-center justify-center transition-all shadow-sm group-hover:bg-indigo-600 group-hover:text-white border border-indigo-100 group-hover:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 {{ $event->stock == 0 ? 'opacity-50 cursor-not-allowed group-hover:bg-indigo-50 group-hover:text-indigo-500 group-hover:border-indigo-100 pointer-events-none' : '' }}" title="Pesan Tiket">
+            <a href="{{ route('events.show', $event->id) }}" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 hover:bg-blue-600 text-blue-500 hover:text-white flex items-center justify-center transition-all shadow-sm group-hover:bg-blue-600 group-hover:text-white border border-blue-100 group-hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 {{ $event->stock == 0 ? 'opacity-50 cursor-not-allowed group-hover:bg-blue-50 group-hover:text-blue-500 group-hover:border-blue-100 pointer-events-none' : '' }}" title="Pesan Tiket">
                 <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>

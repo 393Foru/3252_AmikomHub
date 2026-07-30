@@ -146,9 +146,7 @@
         </div>
         @endforelse
     </div>
-    <div class="mt-6 md:mt-12 flex justify-center w-full">
-        {{ $events->withQueryString()->fragment('events')->links() }}
-    </div>
+    <x-pagination :data="$events" fragment="events" />
 </section>
 
 <section class="pt-6 md:pt-12 pb-0 md:pb-8 bg-slate-50 border-t border-slate-100">

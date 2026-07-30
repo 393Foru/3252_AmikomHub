@@ -26,8 +26,8 @@ class EventController extends Controller
             });
         }
 
-        // Eksekusi paginasi, misalnya 9 event per halaman
-        $events = $query->paginate(9);
+        // Eksekusi paginasi, 20 event per halaman (4 baris x 5 kolom)
+        $events = $query->paginate(20);
 
         return view('events.index', compact('events', 'categories'));
     }
