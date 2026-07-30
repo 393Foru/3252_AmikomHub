@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PartnerController;
 // =====================================================
 // responsi UAS
 use App\Http\Controllers\Admin\JabatanController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class,'show'])->name('events.show');
+Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
 
 // Route Checkout
 Route::get('/checkout/{event}', [\App\Http\Controllers\CheckoutController::class, 'create'])->name('checkout.create');
