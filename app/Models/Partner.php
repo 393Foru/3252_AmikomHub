@@ -15,5 +15,20 @@ class Partner extends Model
     {
         return $this->belongsToMany(Event::class, 'event_partner');
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function penguruses()
+    {
+        return $this->hasMany(Pengurus::class);
+    }
+
+    public function ownedEvents()
+    {
+        return $this->hasMany(Event::class, 'partner_id');
+    }
 }
 

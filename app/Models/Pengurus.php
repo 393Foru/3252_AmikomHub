@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 // Responsi UAS
 class Pengurus extends Model
 {
-    protected $fillable = ['jabatan_id', 'name', 'description', 'salary', 'created_by', 'updated_by'];
+    protected $fillable = ['jabatan_id', 'partner_id', 'name', 'description', 'salary', 'created_by', 'updated_by'];
 
     public function jabatan()
     {
         return $this->belongsTo(Jabatan::class);
+    }
+
+    public function partner()
+    {
+        return $this->belongsTo(Partner::class);
     }
 }
 // =========================================================
