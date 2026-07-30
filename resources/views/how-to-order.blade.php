@@ -141,28 +141,73 @@
         </div>
     </div>
 
-    <!-- Mega CTA Banner -->
-    <div class="mt-20 relative overflow-hidden rounded-[2.5rem] bg-slate-900 shadow-2xl step-item opacity-0 translate-y-8 transition-all duration-700 ease-out border border-slate-800">
-        <!-- Background decorations -->
-        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/60 to-cyan-900/40 z-0"></div>
-        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-300 via-transparent to-transparent z-0"></div>
-        <!-- Abstract glowing orbs -->
-        <div class="absolute -top-32 -right-32 w-80 h-80 bg-indigo-500 rounded-full mix-blend-screen filter blur-[80px] opacity-30 animate-pulse"></div>
-        <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-cyan-500 rounded-full mix-blend-screen filter blur-[80px] opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+    <!-- Creative Split-Layout CTA Banner -->
+    <div class="mt-20 relative rounded-[2.5rem] bg-gradient-to-br from-[#f8fafc] to-[#eff6ff] shadow-xl shadow-slate-200/50 border border-white step-item opacity-0 translate-y-8 transition-all duration-700 ease-out overflow-hidden">
         
-        <div class="relative z-10 px-6 py-16 md:py-20 text-center">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-6 tracking-tight">Siap Untuk Memulai?</h2>
-            <p class="text-indigo-100/80 mb-10 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">Temukan event menarik, tambah wawasan, dan perluas networking Anda sekarang juga. Tim support kami siap membantu jika Anda mengalami kendala.</p>
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-indigo-100/50 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center px-8 py-12 md:p-16">
             
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-5">
-                <a href="{{ route('events.index') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold rounded-full shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 transition-all duration-300 group">
-                    Cari Event Sekarang 
-                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="mailto:cs@amikomevent.id" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full backdrop-blur-md border border-white/10 hover:border-white/30 transition-all duration-300">
-                    <i class="fas fa-headset"></i> Butuh Bantuan?
-                </a>
+            <!-- Left Content: Text & Buttons -->
+            <div class="text-center lg:text-left order-2 lg:order-1">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-5 tracking-tight leading-tight">Siap Memulai<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">Pengalaman Baru?</span></h2>
+                <p class="text-slate-500 mb-8 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">Temukan ribuan event menarik, perlebar wawasan, dan perluas networking Anda. Kami siap mendukung setiap langkah Anda.</p>
+                
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                    <a href="{{ route('events.index') }}" class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 whitespace-nowrap">
+                        Cari Event Sekarang 
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="mailto:cs@amikomevent.id" class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-bold rounded-xl border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow transition-all duration-300 whitespace-nowrap">
+                        <i class="fas fa-headset text-slate-400"></i> Butuh Bantuan?
+                    </a>
+                </div>
             </div>
+
+            <!-- Right Content: Visual/Illustration -->
+            <div class="order-1 lg:order-2 flex justify-center items-center relative py-6">
+                <!-- Decorative Ticket Illustration -->
+                <div class="relative w-full max-w-[280px] sm:max-w-xs group cursor-default perspective-1000">
+                    
+                    <!-- Backdrop Shadow Box -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-indigo-300 to-blue-300 rounded-3xl transform rotate-6 scale-105 opacity-40 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-700"></div>
+                    
+                    <!-- Main Ticket Card -->
+                    <div class="relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-white p-6 sm:p-8 flex flex-col gap-5 transform -rotate-3 group-hover:rotate-0 transition-transform duration-500">
+                        <!-- Cutouts -->
+                        <div class="absolute top-1/2 -left-3 -translate-y-1/2 w-6 h-6 bg-[#f4f8fb] rounded-full shadow-inner"></div>
+                        <div class="absolute top-1/2 -right-3 -translate-y-1/2 w-6 h-6 bg-[#f4f8fb] rounded-full shadow-inner"></div>
+
+                        <div class="flex justify-between items-start border-b-2 border-dashed border-slate-200 pb-5 relative">
+                            <div>
+                                <p class="text-[10px] uppercase font-bold tracking-widest text-indigo-500 mb-1">Eventama</p>
+                                <div class="font-black text-2xl text-slate-800">VIP ACCESS</div>
+                            </div>
+                            <div class="w-10 h-10 bg-slate-50 rounded-lg flex items-center justify-center border border-slate-100">
+                                <i class="fas fa-qrcode text-xl text-slate-400"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2.5 z-10">
+                            <div class="h-2.5 bg-slate-100 rounded-full w-full"></div>
+                            <div class="h-2.5 bg-slate-100 rounded-full w-3/4"></div>
+                        </div>
+                        
+                        <div class="flex justify-between items-end pt-3 z-10">
+                            <div class="flex -space-x-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-white bg-gradient-to-br from-indigo-100 to-indigo-200 z-30 flex items-center justify-center text-xs font-bold text-indigo-600">A</div>
+                                <div class="w-10 h-10 rounded-full border-2 border-white bg-gradient-to-br from-blue-100 to-blue-200 z-20 flex items-center justify-center text-xs font-bold text-blue-600">B</div>
+                                <div class="w-10 h-10 rounded-full border-2 border-white bg-gradient-to-br from-cyan-100 to-cyan-200 z-10 flex items-center justify-center text-xs font-bold text-cyan-600">+</div>
+                            </div>
+                            <div class="text-[10px] font-black text-white bg-slate-800 px-3 py-1.5 rounded-lg shadow-sm">ADMIT ONE</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 
