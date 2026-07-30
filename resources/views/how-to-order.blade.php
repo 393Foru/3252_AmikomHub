@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto px-6 pt-10 pb-8">
-    
-    <!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-0 relative z-10">
     <x-breadcrumb :items="[
         ['label' => 'Panduan Pesan']
     ]" />
+</div>
 
-    <!-- Header Section -->
+<div class="max-w-4xl mx-auto px-6 pt-6 pb-8">
     <div class="text-center mb-20 step-item opacity-0 translate-y-8 transition-all duration-700 ease-out">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 font-bold text-xs uppercase tracking-widest mb-6 shadow-sm">
             <i class="fas fa-book-open"></i> Panduan Lengkap

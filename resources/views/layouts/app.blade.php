@@ -46,8 +46,12 @@
                         Beranda
                     </a>
                     <a href="{{ route('events.index') }}" 
-                    class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 {{ request()->routeIs('events.index') ? 'bg-white text-blue-600 shadow-sm ring-1 ring-zinc-200/50' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100' }}">
+                    class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 {{ request()->routeIs('events.index') || request()->routeIs('events.show') ? 'bg-white text-blue-600 shadow-sm ring-1 ring-zinc-200/50' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100' }}">
                         Event
+                    </a>
+                    <a href="{{ route('partners.index') }}" 
+                    class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 {{ request()->routeIs('partners.index') ? 'bg-white text-blue-600 shadow-sm ring-1 ring-zinc-200/50' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100' }}">
+                        Partner
                     </a>
                 </div>
 
@@ -97,8 +101,11 @@
                 <a href="{{ route('home') }}" class="flex items-center px-4 py-3.5 rounded-xl text-sm font-bold transition-all {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900' }}">
                     <i class="fas fa-home w-6 text-center text-lg mr-2 {{ request()->routeIs('home') ? 'text-blue-500' : 'text-zinc-400' }}"></i> Beranda
                 </a>
-                <a href="{{ route('events.index') }}" class="flex items-center px-4 py-3.5 rounded-xl text-sm font-bold transition-all {{ request()->routeIs('events.index') ? 'bg-blue-50 text-blue-600' : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900' }}">
-                    <i class="fas fa-calendar-alt w-6 text-center text-lg mr-2 {{ request()->routeIs('events.index') ? 'text-blue-500' : 'text-zinc-400' }}"></i> Event
+                <a href="{{ route('events.index') }}" class="flex items-center px-4 py-3.5 rounded-xl text-sm font-bold transition-all {{ request()->routeIs('events.index') || request()->routeIs('events.show') ? 'bg-blue-50 text-blue-600' : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900' }}">
+                    <i class="fas fa-calendar-alt w-6 text-center text-lg mr-2 {{ request()->routeIs('events.index') || request()->routeIs('events.show') ? 'text-blue-500' : 'text-zinc-400' }}"></i> Event
+                </a>
+                <a href="{{ route('partners.index') }}" class="flex items-center px-4 py-3.5 rounded-xl text-sm font-bold transition-all {{ request()->routeIs('partners.index') ? 'bg-blue-50 text-blue-600' : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900' }}">
+                    <i class="fas fa-handshake w-6 text-center text-lg mr-2 {{ request()->routeIs('partners.index') ? 'text-blue-500' : 'text-zinc-400' }}"></i> Partner
                 </a>
                 
                 <div class="h-px bg-zinc-100 my-2 mx-2"></div>
