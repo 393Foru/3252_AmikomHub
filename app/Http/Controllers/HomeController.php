@@ -29,12 +29,8 @@ class HomeController extends Controller
             });
         }
 
-        // 4. eksekusi query dan kirim data hasilnya ke template blade (dinamis berdasarkan perangkat)
-        $isMobile = false;
-        if ($request->hasHeader('User-Agent')) {
-            $isMobile = preg_match("/(android|webos|iphone|ipad|ipod|blackberry|windows phone)/i", $request->header('User-Agent'));
-        }
-        $limit = $isMobile ? 4 : 6;
+        // 4. eksekusi query dan kirim data hasilnya ke template blade
+        $limit = 4;
         $events = $query->paginate($limit);
 
 
