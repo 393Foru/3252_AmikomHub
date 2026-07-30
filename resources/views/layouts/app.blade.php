@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmikomEventHub - Temukan Event Seru!</title>
+    <title>Eventama - Temukan Event Seru!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -30,10 +30,10 @@
             <div class="flex-shrink-0 flex items-center pl-4 sm:pl-5 hover:scale-105 transition-transform duration-300">
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
                     <div class="text-xs w-8 h-8 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold">
-                        AE
+                        EvT
                     </div>
                     <span class="font-extrabold text-xl md:text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-violet-800 to-fuchsia-700">
-                        AmikomEventHub
+                        Eventama
                     </span>
                 </a>
             </div>
@@ -120,81 +120,152 @@
     </main>
 
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-300 py-12 md:py-16 mt-16 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 mb-12 md:mb-16">
-                
-                <!-- Brand Section -->
-                <div class="md:col-span-12 lg:col-span-5 space-y-6">
-                    <a href="{{ route('home') }}" class="flex items-center gap-2 inline-block">
-                        <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-600/30">
-                            AE
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-12 mt-16 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <!-- Brand & Contact -->
+                <div class="lg:col-span-1">
+                    <a href="{{ route('home') }}" class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-black text-white text-xs">
+                            EvT
                         </div>
-                        <span class="text-2xl font-extrabold text-white tracking-tight">Amikom<span class="text-indigo-400">EventHub</span></span>
+                        <span class="text-xl font-bold text-white tracking-tight">Event<span class="text-indigo-400">ama</span></span>
                     </a>
-                    <p class="leading-relaxed text-slate-400 text-sm md:text-base md:max-w-md">
-                        Platform reservasi tiket event online terbaik untuk mahasiswa dan penyelenggara profesional. Temukan pengalaman seru dan tingkatkan keahlianmu di kampus.
-                    </p>
-                    <div class="flex items-center gap-4 pt-2">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition-all duration-300 group">
-                            <i class="fab fa-instagram text-slate-400 group-hover:text-white transition-colors"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition-all duration-300 group">
-                            <i class="fab fa-twitter text-slate-400 group-hover:text-white transition-colors"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition-all duration-300 group">
-                            <i class="fab fa-linkedin-in text-slate-400 group-hover:text-white transition-colors"></i>
-                        </a>
+                    
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-comment-dots text-indigo-400 text-lg mt-0.5 w-5 text-center"></i>
+                            <div>
+                                <p class="font-bold text-white text-sm">Halo Amikom</p>
+                                <p class="text-xs text-slate-500">Chat with us</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-envelope text-indigo-400 text-lg mt-0.5 w-5 text-center"></i>
+                            <div>
+                                <p class="font-bold text-white text-sm">Email</p>
+                                <a href="mailto:rahmat.ramadhan.0712@students.amikom.ac.id" class="text-xs text-slate-400 hover:text-indigo-400 break-words transition">
+                                    cs@amikomevent.id
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-headset text-indigo-400 text-lg mt-0.5 w-5 text-center"></i>
+                            <div>
+                                <p class="font-bold text-white text-sm">Call Center</p>
+                                <p class="text-xs text-slate-500">Indonesia only<br>+62 88 200 385 9191</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Links Section -->
-                <div class="md:col-span-5 lg:col-span-3">
-                    <h4 class="text-white font-bold text-lg mb-6">Menu Cepat</h4>
-                    <ul class="space-y-4 text-sm md:text-base text-slate-400">
-                        <li><a href="{{ route('home') }}" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Beranda</a></li>
-                        <li><a href="{{ route('events.index') }}" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Jelajah Event</a></li>
-                        <li><a href="{{ route('how-to-order') }}" class="hover:text-indigo-400 transition-colors duration-200 flex items-center gap-2">Panduan Pemesanan</a></li>
+                <!-- Perusahaan -->
+                <div>
+                    <h4 class="font-bold text-white text-base mb-6">Perusahaan</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li><a href="#" class="hover:text-indigo-400 transition">Tentang Kami</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Berita Kampus</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Karir</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Program Kemitraan</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Perlindungan Data</a></li>
                     </ul>
                 </div>
 
-                <!-- Contact Section -->
-                <div class="md:col-span-7 lg:col-span-4">
-                    <h4 class="text-white font-bold text-lg mb-6">Hubungi Kami</h4>
-                    <ul class="space-y-5 text-sm md:text-base text-slate-400">
-                        <li class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center shrink-0 text-indigo-400">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="flex flex-col pt-1">
-                                <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Email Dukungan</span>
-                                <a href="mailto:rahmat.ramadhan.0712@students.amikom.ac.id" class="hover:text-indigo-400 transition-colors text-slate-300 break-words">
-                                    rahmat.ramadhan.0712@students.amikom.ac.id
-                                </a>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center shrink-0 text-indigo-400">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
-                            <div class="flex flex-col pt-1">
-                                <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Layanan Telepon</span>
-                                <a href="tel:+62882003859191" class="hover:text-indigo-400 transition-colors text-slate-300">
-                                    +62 88 200 385 9191
-                                </a>
-                            </div>
-                        </li>
+                <!-- Kategori / Produk -->
+                <div>
+                    <h4 class="font-bold text-white text-base mb-6">Kategori Event</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li><a href="#" class="hover:text-indigo-400 transition">Seminar IT</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Workshop</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Lomba & Kompetisi</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Job Fair</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Pameran Karya</a></li>
                     </ul>
+                </div>
+
+                <!-- Dukungan -->
+                <div>
+                    <h4 class="font-bold text-white text-base mb-6">Dukungan</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li><a href="#" class="hover:text-indigo-400 transition">Pusat Bantuan</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Kebijakan Privasi</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Syarat & Ketentuan</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Daftarkan Event Anda</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Panduan Pemesanan</a></li>
+                    </ul>
+                </div>
+
+                <!-- App -->
+                <div>
+                    <h4 class="font-bold text-white text-base mb-6">Lebih Mudah di Aplikasi</h4>
+                    <div class="space-y-3">
+                        <a href="#" class="inline-flex w-36 bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-1.5 items-center gap-2 hover:bg-slate-700 transition">
+                            <i class="fab fa-apple text-2xl"></i>
+                            <div class="text-left">
+                                <p class="text-[9px] leading-none text-slate-400">Download on the</p>
+                                <p class="text-[13px] font-bold leading-tight">App Store</p>
+                            </div>
+                        </a>
+                        <a href="#" class="inline-flex w-36 bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-1.5 items-center gap-2 hover:bg-slate-700 transition">
+                            <i class="fab fa-google-play text-xl"></i>
+                            <div class="text-left">
+                                <p class="text-[9px] leading-none text-slate-400">GET IT ON</p>
+                                <p class="text-[13px] font-bold leading-tight">Google Play</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Copyright Bar -->
-            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 text-center">
+            <div class="border-t border-dashed border-slate-700 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Partner -->
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-base">Partner Kampus</h4>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-university text-3xl text-indigo-400"></i>
+                        <div class="leading-tight">
+                            <div class="text-sm font-bold text-slate-200">Universitas Amikom</div>
+                            <p class="text-[11px] text-slate-400">Yogyakarta, Indonesia</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keamanan -->
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-base">Transaksi Aman</h4>
+                    <div class="flex gap-4 text-3xl text-slate-500">
+                        <i class="fab fa-cc-visa hover:text-white transition cursor-pointer"></i>
+                        <i class="fab fa-cc-mastercard hover:text-white transition cursor-pointer"></i>
+                        <i class="fab fa-cc-paypal hover:text-white transition cursor-pointer"></i>
+                    </div>
+                </div>
+
+                <!-- Penghargaan -->
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-base">Penghargaan</h4>
+                    <div class="flex gap-4 text-slate-500 text-3xl">
+                        <i class="fas fa-award hover:text-white transition cursor-pointer"></i>
+                        <i class="fas fa-medal hover:text-white transition cursor-pointer"></i>
+                        <i class="fas fa-trophy hover:text-white transition cursor-pointer"></i>
+                    </div>
+                </div>
+
+                <!-- Follow us -->
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-base">Ikuti Kami</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:bg-indigo-600 hover:border-indigo-600 transition"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:bg-indigo-600 hover:border-indigo-600 transition"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:bg-indigo-600 hover:border-indigo-600 transition"><i class="fab fa-linkedin-in text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:bg-indigo-600 hover:border-indigo-600 transition"><i class="fab fa-youtube text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:bg-indigo-600 hover:border-indigo-600 transition"><i class="fab fa-instagram text-sm"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 text-[13px] text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p>&copy; {{ date('Y') }} Rahmat Ramadhan (24.12.3252). Hak cipta dilindungi.</p>
-                <p class="flex items-center justify-center gap-2">
-                    Dibuat dengan <i class="fas fa-heart text-rose-500"></i> di Yogyakarta
-                </p>
+                <p>Dibuat dengan <i class="fas fa-heart text-rose-500 mx-1"></i> di Yogyakarta.</p>
             </div>
         </div>
     </footer>

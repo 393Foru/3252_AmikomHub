@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Ticket - AmikomEventHub</title>
+    <title>E-Ticket - Eventama</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -180,7 +180,7 @@ bold; color: #1e293b;">{{ $transaction->order_id }}</p>
             <div class="footer">
                 <p>Mohon tunjukkan E-Ticket ini saat memasuki area acara.</p>
                 <p style="margin-top: 10px;">&copy; {{ date('Y') }}
-                    AmikomEventHub.</p>
+                    Eventama.</p>
             </div>
         </div>
     </div>

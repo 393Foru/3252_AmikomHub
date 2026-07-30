@@ -6,7 +6,7 @@
         
         <div class="text-center mb-8">
             <h1 class="text-2xl font-black text-slate-900 mb-2">Selamat Datang Kembali!</h1>
-            <p class="text-slate-500 font-medium text-sm">Masuk ke akun AmikomHub untuk mulai menjelajah event.</p>
+            <p class="text-slate-500 font-medium text-sm">Masuk ke akun Eventama untuk mulai menjelajah event.</p>
         </div>
 
         <form action="{{ route('login.post') }}" method="POST" class="space-y-5">

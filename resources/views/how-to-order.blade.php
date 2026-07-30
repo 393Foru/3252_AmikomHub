@@ -33,7 +33,7 @@
             </div>
             <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
                 <h3 class="font-bold text-xl text-slate-900 mb-2">Masuk atau Daftar Akun</h3>
-                <p class="text-slate-500 leading-relaxed">Untuk melanjutkan pemesanan, pastikan kamu sudah mendaftar dan masuk (login) ke dalam sistem AmikomEventHub agar tiketmu tersimpan dengan aman.</p>
+                <p class="text-slate-500 leading-relaxed">Untuk melanjutkan pemesanan, pastikan kamu sudah mendaftar dan masuk (login) ke dalam sistem Eventama agar tiketmu tersimpan dengan aman.</p>
             </div>
         </div>
 

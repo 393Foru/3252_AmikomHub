@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - AmikomEventHub</title>
+    <title>Admin Login - Eventama</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
@@ -25,7 +25,7 @@
                 <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-indigo-600 text-lg">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                 </div>
-                AmikomEventHub
+                Eventama
             </div>
 
             <!-- Testimonial Area -->
@@ -44,7 +44,7 @@
             
             <!-- Header Form -->
             <div class="text-center sm:text-left mb-10">
-                <h1 class="text-3xl font-bold text-slate-900 mb-3 tracking-tight">Welcome back to AmikomEventHub</h1>
+                <h1 class="text-3xl font-bold text-slate-900 mb-3 tracking-tight">Welcome back to Eventama</h1>
                 <p class="text-slate-500 font-medium">Build your event management effortlessly with our powerful dashboard.</p>
             </div>
 
@@ -73,7 +73,7 @@
                     <label class="block text-xs font-semibold text-slate-500 mb-0.5">Email</label>
                     <input type="email" name="email" value="{{ old('email') }}" 
                            class="w-full outline-none bg-transparent text-slate-900 font-medium text-base placeholder-slate-300" 
-                           placeholder="admin@amikomeventhub.com" required>
+                           placeholder="admin@eventama.com" required>
                 </div>
                 
                 <!-- Input Password -->
