@@ -2,7 +2,7 @@
 
 <div class="group relative bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-full">
     {{-- Poster Section --}}
-    <div class="relative aspect-[4/3] sm:aspect-[3/4] overflow-hidden bg-slate-100 shrink-0">
+    <div class="relative aspect-[3/4] overflow-hidden bg-slate-100 shrink-0">
         <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/600x800/e2e8f0/4f46e5?text=' . urlencode(Str::limit($event->title, 15)) }}"
             alt="{{ $event->title }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
