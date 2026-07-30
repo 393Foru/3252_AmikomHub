@@ -39,7 +39,18 @@
             </a>
         </div>
         
-
+        <div class="hidden md:flex flex-row items-center justify-center md:justify-start gap-3 md:gap-4 text-slate-400">
+            <div class="flex -space-x-2">
+                <img class="w-8 h-8 rounded-full border-2 border-white"
+                    src="https://ui-avatars.com/api/?name=User+1&bg=6366f1&color=fff" alt="">
+                <img class="w-8 h-8 rounded-full border-2 border-white"
+                    src="https://ui-avatars.com/api/?name=User+2&bg=a855f7&color=fff" alt="">
+                <img class="w-8 h-8 rounded-full border-2 border-white"
+                    src="https://ui-avatars.com/api/?name=User+3&bg=ec4899&color=fff" alt="">
+            </div>
+            <p class="text-xs sm:text-sm font-medium"><span class="text-slate-900 font-bold">1,000+</span> Mahasiswa sudah
+                bergabung</p>
+        </div>
     </div>
     
     <div class="flex-1 flex flex-col w-full max-w-sm sm:max-w-md md:max-w-none mx-auto md:mx-0">
@@ -67,7 +78,7 @@
         </div>
         </div> <!-- Close relative w-full wrapper -->
 
-        <div class="mt-12 md:mt-16 flex flex-row items-center justify-center gap-3 md:gap-4 text-slate-400">
+        <div class="mt-12 flex md:hidden flex-row items-center justify-center gap-3 md:gap-4 text-slate-400">
             <div class="flex -space-x-2">
                 <img class="w-8 h-8 rounded-full border-2 border-white"
                     src="https://ui-avatars.com/api/?name=User+1&bg=6366f1&color=fff" alt="">
