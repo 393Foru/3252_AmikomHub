@@ -19,7 +19,7 @@ class HomeController extends Controller
         // - hanya tampilkan kegiatan dengan jadwal yang belum kadaluarsa
         // (>= hari ini)
         $query = Event::with('category')
-        ->orderByRaw('ABS(UNIX_TIMESTAMP(date) - UNIX_TIMESTAMP(NOW())) ASC');
+        ->orderBy('date', 'asc');
 
         // 3. filter query jika url memiliki parameter pencarian spesifik ?category=...
         if ($request->has('category')&& $request->category != ''){

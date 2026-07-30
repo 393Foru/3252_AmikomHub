@@ -203,7 +203,7 @@
                 </div>
             @empty
                 <div class="text-center text-slate-400 text-sm font-medium py-4">
-                    AmikomEventHub membuka peluang kolaborasi bersama partner baru.
+                    Eventama membuka peluang kolaborasi bersama partner baru.
                 </div>
             @endforelse
         </div>

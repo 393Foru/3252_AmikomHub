@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - AmikomEventHub</title>
+    <title>Admin Dashboard - Eventama</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -21,7 +21,7 @@
                 AH
             </div>
             <span class="text-xl font-bold text-white tracking-tight">
-                AmikomEventHub
+                Eventama
             </span>
         </div>
 
