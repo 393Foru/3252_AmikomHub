@@ -53,43 +53,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @forelse($events as $event)
-        <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col">
-            <div class="relative overflow-hidden aspect-[3/4]">
-                <img src="https://placehold.co/400x600/e2e8f0/6366f1?text={{ urlencode($event->title) }}"
-                    alt="{{ $event->title }}"
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-
-                <div class="absolute top-4 left-4 px-3 py-1 bg-white/95 backdrop-blur rounded-lg text-xs font-bold uppercase text-indigo-600 shadow-sm">
-                    {{ $event->category->name ?? 'Uncategorized' }}
-                </div>
-            </div>
-
-            <div class="p-6 flex flex-col flex-1">
-                <h3 class="text-xl font-bold mb-3 group-hover:text-indigo-600 transition line-clamp-2">
-                    {{ $event->title }}
-                </h3>
-
-                <div class="flex items-center gap-2 text-slate-500 text-sm mb-6">
-                    <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                        </path>
-                    </svg>
-                    <span>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('d F Y, H:i') }} WIB</span>
-                </div>
-
-                <div class="flex justify-between items-center pt-4 border-t border-slate-100 mt-auto">
-                    <span class="text-2xl font-black text-indigo-600">
-                        {{ $event->price == 0 ? 'Gratis' : 'Rp ' . number_format($event->price, 0, ',', '.') }}
-                    </span>
-
-                    <a href="{{ route('events.show', $event->id) }}"
-                        class="px-5 py-2.5 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition duration-300">
-                        Lihat Detail
-                    </a>
-                </div>
-            </div>
-        </div>
+        <x-event-card :event="$event" />
         @empty
         <div class="col-span-full py-16 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-200">
             <div class="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
