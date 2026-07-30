@@ -169,7 +169,7 @@
             <!-- Right Content: Visual/Illustration -->
             <div class="order-1 lg:order-2 flex justify-center items-center relative py-6">
                 <!-- Decorative Ticket Illustration -->
-                <div class="relative w-full max-w-[280px] sm:max-w-xs group cursor-default perspective-1000">
+                <div class="relative w-full max-w-[280px] sm:max-w-xs group cursor-default perspective-1000 animate-float-ticket">
                     
                     <!-- Backdrop Shadow Box -->
                     <div class="absolute inset-0 bg-gradient-to-tr from-indigo-300 to-blue-300 rounded-3xl transform rotate-6 scale-105 opacity-40 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-700"></div>
@@ -177,8 +177,8 @@
                     <!-- Main Ticket Card -->
                     <div class="relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-white p-6 sm:p-8 flex flex-col gap-5 transform -rotate-3 group-hover:rotate-0 transition-transform duration-500">
                         <!-- Cutouts -->
-                        <div class="absolute top-1/2 -left-3 -translate-y-1/2 w-6 h-6 bg-[#f4f8fb] rounded-full shadow-inner"></div>
-                        <div class="absolute top-1/2 -right-3 -translate-y-1/2 w-6 h-6 bg-[#f4f8fb] rounded-full shadow-inner"></div>
+                        <div class="absolute top-1/2 -left-3 -translate-y-1/2 w-6 h-6 bg-[#eff6ff] rounded-full shadow-inner"></div>
+                        <div class="absolute top-1/2 -right-3 -translate-y-1/2 w-6 h-6 bg-[#eff6ff] rounded-full shadow-inner"></div>
 
                         <div class="flex justify-between items-start border-b-2 border-dashed border-slate-200 pb-5 relative">
                             <div>
@@ -214,6 +214,19 @@
 </div>
 
 @push('scripts')
+<style>
+    @keyframes float-ticket {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-12px); }
+    }
+    .animate-float-ticket {
+        animation: float-ticket 4s ease-in-out infinite;
+    }
+    /* When hovered, we pause/reset the float so the internal hover rotation takes full control smoothly */
+    .group:hover.animate-float-ticket {
+        animation-play-state: paused;
+    }
+</style>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const observer = new IntersectionObserver((entries) => {
