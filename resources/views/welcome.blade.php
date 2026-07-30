@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- Hero Section -->
-<section class="max-w-7xl mx-auto px-6 py-6 md:py-8 flex flex-col md:flex-row items-center gap-6 md:gap-12">
+<section class="max-w-7xl mx-auto px-6 pt-10 pb-6 md:pt-16 md:pb-8 flex flex-col md:flex-row items-center gap-6 md:gap-12">
     <div class="flex-1 flex flex-col items-center text-center md:items-start md:text-left w-full">
         <div
             class="mb-4 md:mb-6 inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-blue-50 border border-blue-100 text-blue-700 rounded-full text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-widest shadow-sm">
@@ -39,29 +39,17 @@
             </a>
         </div>
         
-        <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 md:gap-4 text-slate-400">
-            <div class="flex -space-x-2">
-                <img class="w-8 h-8 rounded-full border-2 border-white"
-                    src="https://ui-avatars.com/api/?name=User+1&bg=6366f1&color=fff" alt="">
-                <img class="w-8 h-8 rounded-full border-2 border-white"
-                    src="https://ui-avatars.com/api/?name=User+2&bg=a855f7&color=fff" alt="">
-                <img class="w-8 h-8 rounded-full border-2 border-white"
-                    src="https://ui-avatars.com/api/?name=User+3&bg=ec4899&color=fff" alt="">
-            </div>
-            <p class="text-xs sm:text-sm font-medium"><span class="text-slate-900 font-bold">1,000+</span> Mahasiswa sudah
-                bergabung</p>
-        </div>
+
     </div>
     
-    <div class="flex-1 relative w-full max-w-sm sm:max-w-md md:max-w-none mx-auto md:mx-0">
-        <div
-            class="absolute -top-10 -left-10 w-48 md:w-64 h-48 md:h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
-        </div>
-        <div
-            class="absolute -bottom-10 -right-10 w-48 md:w-64 h-48 md:h-64 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
-        </div>
-        <img src="{{ asset('storage/assets/concert.png') }}" alt="Concert"
-            class="rounded-[2rem] shadow-2xl relative z-10 w-full object-cover aspect-[4/5] object-center">
+    <div class="flex-1 flex flex-col w-full max-w-sm sm:max-w-md md:max-w-none mx-auto md:mx-0">
+        <div class="relative w-full">
+            <div class="absolute -top-10 -left-10 w-48 md:w-64 h-48 md:h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
+            </div>
+            <div class="absolute -bottom-10 -right-10 w-48 md:w-64 h-48 md:h-64 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
+            </div>
+            <img src="{{ asset('storage/assets/concert.png') }}" alt="Concert"
+                class="rounded-[2rem] shadow-2xl relative z-10 w-full object-cover aspect-[4/5] object-center">
 
         <div class="absolute -bottom-4 md:-bottom-6 left-0 right-0 mx-auto md:mx-0 md:-left-6 w-[90%] md:w-auto glass p-3 sm:p-4 md:p-6 rounded-2xl shadow-xl z-20 border border-white">
             <div class="flex items-center justify-center md:justify-start gap-3 md:gap-4">
@@ -76,6 +64,20 @@
                     <p class="font-bold text-xs sm:text-sm md:text-base leading-tight">Pembayaran Aman via Midtrans</p>
                 </div>
             </div>
+        </div>
+        </div> <!-- Close relative w-full wrapper -->
+
+        <div class="mt-12 md:mt-16 flex flex-row items-center justify-center gap-3 md:gap-4 text-slate-400">
+            <div class="flex -space-x-2">
+                <img class="w-8 h-8 rounded-full border-2 border-white"
+                    src="https://ui-avatars.com/api/?name=User+1&bg=6366f1&color=fff" alt="">
+                <img class="w-8 h-8 rounded-full border-2 border-white"
+                    src="https://ui-avatars.com/api/?name=User+2&bg=a855f7&color=fff" alt="">
+                <img class="w-8 h-8 rounded-full border-2 border-white"
+                    src="https://ui-avatars.com/api/?name=User+3&bg=ec4899&color=fff" alt="">
+            </div>
+            <p class="text-xs sm:text-sm font-medium"><span class="text-slate-900 font-bold">1,000+</span> Mahasiswa sudah
+                bergabung</p>
         </div>
     </div>
 </section>
