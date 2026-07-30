@@ -67,6 +67,11 @@ $params = [
         'email' => $request->customer_email,
         'phone' => $request->customer_phone,
     ],
+    'callbacks' => [
+        'finish' => route('checkout.success', $orderId),
+        'error' => route('checkout.success', $orderId),
+        'pending' => route('checkout.success', $orderId),
+    ],
 ];
 
 try {
