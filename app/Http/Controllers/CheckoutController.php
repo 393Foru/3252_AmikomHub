@@ -69,7 +69,7 @@ $params = [
     ],
     'callbacks' => [
         'finish' => route('checkout.success', $orderId),
-        'error' => route('checkout.success', $orderId),
+        'error' => route('checkout.failed', $orderId),
         'pending' => route('checkout.success', $orderId),
     ],
 ];
@@ -101,6 +101,21 @@ $categories = \App\Models\Category::all();
 $transaction = Transaction::with('event')->where('order_id',
 $order_id)->firstOrFail();
 return view('checkout.payment', compact('transaction','categories'));
+}
+
+public function failed($order_id)
+{
+    // Mengambil daftar kategori untuk keperluan menu footer
+    $categories = \App\Models\Category::all();
+    
+    $transaction = Transaction::with('event')->where('order_id', $order_id)->firstOrFail();
+    
+    // Bisa memperbarui status menjadi failed jika diperlukan
+    if (strtolower($transaction->status) === 'pending') {
+        $transaction->update(['status' => 'failed']);
+    }
+
+    return view('checkout.failed', compact('transaction', 'categories'));
 }
 
 public function success($order_id)

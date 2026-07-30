@@ -32,6 +32,7 @@ Route::post('/checkout/{event}', [\App\Http\Controllers\CheckoutController::clas
 // Route Payment
 Route::get('/payment/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'payment'])->name('checkout.payment');
 Route::get('/success/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/failed/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'failed'])->name('checkout.failed');
 
 // Route Midtrans Callback
 Route::post('/midtrans/callback',

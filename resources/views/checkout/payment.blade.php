@@ -90,7 +90,7 @@
                 </div>
             </div>
 
-            <a href="{{ route('home') }}" class="text-[11px] text-slate-400 hover:text-red-500 transition-colors mt-4 font-medium underline underline-offset-2">Batalkan Pesanan & Kembali</a>
+            <a href="{{ route('checkout.failed', $transaction->order_id) }}" class="inline-block mt-4 text-xs font-bold text-slate-400 hover:text-rose-500 transition-colors underline underline-offset-4">Batalkan Pesanan & Kembali</a>
         </div>
 
     </div>
