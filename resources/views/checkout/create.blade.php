@@ -172,17 +172,29 @@
                         </div>
                     </div>
                     
-                    <div class="pt-8 mt-8 border-t border-slate-100 hidden lg:block">
-                        <button type="submit" class="w-full py-4 md:py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-indigo-600/20 hover:bg-indigo-700 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2">
-                            Lanjut ke Pembayaran
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </button>
-                        <p class="text-center text-xs text-slate-400 mt-4 md:mt-5">Dengan menekan tombol di atas, Anda menyetujui <a href="#" class="text-indigo-600 hover:underline">Syarat & Ketentuan</a> kami.</p>
+                    <div class="pt-8 mt-8 border-t border-slate-100">
+                        <!-- Checkbox S&K -->
+                        <div class="mb-6 flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer" onclick="document.getElementById('terms').click()">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input id="terms" type="checkbox" required class="w-4 h-4 text-indigo-600 bg-white border-slate-300 rounded focus:ring-indigo-500 focus:ring-2 cursor-pointer transition-colors" onclick="event.stopPropagation()">
+                            </div>
+                            <label for="terms" class="text-xs md:text-sm text-slate-600 cursor-pointer select-none leading-relaxed">
+                                Saya telah memastikan data benar dan menyetujui <a href="#" class="text-indigo-600 font-bold hover:underline" onclick="event.stopPropagation()">Syarat & Ketentuan</a> serta <a href="#" class="text-indigo-600 font-bold hover:underline" onclick="event.stopPropagation()">Kebijakan Privasi</a> yang berlaku.
+                            </label>
+                        </div>
+
+                        <!-- Desktop Submit Button -->
+                        <div class="hidden lg:block">
+                            <button id="submitBtnDesktop" type="submit" disabled class="w-full py-4 md:py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-indigo-600/20 hover:bg-indigo-700 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:shadow-none disabled:bg-slate-400">
+                                <span class="btn-text">Lanjut ke Pembayaran</span>
+                                <svg class="btn-icon w-5 h-5 group-disabled:hidden transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                <svg class="btn-spinner hidden w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
-
 
     </div>
 </main>
@@ -194,38 +206,85 @@
             <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Total Bayar</p>
             <p class="text-xl font-black text-indigo-600 leading-none">Rp {{ number_format($event->price + 5000, 0, ',', '.') }}</p>
         </div>
-        <button type="button" onclick="document.getElementById('checkoutForm').submit()" class="w-[60%] py-3.5 bg-indigo-600 text-white rounded-xl font-bold text-base shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-            Bayar
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        <button id="submitBtnMobile" type="button" disabled onclick="document.getElementById('checkoutForm').requestSubmit()" class="w-[60%] py-3.5 bg-indigo-600 text-white rounded-xl font-bold text-base shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:bg-slate-400 disabled:active:scale-100">
+            <span class="btn-text">Bayar</span>
+            <svg class="btn-icon w-4 h-4 group-disabled:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            <svg class="btn-spinner hidden w-4 h-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
         </button>
     </div>
 </div>
 
 @push('scripts')
 <script>
-    // Simple Countdown Script
     document.addEventListener('DOMContentLoaded', function() {
+        // 1. Simple Countdown Script
         const countdownEl = document.getElementById('countdown');
-        if (!countdownEl) return;
+        if (countdownEl) {
+            let timeLeft = 15 * 60; // 15 minutes in seconds
+            const timer = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    countdownEl.textContent = "Waktu Habis";
+                    countdownEl.classList.remove('text-amber-700');
+                    countdownEl.classList.add('text-rose-600');
+                    return;
+                }
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                countdownEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // 2. Checkbox & Submit Loading State
+        const form = document.getElementById('checkoutForm');
+        const termsCheck = document.getElementById('terms');
+        const submitBtnDesktop = document.getElementById('submitBtnDesktop');
+        const submitBtnMobile = document.getElementById('submitBtnMobile');
         
-        let timeLeft = 15 * 60; // 15 minutes in seconds
+        function updateButtonState() {
+            const isChecked = termsCheck.checked;
+            if(submitBtnDesktop) submitBtnDesktop.disabled = !isChecked;
+            if(submitBtnMobile) submitBtnMobile.disabled = !isChecked;
+        }
         
-        const timer = setInterval(() => {
-            timeLeft--;
-            
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                countdownEl.textContent = "Waktu Habis";
-                countdownEl.classList.remove('text-amber-700');
-                countdownEl.classList.add('text-rose-600');
-                return;
-            }
-            
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            
-            countdownEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }, 1000);
+        // Initial check and set event listener
+        if(termsCheck) {
+            updateButtonState();
+            termsCheck.addEventListener('change', updateButtonState);
+        }
+        
+        if(form) {
+            form.addEventListener('submit', function(e) {
+                // Double check validation
+                if (termsCheck && !termsCheck.checked) {
+                    e.preventDefault();
+                    // Optional: add visual shake effect to checkbox if not checked
+                    const cbWrapper = termsCheck.closest('div.bg-slate-50');
+                    if(cbWrapper) {
+                        cbWrapper.classList.add('ring-2', 'ring-rose-400');
+                        setTimeout(() => cbWrapper.classList.remove('ring-2', 'ring-rose-400'), 1500);
+                    }
+                    return false;
+                }
+                
+                // Show loading on Desktop
+                if(submitBtnDesktop) {
+                    submitBtnDesktop.disabled = true;
+                    submitBtnDesktop.querySelector('.btn-text').textContent = "Memproses...";
+                    submitBtnDesktop.querySelector('.btn-icon')?.classList.add('hidden');
+                    submitBtnDesktop.querySelector('.btn-spinner')?.classList.remove('hidden');
+                }
+                
+                // Show loading on Mobile
+                if(submitBtnMobile) {
+                    submitBtnMobile.disabled = true;
+                    submitBtnMobile.querySelector('.btn-text').textContent = "Proses...";
+                    submitBtnMobile.querySelector('.btn-icon')?.classList.add('hidden');
+                    submitBtnMobile.querySelector('.btn-spinner')?.classList.remove('hidden');
+                }
+            });
+        }
     });
 </script>
 @endpush
