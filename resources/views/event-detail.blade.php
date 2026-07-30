@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    <section class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
+    <div class="max-w-7xl mx-auto px-6 pt-10 pb-0">
+        <x-breadcrumb :items="[
+            ['label' => 'Katalog Event', 'url' => route('events.index')],
+            ['label' => $event->title]
+        ]" />
+    </div>
+    <section class="max-w-7xl mx-auto px-6 py-6 lg:py-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
         <!-- Left: Poster -->
         <div class="lg:col-span-1">
             <div class="sticky top-32">

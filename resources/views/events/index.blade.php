@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 pt-10 pb-4 text-center md:pt-16 md:pb-6 border-b border-slate-100 mb-4">
-    
+    <div class="text-left w-full mb-6">
+        <x-breadcrumb :items="[
+            ['label' => 'Katalog Event']
+        ]" />
+    </div>
     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 border border-blue-100 font-bold text-xs uppercase tracking-widest mb-4 shadow-sm">
         <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
         Katalog Lengkap
