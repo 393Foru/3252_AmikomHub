@@ -8,6 +8,7 @@ class Event extends Model
 {
     protected $fillable = [
         'category_id',
+        'partner_id',
         'title',
         'description',
         'date',
@@ -30,5 +31,10 @@ class Event extends Model
     public function partners()
     {
         return $this->belongsToMany(Partner::class, 'event_partner');
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(Partner::class, 'partner_id');
     }
 }
