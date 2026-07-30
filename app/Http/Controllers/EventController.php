@@ -26,6 +26,33 @@ class EventController extends Controller
             });
         }
 
+        // Fitur Status (Mendatang / Terlewat)
+        if ($request->has('status') && $request->status != 'semua') {
+            if ($request->status == 'terlewat') {
+                $query->where('date', '<', now());
+            } elseif ($request->status == 'mendatang') {
+                $query->where('date', '>=', now());
+            }
+        }
+
+        // Fitur Sorting
+        if ($request->has('sort')) {
+            switch ($request->sort) {
+                case 'terdekat':
+                    $query->orderBy('date', 'asc');
+                    break;
+                case 'termurah':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'terbaru':
+                default:
+                    $query->latest();
+                    break;
+            }
+        } else {
+            $query->latest(); // Default
+        }
+
         // Eksekusi paginasi, 20 event per halaman (4 baris x 5 kolom)
         $events = $query->paginate(20);
 

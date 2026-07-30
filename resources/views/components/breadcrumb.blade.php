@@ -5,7 +5,7 @@
     <nav class="flex text-[10px] sm:text-xs font-medium overflow-x-auto hide-scrollbar pb-1" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-2 whitespace-nowrap">
             <li class="inline-flex items-center">
-                <a href="{{ route('home') }}" class="inline-flex items-center text-slate-500 hover:text-indigo-600 transition-colors">
+                <a href="{{ route('home') }}" class="inline-flex items-center text-slate-500 hover:text-blue-600 transition-colors">
                     <i class="fas fa-home mr-1.5 sm:mr-2 text-[10px] sm:text-xs"></i> Beranda
                 </a>
             </li>
@@ -15,7 +15,7 @@
                     <div class="flex items-center text-slate-400">
                         <i class="fas fa-chevron-right text-[8px] sm:text-[10px] mx-1.5 sm:mx-2 opacity-50"></i>
                         @if(isset($item['url']) && !$loop->last)
-                            <a href="{{ $item['url'] }}" class="text-slate-500 hover:text-indigo-600 transition-colors">
+                            <a href="{{ $item['url'] }}" class="text-slate-500 hover:text-blue-600 transition-colors">
                                 {{ $item['label'] ?? $item['name'] }}
                             </a>
                         @else
