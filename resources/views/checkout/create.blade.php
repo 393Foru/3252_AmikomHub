@@ -3,7 +3,7 @@
 @section('title', 'Checkout - ' . $event->title)
 
 @section('content')
-<main class="py-6 md:py-10 pb-32 lg:pb-10"> <!-- Added pb-32 for mobile sticky button -->
+<main class="py-6 md:py-8">
     
     <!-- Breadcrumb (Full Width) -->
     <nav class="flex items-center text-sm text-slate-500 font-medium mb-8 whitespace-nowrap overflow-x-auto pb-2 scrollbar-hide">
@@ -22,18 +22,18 @@
         <span class="text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md">Checkout</span>
     </nav>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 lg:items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-x-10 lg:gap-y-8 lg:items-start">
         
-        <!-- Form Section (Left Column) -->
+        <!-- Header & Alerts (Left Column Top) -->
         <div class="col-span-1 lg:col-span-7 xl:col-span-8">
-            <div class="mb-4 lg:mb-6">
+            <div class="mb-4">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">Checkout Tiket</h1>
                 <p class="text-slate-500 mt-2 md:mt-3 text-base md:text-lg">Lengkapi data diri Anda di bawah ini untuk mengamankan tiket.</p>
             </div>
             
             <!-- Error Alert -->
             @if(session('error'))
-            <div class="mt-6 mb-2 p-4 md:p-5 bg-rose-50 border-l-4 border-rose-500 text-rose-700 rounded-r-2xl font-bold flex items-center gap-3 shadow-sm">
+            <div class="mt-4 mb-2 p-4 md:p-5 bg-rose-50 border-l-4 border-rose-500 text-rose-700 rounded-r-2xl font-bold flex items-center gap-3 shadow-sm">
                 <svg class="w-6 h-6 text-rose-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
                 </svg>
@@ -42,7 +42,7 @@
             @endif
 
             <!-- FOMO / Countdown Timer -->
-            <div class="mb-6 bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start sm:items-center gap-3 md:gap-4 shadow-sm shadow-amber-100/50">
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start sm:items-center gap-3 md:gap-4 shadow-sm shadow-amber-100/50 mt-4">
                 <div class="bg-amber-100 text-amber-600 p-2 rounded-full shrink-0 mt-0.5 sm:mt-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
@@ -51,8 +51,71 @@
                     <p class="text-xs md:text-sm text-amber-600/80 mt-0.5">Selesaikan pengisian data dalam <span id="countdown" class="font-bold text-amber-700">15:00</span> menit.</p>
                 </div>
             </div>
+        </div>
 
-            <div class="w-full bg-white rounded-3xl border border-slate-200 p-6 md:p-8 lg:p-10 shadow-sm">
+        <!-- Summary Card (Right Column on Desktop, Middle on Mobile) -->
+        <div class="col-span-1 lg:col-span-5 xl:col-span-4 lg:row-span-2 lg:sticky lg:top-24">
+            <div class="w-full bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <h3 class="text-lg font-extrabold text-slate-800 mb-6 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    Ringkasan Pesanan
+                </h3>
+                
+                <div class="flex gap-4 md:gap-5 items-start mb-6 pb-6 border-b border-slate-200/60">
+                    <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/200x200' }}" alt="Event Poster" class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover shadow-sm border border-slate-200">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-slate-800 leading-snug line-clamp-2">{{ $event->title }}</h4>
+                        <div class="mt-2 text-xs md:text-sm font-medium text-slate-500 space-y-1.5">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                {{ $event->date->format('d M Y') }}
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <span class="truncate">{{ $event->location }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-4 md:space-y-5">
+                    <div class="flex justify-between text-slate-600 text-sm md:text-base">
+                        <span>Harga Tiket (1x)</span>
+                        <span class="font-semibold text-slate-800">Rp {{ number_format($event->price, 0, ',', '.') }}</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600 text-sm md:text-base">
+                        <span>Biaya Layanan</span>
+                        <span class="font-semibold text-slate-800">Rp 5.000</span>
+                    </div>
+                    
+                    <div class="pt-5 mt-3 border-t-2 border-dashed border-slate-200">
+                        <div class="flex justify-between items-end">
+                            <span class="text-sm md:text-base font-bold text-slate-800">Total Bayar</span>
+                            <span class="text-2xl md:text-3xl font-black text-indigo-600 tracking-tight">Rp {{ number_format($event->price + 5000, 0, ',', '.') }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="mt-8 pt-6 border-t border-slate-200/60">
+                    <div class="flex items-center justify-center gap-2 text-slate-500 mb-4">
+                        <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                        <span class="text-xs font-bold uppercase tracking-wider">100% Pembayaran Aman</span>
+                    </div>
+                    <div class="flex justify-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                        <!-- Simulated Payment Icons -->
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black">VISA</div>
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-blue-900">BCA</div>
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-green-700">GoPay</div>
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-purple-700">OVO</div>
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-red-600">QRIS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Card (Left Column on Desktop, Bottom on Mobile) -->
+        <div class="col-span-1 lg:col-span-7 xl:col-span-8">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-6 border-b border-slate-100 gap-4">
                     <h3 class="text-xl md:text-2xl font-extrabold text-slate-800 flex items-center gap-3">
                         <div class="bg-indigo-100 text-indigo-600 p-2 md:p-2.5 rounded-xl">
@@ -120,66 +183,6 @@
             </div>
         </div>
 
-        <!-- Summary Card (Right Column) -->
-        <div class="col-span-1 lg:col-span-5 xl:col-span-4 lg:row-span-2 lg:sticky lg:top-24">
-            <div class="w-full bg-slate-50 rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm">
-                <h3 class="text-lg font-extrabold text-slate-800 mb-6 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                    Ringkasan Pesanan
-                </h3>
-                
-                <div class="flex gap-4 md:gap-5 items-start mb-6 pb-6 border-b border-slate-200/60">
-                    <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/200x200' }}" alt="Event Poster" class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover shadow-sm border border-slate-200">
-                    <div class="flex-1">
-                        <h4 class="font-bold text-slate-800 leading-snug line-clamp-2">{{ $event->title }}</h4>
-                        <div class="mt-2 text-xs md:text-sm font-medium text-slate-500 space-y-1.5">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                {{ $event->date->format('d M Y') }}
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                <span class="truncate">{{ $event->location }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="space-y-4 md:space-y-5">
-                    <div class="flex justify-between text-slate-600 text-sm md:text-base">
-                        <span>Harga Tiket (1x)</span>
-                        <span class="font-semibold text-slate-800">Rp {{ number_format($event->price, 0, ',', '.') }}</span>
-                    </div>
-                    <div class="flex justify-between text-slate-600 text-sm md:text-base">
-                        <span>Biaya Layanan</span>
-                        <span class="font-semibold text-slate-800">Rp 5.000</span>
-                    </div>
-                    
-                    <div class="pt-5 mt-3 border-t-2 border-dashed border-slate-200">
-                        <div class="flex justify-between items-end">
-                            <span class="text-sm md:text-base font-bold text-slate-800">Total Bayar</span>
-                            <span class="text-2xl md:text-3xl font-black text-indigo-600 tracking-tight">Rp {{ number_format($event->price + 5000, 0, ',', '.') }}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Trust Badges -->
-                <div class="mt-8 pt-6 border-t border-slate-200/60">
-                    <div class="flex items-center justify-center gap-2 text-slate-500 mb-4">
-                        <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                        <span class="text-xs font-bold uppercase tracking-wider">100% Pembayaran Aman</span>
-                    </div>
-                    <div class="flex justify-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                        <!-- Simulated Payment Icons -->
-                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black">VISA</div>
-                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-blue-900">BCA</div>
-                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-green-700">GoPay</div>
-                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-purple-700">OVO</div>
-                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-red-600">QRIS</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div>
 </main>
