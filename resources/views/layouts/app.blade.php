@@ -93,23 +93,41 @@
 
         <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden mt-3 bg-white/95 backdrop-blur-xl border border-zinc-200/50 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 opacity-0 transform -translate-y-4">
-            <div class="px-4 py-4 space-y-2 flex flex-col">
-                <a href="{{ route('home') }}" class="block px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : 'text-zinc-600 hover:bg-zinc-50' }}">Beranda</a>
-                <a href="{{ route('events.index') }}" class="block px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('events.index') ? 'bg-blue-50 text-blue-600' : 'text-zinc-600 hover:bg-zinc-50' }}">Event</a>
+            <div class="p-3 space-y-1 flex flex-col">
+                <a href="{{ route('home') }}" class="flex items-center px-4 py-3.5 rounded-xl text-sm font-bold transition-all {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900' }}">
+                    <i class="fas fa-home w-6 text-center text-lg mr-2 {{ request()->routeIs('home') ? 'text-blue-500' : 'text-zinc-400' }}"></i> Beranda
+                </a>
+                <a href="{{ route('events.index') }}" class="flex items-center px-4 py-3.5 rounded-xl text-sm font-bold transition-all {{ request()->routeIs('events.index') ? 'bg-blue-50 text-blue-600' : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900' }}">
+                    <i class="fas fa-calendar-alt w-6 text-center text-lg mr-2 {{ request()->routeIs('events.index') ? 'text-blue-500' : 'text-zinc-400' }}"></i> Event
+                </a>
                 
-                <hr class="border-zinc-200/60 my-2">
+                <div class="h-px bg-zinc-100 my-2 mx-2"></div>
                 
                 @auth
-                    <div class="px-4 py-2">
-                        <span class="block text-sm font-bold text-zinc-700">Halo, {{ Auth::user()->name }} 👋</span>
+                    <div class="px-4 py-3 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-lg border border-blue-200 shrink-0">
+                            {{ substr(Auth::user()->name, 0, 1) }}
+                        </div>
+                        <div class="overflow-hidden">
+                            <span class="block text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Masuk sebagai</span>
+                            <span class="block text-sm font-bold text-zinc-800 truncate">{{ Auth::user()->name }}</span>
+                        </div>
                     </div>
-                    <form action="{{ route('logout') }}" method="POST" class="block w-full">
+                    <form action="{{ route('logout') }}" method="POST" class="block w-full mt-1">
                         @csrf
-                        <button type="submit" class="w-full text-left px-4 py-3 text-base font-bold text-cyan-600 hover:bg-cyan-50 rounded-xl transition">Keluar</button>
+                        <button type="submit" class="w-full flex items-center px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 rounded-xl transition">
+                            <i class="fas fa-sign-out-alt w-6 text-center text-lg mr-2 text-red-400"></i> Keluar
+                        </button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="block px-4 py-3 rounded-xl text-base font-bold text-zinc-600 hover:bg-zinc-50 transition">Masuk</a>
-                    <a href="{{ route('register') }}" class="block px-4 py-3 text-center mt-2 bg-gradient-to-r from-blue-600 to-blue-600 text-white rounded-xl text-base font-bold shadow-md hover:shadow-lg transition">Daftar</a>
+                    <a href="{{ route('login') }}" class="flex items-center px-4 py-3.5 rounded-xl text-sm font-bold text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 transition">
+                        <i class="fas fa-sign-in-alt w-6 text-center text-lg mr-2 text-zinc-400"></i> Masuk
+                    </a>
+                    <div class="pt-2">
+                        <a href="{{ route('register') }}" class="flex items-center justify-center px-4 py-3.5 rounded-xl text-sm font-bold bg-blue-600 text-white shadow-md hover:bg-blue-700 hover:shadow-lg transition-all">
+                            Daftar Sekarang
+                        </a>
+                    </div>
                 @endauth
             </div>
         </div>
