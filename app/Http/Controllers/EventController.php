@@ -59,13 +59,20 @@ class EventController extends Controller
         return view('events.index', compact('events', 'categories'));
     }
     
-        public function show(Event $event)
+    public function show(Event $event)
     {
         // Mengambil daftar kategori untuk keperluan menu footer
         $categories = Category::all();
 
-        // me-render view dengan membawa data kategori dan data spesifik acara tersebut
-        return view('event-detail', compact('event', 'categories'));
+        // Mengambil 4 event serupa berdasarkan kategori yang sama (kecuali event ini sendiri)
+        $similarEvents = Event::where('category_id', $event->category_id)
+            ->where('id', '!=', $event->id)
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
+
+        // me-render view dengan membawa data kategori, event, dan similarEvents
+        return view('event-detail', compact('event', 'categories', 'similarEvents'));
     }
 
 }

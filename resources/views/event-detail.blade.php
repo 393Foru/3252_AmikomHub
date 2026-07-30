@@ -291,6 +291,36 @@
         </div>
     </section>
 
+    <!-- Event Serupa Section -->
+    @if($similarEvents->count() > 0)
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 border-t border-slate-200/60 mt-4">
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-2">Event Serupa</h2>
+                <p class="text-slate-500 text-sm">Temukan event menarik lainnya di kategori {{ $event->category->name }}</p>
+            </div>
+            <a href="{{ route('events.index', ['category' => $event->category->slug]) }}" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-full hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-colors shadow-sm text-sm">
+                Lihat Semua <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-6">
+            @foreach($similarEvents as $index => $similar)
+                <div class="{{ $index >= 2 ? 'hidden lg:block' : '' }} h-full">
+                    <x-event-card :event="$similar" />
+                </div>
+            @endforeach
+        </div>
+        
+        <!-- Mobile button -->
+        <div class="mt-8 text-center sm:hidden">
+            <a href="{{ route('events.index', ['category' => $event->category->slug]) }}" class="inline-flex items-center justify-center w-full gap-2 px-5 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-full hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-colors shadow-sm text-sm">
+                Lihat Semua {{ $event->category->name }} <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+    @endif
+
     @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
