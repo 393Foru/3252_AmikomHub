@@ -3,7 +3,7 @@
 @section('title', 'Checkout - ' . $event->title)
 
 @section('content')
-<main class="py-6 md:py-10">
+<main class="py-6 md:py-10 pb-32 lg:pb-10"> <!-- Added pb-32 for mobile sticky button -->
     
     <!-- Breadcrumb (Full Width) -->
     <nav class="flex items-center text-sm text-slate-500 font-medium mb-8 whitespace-nowrap overflow-x-auto pb-2 scrollbar-hide">
@@ -24,7 +24,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 lg:items-start">
         
-        <!-- Header (Left Column on Desktop, Top on Mobile) -->
+        <!-- Form Section (Left Column) -->
         <div class="col-span-1 lg:col-span-7 xl:col-span-8">
             <div class="mb-4 lg:mb-6">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">Checkout Tiket</h1>
@@ -40,9 +40,87 @@
                 <p class="text-sm md:text-base">{{ session('error') }}</p>
             </div>
             @endif
+
+            <!-- FOMO / Countdown Timer -->
+            <div class="mb-6 bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start sm:items-center gap-3 md:gap-4 shadow-sm shadow-amber-100/50">
+                <div class="bg-amber-100 text-amber-600 p-2 rounded-full shrink-0 mt-0.5 sm:mt-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm md:text-base text-amber-800 font-medium">Tiket Anda sedang diamankan sementara.</p>
+                    <p class="text-xs md:text-sm text-amber-600/80 mt-0.5">Selesaikan pengisian data dalam <span id="countdown" class="font-bold text-amber-700">15:00</span> menit.</p>
+                </div>
+            </div>
+
+            <div class="w-full bg-white rounded-3xl border border-slate-200 p-6 md:p-8 lg:p-10 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-6 border-b border-slate-100 gap-4">
+                    <h3 class="text-xl md:text-2xl font-extrabold text-slate-800 flex items-center gap-3">
+                        <div class="bg-indigo-100 text-indigo-600 p-2 md:p-2.5 rounded-xl">
+                            <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                        Data Pemesan
+                    </h3>
+                    
+                    <div class="text-right">
+                        @auth
+                            <span class="inline-block w-fit text-xs font-bold bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-full ring-1 ring-emerald-200/50">Anggota Terdaftar</span>
+                        @else
+                            <span class="inline-block w-fit text-xs font-bold bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full ring-1 ring-slate-200">Checkout sebagai Tamu</span>
+                            <div class="mt-1.5 text-[11px] font-medium text-slate-500">
+                                Sudah punya akun? <a href="{{ route('login') }}" class="text-indigo-600 hover:underline font-bold">Masuk</a>
+                            </div>
+                        @endauth
+                    </div>
+                </div>
+                
+                <form id="checkoutForm" action="{{ route('checkout.store', $event->id) }}" method="POST" class="space-y-6 md:space-y-7">
+                    @csrf
+                    
+                    <!-- Input Nama -->
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Nama Lengkap <span class="text-rose-500">*</span></label>
+                        <input type="text" name="customer_name" placeholder="Masukkan nama sesuai KTP" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all font-medium text-slate-800 placeholder-slate-400" required value="{{ old('customer_name', auth()->check() ? auth()->user()->name : '') }}">
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7">
+                        <!-- Input Email -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Alamat Email <span class="text-rose-500">*</span></label>
+                            <input type="email" name="customer_email" placeholder="contoh@email.com" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all font-medium text-slate-800 placeholder-slate-400" required value="{{ old('customer_email', auth()->check() ? auth()->user()->email : '') }}">
+                            <p class="text-[11px] md:text-xs text-slate-500 mt-2.5 font-medium flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                E-Ticket akan dikirim ke email ini
+                            </p>
+                        </div>
+                        
+                        <!-- Input WhatsApp -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">No. WhatsApp <span class="text-rose-500">*</span></label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none border-r border-slate-200 pr-3">
+                                    <span class="text-slate-500 font-bold">+62</span>
+                                </div>
+                                <input type="tel" name="customer_phone" placeholder="81234567890" class="w-full pl-16 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all font-medium text-slate-800 placeholder-slate-400" required value="{{ old('customer_phone') }}">
+                            </div>
+                            <p class="text-[11px] md:text-xs text-slate-500 mt-2.5 font-medium flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.976L2 22l5.233-1.337a9.982 9.982 0 004.779 1.217h.004c5.505 0 9.988-4.478 9.989-9.984 0-2.669-1.037-5.182-2.923-7.072A9.92 9.92 0 0012.012 2zm5.884 14.161c-.247.697-1.42 1.328-1.942 1.4-1.284.18-2.884-.336-5.834-2.186-3.667-2.302-6.113-6.241-6.3-6.486-.183-.243-1.503-1.996-1.503-3.81 0-1.815.939-2.735 1.272-3.087.33-.35.719-.437.962-.437.243 0 .485.003.7.014.225.011.53-.087.828.634.305.74 1.058 2.585 1.152 2.775.093.19.155.412.03.66-.123.248-.186.398-.372.616-.183.218-.387.48-.553.645-.18.18-.368.379-.16.738.205.358.914 1.517 1.963 2.454 1.353 1.21 2.49 1.583 2.84 1.761.35.178.553.15.758-.083.206-.235.888-1.034 1.127-1.388.24-.355.48-.295.8-.175.322.119 2.035.96 2.383 1.135.347.175.58.263.665.41.085.148.085.856-.162 1.554z"></path></svg>
+                                E-Ticket akan dikirim ke WA ini juga
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-8 mt-8 border-t border-slate-100 hidden lg:block">
+                        <button type="submit" class="w-full py-4 md:py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-indigo-600/20 hover:bg-indigo-700 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2">
+                            Lanjut ke Pembayaran
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                        <p class="text-center text-xs text-slate-400 mt-4 md:mt-5">Dengan menekan tombol di atas, Anda menyetujui <a href="#" class="text-indigo-600 hover:underline">Syarat & Ketentuan</a> kami.</p>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <!-- Summary Card (Right Column on Desktop, Middle on Mobile) -->
+        <!-- Summary Card (Right Column) -->
         <div class="col-span-1 lg:col-span-5 xl:col-span-4 lg:row-span-2 lg:sticky lg:top-24">
             <div class="w-full bg-slate-50 rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm">
                 <h3 class="text-lg font-extrabold text-slate-800 mb-6 flex items-center gap-2">
@@ -84,60 +162,68 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Form Card (Left Column on Desktop, Bottom on Mobile) -->
-        <div class="col-span-1 lg:col-span-7 xl:col-span-8">
-            <div class="w-full bg-white rounded-3xl border border-slate-200 p-6 md:p-8 lg:p-10 shadow-sm">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-6 border-b border-slate-100 gap-4">
-                    <h3 class="text-xl md:text-2xl font-extrabold text-slate-800 flex items-center gap-3">
-                        <div class="bg-indigo-100 text-indigo-600 p-2 md:p-2.5 rounded-xl">
-                            <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        </div>
-                        Data Pemesan
-                    </h3>
-                    <span class="inline-block w-fit text-xs font-bold bg-amber-100 text-amber-700 px-3 py-1.5 rounded-full ring-1 ring-amber-200/50">Checkout sebagai Tamu</span>
+                <!-- Trust Badges -->
+                <div class="mt-8 pt-6 border-t border-slate-200/60">
+                    <div class="flex items-center justify-center gap-2 text-slate-500 mb-4">
+                        <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                        <span class="text-xs font-bold uppercase tracking-wider">100% Pembayaran Aman</span>
+                    </div>
+                    <div class="flex justify-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                        <!-- Simulated Payment Icons -->
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black">VISA</div>
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-blue-900">BCA</div>
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-green-700">GoPay</div>
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-purple-700">OVO</div>
+                        <div class="w-10 h-6 bg-slate-200 rounded flex items-center justify-center text-[8px] font-black text-red-600">QRIS</div>
+                    </div>
                 </div>
-                
-                <form action="{{ route('checkout.store', $event->id) }}" method="POST" class="space-y-6 md:space-y-7">
-                    @csrf
-                    
-                    <!-- Input Nama -->
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Nama Lengkap <span class="text-rose-500">*</span></label>
-                        <input type="text" name="customer_name" placeholder="Masukkan nama sesuai KTP" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all font-medium text-slate-800 placeholder-slate-400" required value="{{ old('customer_name') }}">
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7">
-                        <!-- Input Email -->
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">Alamat Email <span class="text-rose-500">*</span></label>
-                            <input type="email" name="customer_email" placeholder="contoh@email.com" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all font-medium text-slate-800 placeholder-slate-400" required value="{{ old('customer_email') }}">
-                            <p class="text-[11px] md:text-xs text-slate-500 mt-2.5 font-medium flex items-center gap-1.5">
-                                <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                E-Ticket akan dikirim ke email ini
-                            </p>
-                        </div>
-                        
-                        <!-- Input WhatsApp -->
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">No. WhatsApp <span class="text-rose-500">*</span></label>
-                            <input type="tel" name="customer_phone" placeholder="08xxxxxxxxxx" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all font-medium text-slate-800 placeholder-slate-400" required value="{{ old('customer_phone') }}">
-                        </div>
-                    </div>
-                    
-                    <div class="pt-8 mt-8 border-t border-slate-100">
-                        <button type="submit" class="w-full py-4 md:py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-indigo-600/20 hover:bg-indigo-700 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2">
-                            Lanjut ke Pembayaran
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </button>
-                        <p class="text-center text-xs text-slate-400 mt-4 md:mt-5">Dengan menekan tombol di atas, Anda menyetujui <a href="#" class="text-indigo-600 hover:underline">Syarat & Ketentuan</a> kami.</p>
-                    </div>
-                </form>
             </div>
         </div>
 
     </div>
 </main>
+
+<!-- Mobile Sticky Bottom Button -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-200 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)] z-50 lg:hidden">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+        <div class="flex-1">
+            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Total Bayar</p>
+            <p class="text-xl font-black text-indigo-600 leading-none">Rp {{ number_format($event->price + 5000, 0, ',', '.') }}</p>
+        </div>
+        <button type="button" onclick="document.getElementById('checkoutForm').submit()" class="w-[60%] py-3.5 bg-indigo-600 text-white rounded-xl font-bold text-base shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+            Bayar
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    // Simple Countdown Script
+    document.addEventListener('DOMContentLoaded', function() {
+        const countdownEl = document.getElementById('countdown');
+        if (!countdownEl) return;
+        
+        let timeLeft = 15 * 60; // 15 minutes in seconds
+        
+        const timer = setInterval(() => {
+            timeLeft--;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                countdownEl.textContent = "Waktu Habis";
+                countdownEl.classList.remove('text-amber-700');
+                countdownEl.classList.add('text-rose-600');
+                return;
+            }
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            countdownEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }, 1000);
+    });
+</script>
+@endpush
 @endsection
