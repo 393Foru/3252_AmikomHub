@@ -150,6 +150,18 @@
             color: #64748b;
             margin: 0;
         }
+        .print-btn {
+            display: inline-block;
+            background-color: #4f46e5;
+            color: #ffffff !important;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 25px;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+        }
         .footer {
             text-align: center;
             margin-top: 30px;
@@ -163,6 +175,20 @@
             color: #4f46e5;
             text-decoration: none;
             font-weight: 600;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+            }
+            .ticket {
+                box-shadow: none;
+                border: 2px solid #e2e8f0;
+            }
+            .print-btn, .action-link, .footer, .reminders-box {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -180,9 +206,13 @@
             <div class="body-section">
                 <table class="info-table">
                     <tr>
-                        <td colspan="2">
+                        <td style="width: 50%;">
                             <p class="label">Pemesan</p>
                             <p class="value">{{ $transaction->customer_name }}</p>
+                        </td>
+                        <td style="width: 50%;">
+                            <p class="label">Pengelola</p>
+                            <p class="value">{{ $transaction->event->owner->name ?? 'Eventama' }}</p>
                         </td>
                     </tr>
                     <tr>
@@ -206,7 +236,7 @@
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($transaction->order_id) }}&margin=0" alt="QR Code" class="qr-code">
                     </div>
                     <p class="order-id">{{ $transaction->order_id }}</p>
-                    <p class="qr-text" style="margin-bottom: 30px;">Scan saat check-in</p>
+                    <p class="qr-text" style="margin-bottom: 25px;">Scan saat check-in</p>
                 </div>
 
                 <div class="reminders-box" style="margin-bottom: 0;">
@@ -216,6 +246,10 @@
                         <li>Pastikan kecerahan layar HP Anda maksimal saat proses scan tiket.</li>
                         <li>Datanglah lebih awal untuk menghindari antrean masuk.</li>
                     </ul>
+                </div>
+
+                <div style="text-align: center;">
+                    <a href="javascript:window.print()" class="print-btn">🖨️ Cetak Tiket</a>
                 </div>
             </div>
         </div>
