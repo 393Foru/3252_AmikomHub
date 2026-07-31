@@ -92,6 +92,23 @@
         </div>
     </div>
 </section>
+@if(isset($recommendedEvents) && $recommendedEvents->count() > 0)
+<section class="max-w-7xl mx-auto px-6 py-8 md:py-12">
+    <div class="mb-8 md:mb-10 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 text-rose-600 font-extrabold text-[10px] uppercase tracking-widest mb-4 border border-rose-100 shadow-sm">
+            <i class="fas fa-fire"></i> Pilihan Menarik
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-3 tracking-tight">Rekomendasi Event</h2>
+        <p class="text-slate-500 font-medium text-lg">Temukan event seru secara acak setiap kali kamu berkunjung!</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-6">
+        @foreach($recommendedEvents as $event)
+        <x-event-card :event="$event" />
+        @endforeach
+    </div>
+</section>
+@endif
 
 <section id="events" class="max-w-7xl mx-auto px-6 py-8 md:py-12">
 

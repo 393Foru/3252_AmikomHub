@@ -37,8 +37,10 @@ class HomeController extends Controller
         // Mengambil seluruh partner terbaru untuk ditampilkan di section sponsor
         $partners = Partner::latest()->get();
 
+        // Mengambil 4 event secara acak untuk Rekomendasi
+        $recommendedEvents = Event::with('category')->where('date', '>=', now())->inRandomOrder()->limit(4)->get();
         
-        return view('welcome', compact('events', 'categories', 'partners'));
+        return view('welcome', compact('events', 'categories', 'partners', 'recommendedEvents'));
     }
 
     public function howToOrder()
