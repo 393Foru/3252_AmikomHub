@@ -20,16 +20,20 @@ class JabatanController extends Controller implements HasMiddleware
             }
         ];
     }
-    public function index()
+    public function index(Request $request)
     {
-        $jabatans = Jabatan::latest()->paginate(10);
+        $query = Jabatan::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        $jabatans = $query->latest()->paginate(10);
         return view('admin.jabatan.index', compact('jabatans'));
     }
 
-    public function create()
-    {
-        return view('admin.jabatan.create');
-    }
+
 
     public function store(Request $request)
     {
@@ -48,10 +52,7 @@ class JabatanController extends Controller implements HasMiddleware
         // 
     }
 
-    public function edit(Jabatan $jabatan)
-    {
-        return view('admin.jabatan.edit', compact('jabatan'));
-    }
+
 
     public function update(Request $request, Jabatan $jabatan)
     {
