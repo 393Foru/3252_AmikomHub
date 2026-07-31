@@ -19,7 +19,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->reportable(function (\Throwable $e) {
+            error_log("TRUE ORIGINAL ERROR: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+        });
     })->create();
 
     
