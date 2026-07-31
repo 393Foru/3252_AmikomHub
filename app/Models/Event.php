@@ -37,4 +37,9 @@ class Event extends Model
     {
         return $this->belongsTo(Partner::class, 'partner_id');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }
