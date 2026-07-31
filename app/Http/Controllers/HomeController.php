@@ -19,32 +19,67 @@ class HomeController extends Controller
         // - hanya tampilkan kegiatan dengan jadwal yang belum kadaluarsa
         // (>= hari ini)
         $query = Event::with('category')
-        ->where('date', '>=', now())
-        ->orderby('date', 'asc');
+            ->orderBy('date', 'asc');
 
         // 3. filter query jika url memiliki parameter pencarian spesifik ?category=...
-        if ($request->has('category')&& $request->category != ''){
+        if ($request->has('category') && $request->category != '') {
             // saring berdasarkan relasi tabel rujukan melalui properti slug kategori
-            $query->whereHas('category', function ($q) use ($request){
+            $query->whereHas('category', function ($q) use ($request) {
                 $q->where('slug', $request->category);
             });
         }
 
         // 4. eksekusi query dan kirim data hasilnya ke template blade
-        $events = $query->paginate(6);
+        $limit = 4;
+        $events = $query->paginate($limit);
 
-        // Mengambil semua kategori untuk menu/navigasi pencarian di homepage
-        $categories = Category::all();
 
         // Mengambil seluruh partner terbaru untuk ditampilkan di section sponsor
         $partners = Partner::latest()->get();
 
-        
-        return view('welcome', compact('events', 'categories', 'partners'));
+        // Mengambil 4 event secara acak untuk Rekomendasi
+        $recommendedEvents = Event::with('category')->where('date', '>=', now())->inRandomOrder()->limit(4)->get();
+
+        return view('welcome', compact('events', 'categories', 'partners', 'recommendedEvents'));
     }
 
     public function howToOrder()
     {
         return view('how-to-order');
+    }
+
+    public function aboutUs()
+    {
+        return view('about-us');
+    }
+
+    public function career()
+    {
+        return view('career');
+    }
+
+    public function partnershipProgram()
+    {
+        return view('partnership-program');
+    }
+
+    public function dataProtection()
+    {
+        return view('data-protection');
+    }
+
+    public function helpCenter()
+    {
+        return view('help-center');
+    }
+
+    public function privacyPolicy()
+    {
+        return view('privacy-policy');
+    }
+
+    public function termsConditions()
+    {
+        return view('terms-conditions');
     }
 }

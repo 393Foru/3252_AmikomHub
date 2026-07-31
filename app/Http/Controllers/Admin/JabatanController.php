@@ -5,19 +5,35 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller; 
 use Illuminate\Http\Request;
 use App\Models\Jabatan;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class JabatanController extends Controller
+class JabatanController extends Controller implements HasMiddleware
 {
-    public function index()
+    public static function middleware(): array
     {
-        $jabatans = Jabatan::latest()->paginate(10);
+        return [
+            function ($request, $next) {
+                if (auth()->check() && !auth()->user()->partner_id) {
+                    abort(403, 'Super Admin tidak memiliki akses ke halaman ini.');
+                }
+                return $next($request);
+            }
+        ];
+    }
+    public function index(Request $request)
+    {
+        $query = Jabatan::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        $jabatans = $query->latest()->paginate(10);
         return view('admin.jabatan.index', compact('jabatans'));
     }
 
-    public function create()
-    {
-        return view('admin.jabatan.create');
-    }
+
 
     public function store(Request $request)
     {
@@ -36,10 +52,7 @@ class JabatanController extends Controller
         // 
     }
 
-    public function edit(Jabatan $jabatan)
-    {
-        return view('admin.jabatan.edit', compact('jabatan'));
-    }
+
 
     public function update(Request $request, Jabatan $jabatan)
     {

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - AmikomEventHub</title>
+    <title>Admin Dashboard - Eventama</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,17 +15,36 @@
 </head>
 
 <body class="bg-slate-50 text-slate-900 flex min-h-screen">
-    <aside class="w-64 bg-indigo-900 text-indigo-100 flex flex-col p-6 space-y-8 sticky top-0 h-screen">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-indigo-900 font-bold text-xl">
-                AH
+    
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden transition-opacity opacity-0" onclick="toggleSidebar()"></div>
+
+    <aside id="sidebar" class="w-64 bg-indigo-900 text-indigo-100 flex flex-col p-6 space-y-8 fixed md:sticky top-0 h-screen z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-indigo-900 font-bold text-xl">
+                    AH
+                </div>
+                <span class="text-xl font-bold text-white tracking-tight">
+                    Eventama
+                </span>
             </div>
-            <span class="text-xl font-bold text-white tracking-tight">
-                AmikomEventHub
-            </span>
+            <!-- Close Sidebar Button (Mobile Only) -->
+            <button onclick="toggleSidebar()" class="md:hidden text-indigo-300 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
         </div>
 
         <nav class="flex-1 space-y-2">
+            @php
+                $user = auth()->user();
+                $pendingOrdersCount = \App\Models\Transaction::where('status', 'pending')
+                    ->when($user->partner_id, function($q) use ($user) {
+                        $q->whereHas('event', function($eq) use ($user) {
+                            $eq->where('partner_id', $user->partner_id);
+                        });
+                    })->count();
+            @endphp
 
             <p class="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-4 px-2">
                 Main Menu
@@ -47,20 +66,30 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                 </svg>
                 Laporan Transaksi
+                @if($pendingOrdersCount > 0)
+                <span class="ml-auto bg-rose-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm">
+                    {{ $pendingOrdersCount }}
+                </span>
+                @endif
             </a>
+            @if(is_null(auth()->user()->partner_id))
             <a href="{{ route('admin.categories.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.categories.*') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }} rounded-xl font-bold transition">
                 <svg class="w-5 h-5 {{ request()->routeIs('admin.categories.*') ? 'text-indigo-300' : 'text-indigo-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 20 a0020020002v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                 </svg>
                 Kelola Kategori
             </a>
+            @endif
+            @if(is_null(auth()->user()->partner_id))
             <a href="{{ route('admin.partners.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.partners.*') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }} rounded-xl font-bold transition">
                 <svg class="w-5 h-5 {{ request()->routeIs('admin.partners.*') ? 'text-indigo-300' : 'text-indigo-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
                 Kelola Partner
             </a>
+            @endif
 
+            @if(auth()->user()->partner_id)
             <!-- Navigasi Baru: Kelola Jabatan -->
             <a href="{{ route('admin.jabatan.index') }}" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('admin.jabatan.*') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }} rounded-xl font-bold transition">
                 <svg class="w-5 h-5 {{ request()->routeIs('admin.jabatan.*') ? 'text-indigo-300' : 'text-indigo-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,6 +105,7 @@
                 </svg>
                 Kelola Pengurus
             </a>
+            @endif
             
         </nav>
 
@@ -92,27 +122,42 @@
         </div>
     </aside>
 
-    <main class="flex-1 p-10 overflow-y-auto w-full">
-        <header class="flex justify-between items-center mb-10 w-full col-span-full">
-            <div>
-                <h1 class="text-3xl font-black">
+    <main class="flex-1 p-6 md:p-10 overflow-y-auto w-full">
+        <header class="flex justify-between items-center mb-8 md:mb-10 w-full col-span-full">
+            <div class="flex items-center gap-4">
+                <!-- Hamburger Menu Button -->
+                <button onclick="toggleSidebar()" class="md:hidden p-2 -ml-2 bg-white border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 transition shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-black">
                     @yield('page_title', 'Dashboard')
                 </h1>
                 <p class="text-slate-500 font-medium">
-                    @yield('page_subtitle', 'Selamat datang kembali, Admin!')
+                    @hasSection('page_subtitle')
+                        @yield('page_subtitle')
+                    @else
+                        Selamat datang kembali, {{ auth()->user()->name ?? 'Admin' }}!
+                    @endif
                 </p>
+                </div>
             </div>
+            
+            <div class="flex-1 flex justify-end mr-4 md:mr-6">
+                @yield('header_actions')
+            </div>
+
             <div class="flex items-center gap-4">
                 <div class="text-right hidden md:block">
                     <p class="font-bold">
-                        Admin
+                        {{ auth()->user()->name ?? 'Admin' }}
                     </p>
                     <p class="text-xs text-slate-400">
-                        Penyelenggara Utama
+                        {{ auth()->user()->partner_id ? (auth()->user()->partner->name ?? 'Partner Admin') : 'Penyelenggara Utama' }}
                     </p>
                 </div>
                 <div class="w-12 h-12 bg-white rounded-2xl shadow-sm border flex items-center justify-center p-1">
-                    <img src="https://ui-avatars.com/api/?name=admin&background=6366f1&color=fff" class="rounded-xl">
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name ?? 'Admin') }}&background=6366f1&color=fff" class="rounded-xl">
                 </div>
             </div>
         </header>
@@ -125,6 +170,29 @@
 
         @yield('content')
     </main>
+    
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            
+            // Toggle sidebar translate
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                // Show backdrop
+                backdrop.classList.remove('hidden');
+                // Slight delay to allow display block to apply before opacity transition
+                setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                // Hide backdrop
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => backdrop.classList.add('hidden'), 300);
+            }
+        }
+    </script>
+    
+    @stack('scripts')
 </body>
 
 </html>
