@@ -36,10 +36,10 @@
                 $gradientClass = $gradients[$index % count($gradients)];
             @endphp
             
-            <div class="h-full bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300">
+            <a href="{{ route('partners.show', $partner->id) }}" class="block h-full bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 group">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mb-5 shrink-0 relative flex items-center justify-center">
                     @if($partner->logo_url && Storage::disk('public')->exists($partner->logo_url))
-                        <div class="w-full h-full p-2 bg-white rounded-2xl flex items-center justify-center">
+                        <div class="w-full h-full p-2 bg-white rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                             <img src="{{ asset('storage/' . $partner->logo_url) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain">
                         </div>
                     @else
@@ -51,17 +51,21 @@
                             }
                             $abbr = strtoupper(mb_substr($abbr, 0, 2));
                         @endphp
-                        <div class="w-full h-full rounded-2xl bg-gradient-to-br {{ $gradientClass }} text-white font-bold text-2xl sm:text-3xl flex items-center justify-center shadow-sm">
+                        <div class="w-full h-full rounded-2xl bg-gradient-to-br {{ $gradientClass }} text-white font-bold text-2xl sm:text-3xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300">
                             {{ $abbr }}
                         </div>
                     @endif
                 </div>
                 
-                <h3 class="text-lg font-bold text-slate-800 mb-1 line-clamp-2">{{ $partner->name }}</h3>
-                <div class="mt-auto pt-2">
+                <h3 class="text-lg font-bold text-slate-800 mb-1 line-clamp-2 group-hover:text-blue-600 transition-colors">{{ $partner->name }}</h3>
+                <div class="mt-auto pt-2 flex flex-col items-center gap-1">
                     <p class="text-sm text-slate-500 font-medium">{{ $partner->events_count }} Event Kolaborasi</p>
+                    <div class="flex items-center text-xs text-amber-500 font-bold bg-amber-50 px-2 py-1 rounded-full mt-2">
+                        <i class="fas fa-star mr-1"></i>
+                        {{ number_format($partner->reviews()->avg('rating') ?? 0, 1) }}
+                    </div>
                 </div>
-            </div>
+            </a>
         @empty
             <div class="col-span-full py-16 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-200">
                 <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400 border border-slate-100 shadow-sm">

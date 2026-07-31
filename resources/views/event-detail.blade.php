@@ -233,6 +233,44 @@
                 </div>
             </div>
 
+            <!-- Reviews Section -->
+            @if($reviews->count() > 0)
+            <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-black text-slate-800 flex items-center gap-3">
+                        <span class="w-8 h-1.5 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full inline-block shrink-0"></span> 
+                        Ulasan Peserta
+                    </h3>
+                    <div class="flex items-center gap-2 font-bold text-amber-500 bg-amber-50 px-3 py-1 rounded-full">
+                        <i class="fas fa-star"></i> {{ number_format($averageRating, 1) }}
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    @foreach($reviews as $review)
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="font-bold text-slate-700 text-sm">{{ $review->transaction->customer_name }}</span>
+                            <span class="text-xs text-slate-400">{{ $review->created_at->diffForHumans() }}</span>
+                        </div>
+                        <div class="flex text-amber-400 text-xs mb-2">
+                            @for($i = 1; $i <= 5; $i++)
+                                @if($i <= $review->rating)
+                                    <i class="fas fa-star"></i>
+                                @else
+                                    <i class="far fa-star text-slate-300"></i>
+                                @endif
+                            @endfor
+                        </div>
+                        @if($review->comment)
+                            <p class="text-slate-600 text-sm italic line-clamp-3">"{{ $review->comment }}"</p>
+                        @endif
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
             <!-- Ticket Policy -->
             <div class="bg-slate-50/50 rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200">
                 <h3 class="text-xl font-bold mb-6 text-slate-800 flex items-center gap-3">

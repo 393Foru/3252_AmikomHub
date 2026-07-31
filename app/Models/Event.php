@@ -42,4 +42,9 @@ class Event extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

@@ -30,5 +30,10 @@ class Partner extends Model
     {
         return $this->hasMany(Event::class, 'partner_id');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
 

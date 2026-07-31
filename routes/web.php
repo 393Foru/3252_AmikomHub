@@ -49,6 +49,25 @@ Route::get('/pusat-bantuan', [HomeController::class, 'helpCenter'])->name('help-
 Route::get('/kebijakan-privasi', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/syarat-ketentuan', [HomeController::class, 'termsConditions'])->name('terms-conditions');
 
+// Route Partner Profile
+Route::get('/partners/{partner}', [PartnerController::class, 'show'])->name('partners.show');
+
+// Route Review (with signed middleware)
+Route::get('/reviews/create/{transaction}', [\App\Http\Controllers\ReviewController::class, 'create'])->name('reviews.create')->middleware('signed');
+Route::post('/reviews/{transaction}', [\App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store')->middleware('signed');
+
+// Route for testing Review Email (development only)
+Route::get('/test-review-email', function () {
+    // Find the latest successful transaction
+    $transaction = \App\Models\Transaction::where('status', 'Success')->latest()->first();
+    if (!$transaction) {
+        return "No successful transaction found to test with.";
+    }
+    
+    // Instead of sending, just return the Mailable to preview in browser
+    return new \App\Mail\ReviewRequestMail($transaction);
+});
+
 // =========================================================
 // ROUTE AUTENTIFIKASI USER (biasa)
 // =========================================================

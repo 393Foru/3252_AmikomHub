@@ -71,8 +71,11 @@ class EventController extends Controller
             ->limit(4)
             ->get();
 
+        $reviews = $event->reviews()->with('transaction')->latest()->limit(5)->get();
+        $averageRating = $event->reviews()->avg('rating') ?? 0;
+
         // me-render view dengan membawa data kategori, event, dan similarEvents
-        return view('event-detail', compact('event', 'categories', 'similarEvents'));
+        return view('event-detail', compact('event', 'categories', 'similarEvents', 'reviews', 'averageRating'));
     }
 
 }
