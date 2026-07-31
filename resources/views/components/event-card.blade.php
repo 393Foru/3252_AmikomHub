@@ -29,7 +29,11 @@
         {{-- Stock Badge (Bottom Left) --}}
         {{-- Stock Badge (Bottom Left) --}}
         <div class="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-10 flex flex-col gap-2">
-            @if($event->stock > 0 && $event->stock <= 10)
+            @if($event->stock > 10)
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-sm text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-sm border border-white/20">
+                    <i class="fas fa-ticket-alt mr-1.5 text-slate-300"></i> Sisa {{ $event->stock }} Tiket
+                </span>
+            @elseif($event->stock > 0 && $event->stock <= 10)
                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-red-600/95 backdrop-blur-sm text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-sm border border-white/20 animate-pulse">
                     <i class="fas fa-fire mr-1.5"></i> Sisa {{ $event->stock }} tiket lagi!
                 </span>
@@ -98,16 +102,16 @@
         </div>
 
         {{-- Footer Section --}}
-        <div class="pt-4 mt-auto flex items-center justify-between border-t border-slate-100 relative z-30">
-            <div class="flex flex-col">
+        <div class="pt-4 mt-auto flex items-center justify-between border-t border-slate-100 relative z-30 gap-2">
+            <div class="flex flex-col min-w-0">
                 <span class="text-[9px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Harga Tiket</span>
-                <span class="text-base sm:text-xl font-black text-blue-600 leading-none">
+                <span class="text-base sm:text-xl font-black text-blue-600 leading-none whitespace-nowrap truncate">
                     {{ $event->price == 0 ? 'Gratis' : 'Rp ' . number_format($event->price, 0, ',', '.') }}
                 </span>
             </div>
             
             @if($event->stock == 0)
-            <div class="px-3 py-2 sm:px-4 sm:py-2 rounded-xl bg-slate-100 text-slate-400 text-[10px] sm:text-xs font-bold border border-slate-200 cursor-not-allowed uppercase tracking-wider">
+            <div class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-100 text-slate-400 text-[9px] sm:text-[10px] font-extrabold border border-slate-200 cursor-not-allowed uppercase tracking-widest whitespace-nowrap">
                 Habis Terjual
             </div>
             @else
