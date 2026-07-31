@@ -62,4 +62,9 @@ class HomeController extends Controller
     {
         return view('partnership-program');
     }
+
+    public function dataProtection()
+    {
+        return view('data-protection');
+    }
 }
