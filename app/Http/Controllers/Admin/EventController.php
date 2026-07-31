@@ -9,15 +9,40 @@ use App\Models\Category;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
-        $query = \App\Models\Event::with('category')->latest();
+        $query = \App\Models\Event::with('category')->withCount(['transactions as tickets_sold' => function($q) {
+            $q->whereIn('status', ['settlement', 'success']);
+        }])->orderBy('date', 'desc');
+        
         if ($user->partner_id) {
             $query->where('partner_id', $user->partner_id);
         }
-        $events = $query->paginate(10);
-        return view('admin.events.index', compact('events'));
+
+        // Filter berdasarkan pencarian
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('location', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Filter berdasarkan kategori
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Filter berdasarkan bulan
+        if ($request->filled('month')) {
+            $query->whereMonth('date', $request->month);
+        }
+
+        $events = $query->paginate(10)->withQueryString();
+        $categories = \App\Models\Category::all();
+        
+        return view('admin.events.index', compact('events', 'categories'));
     }
 
     public function create()
