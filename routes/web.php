@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\PengurusController;
 // =====================================================
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController; 
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\Admin\PartnerController as AdminPartnerController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 // Route User Area
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
-Route::get('/events/{event}', [EventController::class,'show'])->name('events.show');
+Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
 
 // Route Checkout
@@ -35,10 +35,13 @@ Route::get('/success/{order_id}', [\App\Http\Controllers\CheckoutController::cla
 Route::get('/failed/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'failed'])->name('checkout.failed');
 
 // Route Midtrans Callback
-Route::post('/midtrans/callback',
-[\App\Http\Controllers\MidtransWebhookController::class, 'handle']);
+Route::post(
+    '/midtrans/callback',
+    [\App\Http\Controllers\MidtransWebhookController::class, 'handle']
+);
 
 Route::get('/cara-pesan', [HomeController::class, 'howToOrder'])->name('how-to-order');
+Route::get('/tentang-kami', [HomeController::class, 'aboutUs'])->name('about-us');
 
 // =========================================================
 // ROUTE AUTENTIFIKASI USER (biasa)
@@ -50,36 +53,36 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 });
 
-Route::middleware('auth')->group(function (){
+Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 // =========================================================
 // ROUTE ADMIN AREA
 // =========================================================
-Route::prefix('admin')->name('admin.')->group(function (){
+Route::prefix('admin')->name('admin.')->group(function () {
     // 1. Admin Guest (Belum Login)
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
         Route::post('/login', [AdminAuthController::class, 'login'])->name('login.post');
     });
-    
+
     // 2. Admin Auth (Sudah Login)
-    Route::middleware('auth')->group(function (){
+    Route::middleware('auth')->group(function () {
         // ini untuk URL: /admin (halaman dashboard)
         Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
-        
+
         // CRUD ADMIN
         Route::resource('categories', AdminCategoryController::class);
         Route::resource('events', AdminEventController::class);
         Route::resource('partners', AdminPartnerController::class);
-        
+
         // ==================================================================
         // responsi UAS
         Route::resource('jabatan', JabatanController::class);
-Route::resource('pengurus', PengurusController::class)->parameters([
-    'pengurus' => 'pengurus'
-]);
+        Route::resource('pengurus', PengurusController::class)->parameters([
+            'pengurus' => 'pengurus'
+        ]);
         // ==================================================================
 
         // Perbaikan Route Transactions Admin sesuai Modul 10
