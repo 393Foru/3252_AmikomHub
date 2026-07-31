@@ -53,5 +53,8 @@ class HomeController extends Controller
         return view('about-us');
     }
 
-
+    public function career()
+    {
+        return view('career');
+    }
 }

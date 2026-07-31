@@ -56,8 +56,8 @@
                         class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 {{ request()->routeIs('partners.index') ? 'bg-white text-blue-600 shadow-sm ring-1 ring-zinc-200/50' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100' }}">
                         Partner
                     </a>
-                    <a href="{{ route('about-us') }}"
-                        class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 {{ request()->routeIs('about-us') ? 'bg-white text-blue-600 shadow-sm ring-1 ring-zinc-200/50' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100' }}">
+                    <a href="{{ route('about-us') }}" 
+                    class="px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 {{ request()->routeIs('about-us') ? 'bg-white text-blue-600 shadow-sm ring-1 ring-zinc-200/50' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100' }}">
                         Tentang
                     </a>
                 </div>
@@ -132,7 +132,10 @@
                         class="fas fa-info-circle w-6 text-center text-lg mr-2 {{ request()->routeIs('about-us') ? 'text-blue-500' : 'text-zinc-400' }}"></i>
                     Tentang
                 </a>
-
+                <a href="{{ route('about-us') }}" class="flex items-center px-4 py-3.5 rounded-xl text-sm font-bold transition-all {{ request()->routeIs('about-us') ? 'bg-blue-50 text-blue-600' : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900' }}">
+                    <i class="fas fa-info-circle w-6 text-center text-lg mr-2 {{ request()->routeIs('about-us') ? 'text-blue-500' : 'text-zinc-400' }}"></i> Tentang
+                </a>
+                
                 <div class="h-px bg-zinc-100 my-2 mx-2"></div>
 
                 @auth
@@ -226,10 +229,9 @@
                 <div class="col-span-1">
                     <h4 class="font-bold text-white text-sm md:text-base mb-4 md:mb-6">Perusahaan</h4>
                     <ul class="space-y-3 md:space-y-4 text-slate-400 text-xs md:text-sm">
-                        <li><a href="{{ route('about-us') }}" class="hover:text-blue-400 transition">Tentang Kami</a>
-                        </li>
+                        <li><a href="{{ route('about-us') }}" class="hover:text-blue-400 transition">Tentang Kami</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition">Berita Kampus</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Karir</a></li>
+                        <li><a href="{{ route('career') }}" class="hover:text-blue-400 transition">Karir</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition">Program Kemitraan</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition">Perlindungan Data</a></li>
                     </ul>

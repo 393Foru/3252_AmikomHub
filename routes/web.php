@@ -42,6 +42,7 @@ Route::post(
 
 Route::get('/cara-pesan', [HomeController::class, 'howToOrder'])->name('how-to-order');
 Route::get('/tentang-kami', [HomeController::class, 'aboutUs'])->name('about-us');
+Route::get('/karir', [HomeController::class, 'career'])->name('career');
 
 // =========================================================
 // ROUTE AUTENTIFIKASI USER (biasa)
