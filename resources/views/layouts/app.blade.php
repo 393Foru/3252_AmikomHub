@@ -232,7 +232,7 @@
                         <li><a href="{{ route('about-us') }}" class="hover:text-blue-400 transition">Tentang Kami</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition">Berita Kampus</a></li>
                         <li><a href="{{ route('career') }}" class="hover:text-blue-400 transition">Karir</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Program Kemitraan</a></li>
+                        <li><a href="{{ route('partnership-program') }}" class="hover:text-blue-400 transition">Program Kemitraan</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition">Perlindungan Data</a></li>
                     </ul>
                 </div>

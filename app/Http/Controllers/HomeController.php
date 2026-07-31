@@ -57,4 +57,9 @@ class HomeController extends Controller
     {
         return view('career');
     }
+
+    public function partnershipProgram()
+    {
+        return view('partnership-program');
+    }
 }
