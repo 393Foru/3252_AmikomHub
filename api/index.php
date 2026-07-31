@@ -4,6 +4,7 @@ ini_set('display_startup_errors', '1');
 putenv("CACHE_DRIVER=array");
 putenv("LOG_CHANNEL=stderr");
 putenv("SESSION_DRIVER=cookie");
+putenv("VIEW_COMPILED_PATH=/tmp");
 $_SERVER['HTTP_ACCEPT'] = 'application/json';
 
 try {
