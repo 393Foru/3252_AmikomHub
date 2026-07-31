@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-2">
+    <x-breadcrumb :items="[
+        ['label' => 'Perlindungan Data']
+    ]" />
+</div>
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
     <!-- Header Section -->
     <div class="text-center mb-12">

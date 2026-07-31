@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-2">
+    <x-breadcrumb :items="[
+        ['label' => 'Karir']
+    ]" />
+</div>
 <!-- Hero Section -->
 <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-700 p-8 sm:p-12 mb-12 shadow-2xl">
     <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
