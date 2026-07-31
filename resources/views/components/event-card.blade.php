@@ -27,17 +27,21 @@
         </div>
 
         {{-- Stock Badge (Bottom Left) --}}
+        {{-- Stock Badge (Bottom Left) --}}
         <div class="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-10 flex flex-col gap-2">
             @if($event->stock > 0 && $event->stock <= 10)
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-red-500/95 backdrop-blur-sm text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-sm border border-white/20 animate-pulse">
-                    Sisa {{ $event->stock }}
-                </span>
-            @elseif($event->stock == 0)
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-slate-900/95 backdrop-blur-sm text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-sm border border-white/20">
-                    Habis
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-red-600/95 backdrop-blur-sm text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-sm border border-white/20 animate-pulse">
+                    <i class="fas fa-fire mr-1.5"></i> Sisa {{ $event->stock }} tiket lagi!
                 </span>
             @endif
         </div>
+        
+        {{-- Sold Out Ribbon --}}
+        @if($event->stock == 0)
+        <div class="absolute top-5 -right-12 w-40 bg-slate-900 text-white text-[10px] font-black text-center py-1.5 uppercase tracking-widest shadow-lg transform rotate-45 z-30">
+            Sold Out
+        </div>
+        @endif
     </div>
 
     {{-- Content Section --}}
@@ -102,11 +106,17 @@
                 </span>
             </div>
             
-            <a href="{{ route('events.show', $event->id) }}" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 hover:bg-blue-600 text-blue-500 hover:text-white flex items-center justify-center transition-all shadow-sm group-hover:bg-blue-600 group-hover:text-white border border-blue-100 group-hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 {{ $event->stock == 0 ? 'opacity-50 cursor-not-allowed group-hover:bg-blue-50 group-hover:text-blue-500 group-hover:border-blue-100 pointer-events-none' : '' }}" title="Pesan Tiket">
+            @if($event->stock == 0)
+            <div class="px-3 py-2 sm:px-4 sm:py-2 rounded-xl bg-slate-100 text-slate-400 text-[10px] sm:text-xs font-bold border border-slate-200 cursor-not-allowed uppercase tracking-wider">
+                Habis Terjual
+            </div>
+            @else
+            <a href="{{ route('events.show', $event->id) }}" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 hover:bg-blue-600 text-blue-500 hover:text-white flex items-center justify-center transition-all shadow-sm group-hover:bg-blue-600 group-hover:text-white border border-blue-100 group-hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" title="Pesan Tiket">
                 <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
             </a>
+            @endif
         </div>
     </div>
 </div>
