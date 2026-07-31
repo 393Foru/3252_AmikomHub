@@ -7,10 +7,18 @@ use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
-public function index()
+    public function index()
     {
-    // Mengambil transaksi terbaru dengan pembatasan 20 baris/halaman
-        $transactions = Transaction::with('event')->latest()->paginate(20);
+        $user = auth()->user();
+        $query = Transaction::with('event')->latest();
+
+        if ($user->partner_id) {
+            $query->whereHas('event', function ($q) use ($user) {
+                $q->where('partner_id', $user->partner_id);
+            });
+        }
+
+        $transactions = $query->paginate(20);
         return view('admin.transactions.index', compact('transactions'));
     }
 }

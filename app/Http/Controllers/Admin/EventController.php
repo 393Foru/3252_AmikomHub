@@ -11,8 +11,12 @@ class EventController extends Controller
 {
     public function index()
     {
-        // memakai relasi dan pengaturan limit paginasi (10 entri per halaman)
-        $events = \App\Models\Event::with('category')->latest()->paginate(10);
+        $user = auth()->user();
+        $query = \App\Models\Event::with('category')->latest();
+        if ($user->partner_id) {
+            $query->where('partner_id', $user->partner_id);
+        }
+        $events = $query->paginate(10);
         return view('admin.events.index', compact('events'));
     }
 
@@ -41,6 +45,10 @@ class EventController extends Controller
         $data['poster_path'] = $request->file('poster')->store('posters','public');
         }
 
+        if (auth()->user()->partner_id) {
+            $data['partner_id'] = auth()->user()->partner_id;
+        }
+
         // menyimpan data yang telah divalidasi ke dalam tabel menggunakan Model
         \App\Models\Event::create($data);
         return redirect()->route('admin.events.index')->with('success', 'Data Event berhasil ditambahkan.');
@@ -48,6 +56,10 @@ class EventController extends Controller
 
     public function destroy(Event $event)
     {
+        if (auth()->user()->partner_id && $event->partner_id != auth()->user()->partner_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         // Mengecek apakah event memiliki gambar poster yang tersimpan
         if ($event->poster_path) {
             // Menghapus file gambar fisik dari direktori storage
@@ -62,12 +74,20 @@ class EventController extends Controller
 
     public function edit(Event $event)
     {
+        if (auth()->user()->partner_id && $event->partner_id != auth()->user()->partner_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $categories = \App\Models\Category::all();
         return view('admin.events.edit', compact('event', 'categories'));
     }
 
     public function update(\Illuminate\Http\Request $request, Event $event)
     {
+        if (auth()->user()->partner_id && $event->partner_id != auth()->user()->partner_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $data = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:255',

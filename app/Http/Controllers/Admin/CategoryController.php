@@ -6,9 +6,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Str; // <-- 1. Tambahkan baris ini di atas untuk membuat slug otomatis
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            function ($request, $next) {
+                if (auth()->check() && auth()->user()->partner_id) {
+                    abort(403, 'Admin Partner tidak memiliki akses ke halaman ini.');
+                }
+                return $next($request);
+            }
+        ];
+    }
+
     public function index(Request $request)
     {
         // Mengambil keyword pencarian dari input bernama 'search'

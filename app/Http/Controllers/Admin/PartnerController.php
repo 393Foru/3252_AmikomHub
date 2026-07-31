@@ -6,9 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class PartnerController extends Controller
+class PartnerController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            function ($request, $next) {
+                if (auth()->check() && auth()->user()->partner_id) {
+                    abort(403, 'Unauthorized access.');
+                }
+                return $next($request);
+            }
+        ];
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');

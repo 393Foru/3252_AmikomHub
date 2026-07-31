@@ -5,9 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller; 
 use Illuminate\Http\Request;
 use App\Models\Jabatan;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class JabatanController extends Controller
+class JabatanController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            function ($request, $next) {
+                if (auth()->check() && !auth()->user()->partner_id) {
+                    abort(403, 'Super Admin tidak memiliki akses ke halaman ini.');
+                }
+                return $next($request);
+            }
+        ];
+    }
     public function index()
     {
         $jabatans = Jabatan::latest()->paginate(10);

@@ -8,27 +8,41 @@ use App\Models\Transaction;
 
 class DashboardController extends Controller
 {
-public function index()
-{
-// 1. Menjumlahkan semua nominal total_price dari kolom Transaksi Lunas
-$totalRevenue = Transaction::whereIn('status', ['settlement',
-'success'])->sum('total_price');
+    public function index()
+    {
+        $user = auth()->user();
 
-// 2. Menghitung Berapa orang tamu yang tiketnya sudah Lunas
-$ticketsSold = Transaction::whereIn('status', ['settlement',
-'success'])->count();
+        if ($user->partner_id) {
+            $totalRevenue = Transaction::whereIn('status', ['settlement', 'success'])
+                ->whereHas('event', function($q) use ($user) {
+                    $q->where('partner_id', $user->partner_id);
+                })->sum('total_price');
 
-// 3. Menghitung Jumlah Acara Mendatang yang aktif diselenggarakan
-$activeEvents = Event::where('date', '>=', now())->count();
+            $ticketsSold = Transaction::whereIn('status', ['settlement', 'success'])
+                ->whereHas('event', function($q) use ($user) {
+                    $q->where('partner_id', $user->partner_id);
+                })->count();
 
-// 4. Menghitung Transaksi Ngadat (Status belum dibayar pelanggan / Expired)
-$pendingOrders = Transaction::where('status', 'pending')->count();
+            $activeEvents = Event::where('date', '>=', now())
+                ->where('partner_id', $user->partner_id)->count();
 
-// 5. Menyertakan 5 daftar riwayat pesanan (History) paling mutakhir di panel
-$recentTransactions =
-Transaction::with('event')->latest()->take(5)->get();
+            $pendingOrders = Transaction::where('status', 'pending')
+                ->whereHas('event', function($q) use ($user) {
+                    $q->where('partner_id', $user->partner_id);
+                })->count();
 
-return view('admin.dashboard', compact('totalRevenue', 'ticketsSold',
-'activeEvents', 'pendingOrders', 'recentTransactions'));
-}
+            $recentTransactions = Transaction::with('event')
+                ->whereHas('event', function($q) use ($user) {
+                    $q->where('partner_id', $user->partner_id);
+                })->latest()->take(5)->get();
+        } else {
+            $totalRevenue = Transaction::whereIn('status', ['settlement', 'success'])->sum('total_price');
+            $ticketsSold = Transaction::whereIn('status', ['settlement', 'success'])->count();
+            $activeEvents = Event::where('date', '>=', now())->count();
+            $pendingOrders = Transaction::where('status', 'pending')->count();
+            $recentTransactions = Transaction::with('event')->latest()->take(5)->get();
+        }
+
+        return view('admin.dashboard', compact('totalRevenue', 'ticketsSold', 'activeEvents', 'pendingOrders', 'recentTransactions'));
+    }
 }
