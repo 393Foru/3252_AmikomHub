@@ -46,6 +46,7 @@ Route::get('/karir', [HomeController::class, 'career'])->name('career');
 Route::get('/program-kemitraan', [HomeController::class, 'partnershipProgram'])->name('partnership-program');
 Route::get('/perlindungan-data', [HomeController::class, 'dataProtection'])->name('data-protection');
 Route::get('/pusat-bantuan', [HomeController::class, 'helpCenter'])->name('help-center');
+Route::get('/kebijakan-privasi', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 
 // =========================================================
 // ROUTE AUTENTIFIKASI USER (biasa)
