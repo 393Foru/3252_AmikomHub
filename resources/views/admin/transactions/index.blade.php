@@ -93,7 +93,7 @@
                         @if($trx->event)
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-slate-100">
-                                    <img src="{{ ($trx->event->poster_path && Storage::disk('public')->exists($trx->event->poster_path)) ? asset('storage/' . $trx->event->poster_path) : 'https://placehold.co/100x100' }}" class="w-full h-full object-cover">
+                                    <img src="{{ ($trx->event->poster_path && (\Illuminate\Support\Str::startsWith($trx->event->poster_path, 'http') || Storage::disk('public')->exists($trx->event->poster_path))) ? (\Illuminate\Support\Str::startsWith($trx->event->poster_path, 'http') ? $trx->event->poster_path : asset('storage/' . $trx->event->poster_path)) : 'https://placehold.co/160x200' }}" class="w-full h-full object-cover">
                                 </div>
                                 <div>
                                     <p class="font-bold text-sm text-slate-800 line-clamp-2 leading-tight">{{ $trx->event->title }}</p>

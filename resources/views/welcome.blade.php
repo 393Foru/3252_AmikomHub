@@ -200,7 +200,7 @@
                             <div class="shrink-0 group relative flex items-center justify-center p-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <div class="w-auto min-w-[8rem] h-16 flex items-center justify-center">
                                     @if($partner->logo_url && Storage::disk('public')->exists($partner->logo_url))
-                                        <img src="{{ asset('storage/' . $partner->logo_url) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain transform group-hover:scale-105 transition-transform" title="{{ $partner->name }}" draggable="false">
+                                        <img src="{{ (\Illuminate\Support\Str::startsWith($partner->logo_url, 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url)) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain transform group-hover:scale-105 transition-transform" title="{{ $partner->name }}" draggable="false">
                                     @else
                                         @php
                                             $words = explode(' ', $partner->name);

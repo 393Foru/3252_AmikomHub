@@ -65,11 +65,11 @@
             @if($event->poster_path)
             <div class="mt-4 flex items-center gap-3">
                 <div class="w-16 h-20 rounded-xl overflow-hidden shadow-sm border border-slate-200">
-                    <img src="{{ asset('storage/' . $event->poster_path) }}" alt="Poster saat ini" class="w-full h-full object-cover">
+                    <img src="{{ Str::startsWith($event->poster_path, 'http') ? $event->poster_path : (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) }}" alt="Poster saat ini" class="w-full h-full object-cover">
                 </div>
                 <div>
                     <p class="text-sm font-bold text-slate-700">Poster saat ini</p>
-                    <a href="{{ asset('storage/' . $event->poster_path) }}" target="_blank" class="text-xs text-indigo-600 hover:text-indigo-700 font-medium hover:underline">Lihat Gambar</a>
+                    <a href="{{ Str::startsWith($event->poster_path, 'http') ? $event->poster_path : (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) }}" target="_blank" class="text-xs text-indigo-600 hover:text-indigo-700 font-medium hover:underline">Lihat Gambar</a>
                 </div>
             </div>
             @endif

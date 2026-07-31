@@ -27,7 +27,7 @@
                 <div class="lg:sticky lg:top-24 space-y-6">
                     <!-- Image Wrapper with hover effects, removed dark overlay -->
                 <div class="group relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-indigo-200/50 border-4 border-white">
-                    <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path)
+                    <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path))
                     : 'https://placehold.co/400x600/e2e8f0/6366f1?text=' . urlencode($event->title) }}" alt="{{ $event->title }}"
                     class="w-full object-cover aspect-[3/4] transform group-hover:scale-105 transition-transform duration-700 ease-out">
                 </div>

@@ -66,8 +66,11 @@ class EventController extends Controller
         ]);
 
         if ($request->hasFile('poster')) {
-        // Simpan ke direktori storage/app/public/posters
-        $data['poster_path'] = $request->file('poster')->store('posters','public');
+            $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+            $response = $cloudinary->uploadApi()->upload($request->file('poster')->getRealPath(), [
+                'folder' => 'events'
+            ]);
+            $data['poster_path'] = $response['secure_url'];
         }
 
         if (auth()->user()->partner_id) {
@@ -87,8 +90,16 @@ class EventController extends Controller
 
         // Mengecek apakah event memiliki gambar poster yang tersimpan
         if ($event->poster_path) {
-            // Menghapus file gambar fisik dari direktori storage
-            \Illuminate\Support\Facades\Storage::disk('public')->delete($event->poster_path);
+            if (str_starts_with($event->poster_path, 'http')) {
+                if (preg_match('/upload\/(?:v\d+\/)?(.+?)\.[a-zA-Z0-9]+$/', $event->poster_path, $matches)) {
+                    try {
+                        $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+                        $cloudinary->uploadApi()->destroy($matches[1]);
+                    } catch (\Exception $e) {}
+                }
+            } else {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($event->poster_path);
+            }
         }
 
         // Menghapus data event dari database
@@ -125,12 +136,25 @@ class EventController extends Controller
         ]);
 
         if ($request->hasFile('poster')) {
-        // Hapus gambar lama jika sebelumnya sudah memiliki poster
+            // Hapus gambar lama jika sebelumnya sudah memiliki poster
             if ($event->poster_path) {
-            \Illuminate\Support\Facades\Storage::disk('public')->delete($event->poster_path);
+                if (str_starts_with($event->poster_path, 'http')) {
+                    if (preg_match('/upload\/(?:v\d+\/)?(.+?)\.[a-zA-Z0-9]+$/', $event->poster_path, $matches)) {
+                        try {
+                            $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+                            $cloudinary->uploadApi()->destroy($matches[1]);
+                        } catch (\Exception $e) {}
+                    }
+                } else {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($event->poster_path);
+                }
             }
-        // Upload gambar baru
-        $data['poster_path'] = $request->file('poster')->store('posters','public');
+            // Upload gambar baru
+            $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+            $response = $cloudinary->uploadApi()->upload($request->file('poster')->getRealPath(), [
+                'folder' => 'events'
+            ]);
+            $data['poster_path'] = $response['secure_url'];
         }
 
         $event->update($data);

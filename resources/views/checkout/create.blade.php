@@ -62,7 +62,7 @@
                 </h3>
                 
                 <div class="flex gap-4 md:gap-5 items-start mb-6 pb-6 border-b border-slate-200/60">
-                    <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/200x200' }}" alt="Event Poster" class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover shadow-sm border border-slate-200">
+                    <img src="{{ ($event->poster_path && (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') || Storage::disk('public')->exists($event->poster_path))) ? (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path))) : 'https://placehold.co/160x200' }}" alt="Event Poster" class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover shadow-sm border border-slate-200">
                     <div class="flex-1">
                         <h4 class="font-bold text-slate-800 leading-snug line-clamp-2">{{ $event->title }}</h4>
                         <div class="mt-2 text-xs md:text-sm font-medium text-slate-500 space-y-1.5">

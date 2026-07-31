@@ -83,7 +83,7 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="relative group w-16 h-20 rounded-xl overflow-hidden shadow-sm border border-slate-100">
-                            <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/160x200' }}" class="w-full h-full object-cover transition duration-300 group-hover:scale-110">
+                            <img src="{{ ($event->poster_path && (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') || Storage::disk('public')->exists($event->poster_path))) ? (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path))) : 'https://placehold.co/160x200' }}" class="w-full h-full object-cover transition duration-300 group-hover:scale-110">
                         </div>
                     </td>
                     <td class="px-6 py-4">

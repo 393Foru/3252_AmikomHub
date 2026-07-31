@@ -41,7 +41,11 @@ class PartnerController extends Controller implements HasMiddleware
         ]);
 
         // Proses upload file ke folder storage/app/public/partners
-        $logoPath = $request->file('logo')->store('partners', 'public');
+        $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+        $response = $cloudinary->uploadApi()->upload($request->file('logo')->getRealPath(), [
+            'folder' => 'partners'
+        ]);
+        $logoPath = $response['secure_url'];
 
         Partner::create([
             'name' => $request->name,
@@ -64,11 +68,22 @@ class PartnerController extends Controller implements HasMiddleware
         // Jika ada file logo baru yang diupload
         if ($request->hasFile('logo')) {
             // Hapus file foto lama dari server
-            if (Storage::disk('public')->exists($partner->logo_url)) {
+            if (str_starts_with($partner->logo_url, 'http')) {
+                if (preg_match('/upload\/(?:v\d+\/)?(.+?)\.[a-zA-Z0-9]+$/', $partner->logo_url, $matches)) {
+                    try {
+                        $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+                        $cloudinary->uploadApi()->destroy($matches[1]);
+                    } catch (\Exception $e) {}
+                }
+            } elseif (Storage::disk('public')->exists($partner->logo_url)) {
                 Storage::disk('public')->delete($partner->logo_url);
             }
             // Upload foto baru
-            $data['logo_url'] = $request->file('logo')->store('partners', 'public');
+            $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+            $response = $cloudinary->uploadApi()->upload($request->file('logo')->getRealPath(), [
+                'folder' => 'partners'
+            ]);
+            $data['logo_url'] = $response['secure_url'];
         }
 
         $partner->update($data);
@@ -81,7 +96,14 @@ class PartnerController extends Controller implements HasMiddleware
         $partner = Partner::findOrFail($id);
 
         // Hapus file foto fisik dari server terlebih dahulu
-        if (Storage::disk('public')->exists($partner->logo_url)) {
+        if (str_starts_with($partner->logo_url, 'http')) {
+            if (preg_match('/upload\/(?:v\d+\/)?(.+?)\.[a-zA-Z0-9]+$/', $partner->logo_url, $matches)) {
+                try {
+                    $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+                    $cloudinary->uploadApi()->destroy($matches[1]);
+                } catch (\Exception $e) {}
+            }
+        } elseif (Storage::disk('public')->exists($partner->logo_url)) {
             Storage::disk('public')->delete($partner->logo_url);
         }
         
