@@ -1,24 +1,71 @@
 @extends('layouts.app')
-@section('title', 'Pembayaran Berhasil')
+@section('title', 'Pembayaran Berhasil - ' . $transaction->event->title)
 @section('content')
-<main class="max-w-3xl mx-auto px-6 py-20 text-center">
-    <div class="bg-white rounded-3xl border border-slate-200 p-12 shadow-sm inline-block w-full max-w-md">
-        <div class="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-            </svg>
+<main class="max-w-4xl mx-auto px-4 py-12 md:py-20">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden flex flex-col md:flex-row">
+        
+        <!-- Left Side: Detail & Breakdown -->
+        <div class="w-full md:w-[55%] p-6 md:p-8 bg-slate-50 flex flex-col justify-center relative">
+            <div class="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-200 to-transparent hidden md:block"></div>
+            
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-[10px] font-black tracking-wider rounded-md uppercase">Order #{{ $transaction->order_id }}</span>
+                </div>
+                <h2 class="text-xl md:text-2xl font-black text-slate-800 mb-2 leading-tight">{{ $transaction->event->title }}</h2>
+                <p class="text-slate-500 text-xs md:text-sm leading-relaxed">Tiket pesanan Anda telah berhasil diterbitkan.</p>
+            </div>
+            
+            <!-- Breakdown Tagihan -->
+            <div class="bg-white p-5 rounded-xl border border-slate-100 mb-5 shadow-sm relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 opacity-5 pointer-events-none">
+                    <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.64-2.25 1.64-1.74 0-2.1-.96-2.17-1.92H8.01c.12 1.98 1.2 3.1 2.9 3.44V20h2.4v-1.7c1.71-.32 2.8-1.46 2.8-2.98 0-2.02-1.72-2.88-3.8-3.34z"/></svg>
+                </div>
+                
+                <div class="flex justify-between items-center mb-2.5 relative z-10">
+                    <span class="text-xs font-medium text-slate-500">Harga Tiket (1x)</span>
+                    <span class="text-sm font-bold text-slate-700">Rp {{ number_format($transaction->event->price, 0, ',', '.') }}</span>
+                </div>
+                <div class="flex justify-between items-center mb-4 pb-4 border-b border-dashed border-slate-200 relative z-10">
+                    <span class="text-xs font-medium text-slate-500">Biaya Layanan</span>
+                    <span class="text-sm font-bold text-slate-700">Rp 5.000</span>
+                </div>
+                <div class="flex justify-between items-end relative z-10">
+                    <p class="text-[10px] text-indigo-500 font-bold uppercase tracking-wider mb-1">Total Dibayar</p>
+                    <h3 class="text-2xl md:text-3xl font-black text-indigo-600">Rp {{ number_format($transaction->total_price, 0, ',', '.') }}</h3>
+                </div>
+            </div>
+
+            <!-- Paid Status Badge -->
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100 flex flex-row items-center justify-center">
+                <p class="text-sm text-emerald-600 font-bold flex items-center gap-2 uppercase tracking-widest">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Status Lunas
+                </p>
+            </div>
         </div>
-        <h2 class="text-3xl font-black mb-4">Terima Kasih!</h2>
-        <p class="text-slate-500 mb-8 leading-relaxed">
-            Pembayaran untuk pesanan <strong>{{ $transaction->order_id
-                }}</strong> sedang diproses atau telah berhasil.
-            E-Ticket akan dikirim ke email Anda (<strong>{{
-                $transaction->customer_email }}</strong>) setelah pembayaran terkonfirmasi
-            lunas.
-        </p>
-        <a href="{{ route('home') }}" class="inline-block px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition">
-            Kembali ke Beranda
-        </a>
+
+        <!-- Right Side: Success Message -->
+        <div class="w-full md:w-[45%] p-6 md:p-8 flex flex-col items-center justify-center text-center bg-white relative">
+            <div class="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            
+            <h3 class="text-xl md:text-2xl font-black mb-3 text-slate-800">Pembayaran Berhasil!</h3>
+            <p class="text-slate-500 text-xs mb-8 leading-relaxed md:px-2">E-Ticket telah dikirimkan ke email Anda (<strong class="text-slate-700">{{ $transaction->customer_email }}</strong>). Silakan periksa kotak masuk atau folder spam Anda.</p>
+
+            <a href="{{ route('home') }}" class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold text-sm shadow-[0_4px_12px_-4px_rgba(79,70,229,0.5)] hover:bg-indigo-700 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all active:scale-95 flex items-center justify-center gap-2">
+                Ke Halaman Utama
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </a>
+        </div>
+
     </div>
 </main>
 @endsection
