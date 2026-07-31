@@ -59,7 +59,7 @@
             </div>
             <div class="absolute -bottom-10 -right-10 w-48 md:w-64 h-48 md:h-64 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
             </div>
-            <img src="{{ asset('storage/assets/concert.png') }}" alt="Concert"
+            <img src="{{ asset('assets/concert.png') }}" alt="Concert"
                 class="rounded-[2rem] shadow-2xl relative z-10 w-full object-cover aspect-[4/5] object-center">
 
         <div class="absolute -bottom-4 md:-bottom-6 left-0 right-0 mx-auto md:mx-0 md:-left-6 w-[90%] md:w-auto glass p-3 sm:p-4 md:p-6 rounded-2xl shadow-xl z-20 border border-white">
