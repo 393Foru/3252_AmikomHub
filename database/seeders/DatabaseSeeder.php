@@ -193,13 +193,26 @@ class DatabaseSeeder extends Seeder
                 $partner = $partners[array_rand($partners)];
                 
                 // Set tanggal bervariasi (beberapa di masa lalu, sebagian besar masa depan)
+                // Set tanggal bervariasi (beberapa di masa lalu, sebagian besar masa depan)
                 $daysOffset = $eventCount % 2 == 0 ? $faker->numberBetween(10, 60) : -$faker->numberBetween(10, 60);
-                $date = Carbon::now()->addDays($daysOffset)->format('Y-m-d H:i:s');
+                $eventDate = Carbon::now()->addDays($daysOffset);
+                
+                // Sesuaikan jam berdasarkan kategori event
+                if ($slug === 'entertaiment') {
+                    $eventDate->setTime($faker->randomElement([18, 19, 20]), $faker->randomElement([0, 30]), 0);
+                } elseif ($slug === 'lomba-it') {
+                    $eventDate->setTime($faker->randomElement([7, 8]), $faker->randomElement([0, 30]), 0);
+                } elseif ($slug === 'job-fair' || $slug === 'pameran') {
+                    $eventDate->setTime($faker->randomElement([8, 9, 10]), $faker->randomElement([0, 30]), 0);
+                } else {
+                    $eventDate->setTime($faker->randomElement([8, 9, 13, 14]), $faker->randomElement([0, 30]), 0);
+                }
+                $date = $eventDate->format('Y-m-d H:i:s');
                 
                 // Variasi harga dan stok
                 $isFree = $faker->boolean(20); // 20% kemungkinan gratis
                 $price = $isFree ? 0 : $faker->randomElement([25000, 50000, 75000, 100000, 150000]);
-                $stock = $faker->randomElement([50, 100, 200, 500, 1000]);
+                $stock = $faker->randomElement([0, 5, 8, 15, 50, 100, 200]);
                 
                 // Tentukan poster path (cycle 1-6)
                 $posterNum = ($eventCount % 6) + 1;
@@ -273,6 +286,17 @@ class DatabaseSeeder extends Seeder
                     'Success', 'Success', 'Success', 'Success', 'Success', 'Success', 'Success', 
                     'Pending', 'Pending', 'Cancelled', 'Failed'
                 ]);
+
+                // Kurangi stok jika sukses, atau ubah status ke Failed jika stok habis
+                if ($status === 'Success') {
+                    if ($event->stock > 0) {
+                        $event->decrement('stock');
+                        $event->stock--; // update local instance
+                    } else {
+                        // Batalkan transaksi sukses jika stok sudah habis
+                        $status = 'Failed';
+                    }
+                }
 
                 // Tanggal transaksi diacak antara 1 hingga 30 hari ke belakang agar bervariasi
                 $randomDate = Carbon::now()->subDays($faker->numberBetween(1, 30))->subHours($faker->numberBetween(1, 24))->subMinutes($faker->numberBetween(1, 60));
