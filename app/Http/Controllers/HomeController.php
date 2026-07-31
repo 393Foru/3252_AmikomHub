@@ -77,4 +77,9 @@ class HomeController extends Controller
     {
         return view('privacy-policy');
     }
+
+    public function termsConditions()
+    {
+        return view('terms-conditions');
+    }
 }

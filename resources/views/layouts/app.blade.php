@@ -255,7 +255,7 @@
                     <ul class="space-y-3 md:space-y-4 text-slate-400 text-xs md:text-sm">
                         <li><a href="{{ route('help-center') }}" class="hover:text-blue-400 transition">Pusat Bantuan</a></li>
                         <li><a href="{{ route('privacy-policy') }}" class="hover:text-blue-400 transition">Kebijakan Privasi</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Syarat & Ketentuan</a></li>
+                        <li><a href="{{ route('terms-conditions') }}" class="hover:text-blue-400 transition">Syarat & Ketentuan</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition">Daftarkan Event</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition">Panduan Pesan</a></li>
                     </ul>
