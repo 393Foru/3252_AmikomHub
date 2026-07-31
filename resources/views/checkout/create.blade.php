@@ -179,7 +179,7 @@
                                 <input id="terms" type="checkbox" required class="w-4 h-4 text-indigo-600 bg-white border-slate-300 rounded focus:ring-indigo-500 focus:ring-2 cursor-pointer transition-colors" onclick="event.stopPropagation()">
                             </div>
                             <label for="terms" class="text-xs md:text-sm text-slate-600 cursor-pointer select-none leading-relaxed">
-                                Saya telah memastikan data benar dan menyetujui <a href="#" class="text-indigo-600 font-bold hover:underline" onclick="event.stopPropagation()">Syarat & Ketentuan</a> serta <a href="#" class="text-indigo-600 font-bold hover:underline" onclick="event.stopPropagation()">Kebijakan Privasi</a> yang berlaku.
+                                Saya telah memastikan data benar dan menyetujui <a href="{{ route('terms-conditions') }}" class="text-indigo-600 font-bold hover:underline" onclick="event.stopPropagation()">Syarat & Ketentuan</a> serta <a href="{{ route('privacy-policy') }}" class="text-indigo-600 font-bold hover:underline" onclick="event.stopPropagation()">Kebijakan Privasi</a> yang berlaku.
                             </label>
                         </div>
 

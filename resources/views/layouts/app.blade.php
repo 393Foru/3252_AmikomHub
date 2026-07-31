@@ -230,7 +230,7 @@
                     <h4 class="font-bold text-white text-sm md:text-base mb-4 md:mb-6">Perusahaan</h4>
                     <ul class="space-y-3 md:space-y-4 text-slate-400 text-xs md:text-sm">
                         <li><a href="{{ route('about-us') }}" class="hover:text-blue-400 transition">Tentang Kami</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Berita Kampus</a></li>
+                        <li><a href="{{ route('events.index') }}" class="hover:text-blue-400 transition">Berita Kampus</a></li>
                         <li><a href="{{ route('career') }}" class="hover:text-blue-400 transition">Karir</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition">Program Kemitraan</a></li>
                         <li><a href="#" class="hover:text-blue-400 transition">Perlindungan Data</a></li>
@@ -241,11 +241,11 @@
                 <div class="col-span-1">
                     <h4 class="font-bold text-white text-sm md:text-base mb-4 md:mb-6">Kategori Event</h4>
                     <ul class="space-y-3 md:space-y-4 text-slate-400 text-xs md:text-sm">
-                        <li><a href="#" class="hover:text-blue-400 transition">Seminar IT</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Workshop</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Lomba & Kompetisi</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Job Fair</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Pameran Karya</a></li>
+                        <li><a href="{{ route('events.index') }}" class="hover:text-blue-400 transition">Seminar IT</a></li>
+                        <li><a href="{{ route('events.index') }}" class="hover:text-blue-400 transition">Workshop</a></li>
+                        <li><a href="{{ route('events.index') }}" class="hover:text-blue-400 transition">Lomba & Kompetisi</a></li>
+                        <li><a href="{{ route('events.index') }}" class="hover:text-blue-400 transition">Job Fair</a></li>
+                        <li><a href="{{ route('events.index') }}" class="hover:text-blue-400 transition">Pameran Karya</a></li>
                     </ul>
                 </div>
 
@@ -253,11 +253,10 @@
                 <div class="col-span-1">
                     <h4 class="font-bold text-white text-sm md:text-base mb-4 md:mb-6">Dukungan</h4>
                     <ul class="space-y-3 md:space-y-4 text-slate-400 text-xs md:text-sm">
-                        <li><a href="#" class="hover:text-blue-400 transition">Pusat Bantuan</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Kebijakan Privasi</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Syarat & Ketentuan</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Daftarkan Event</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition">Panduan Pesan</a></li>
+                        <li><a href="{{ route('help-center') }}" class="hover:text-blue-400 transition">Pusat Bantuan</a></li>
+                        <li><a href="{{ route('privacy-policy') }}" class="hover:text-blue-400 transition">Kebijakan Privasi</a></li>
+                        <li><a href="{{ route('terms-conditions') }}" class="hover:text-blue-400 transition">Syarat & Ketentuan</a></li>
+                        <li><a href="{{ route('how-to-order') }}" class="hover:text-blue-400 transition">Panduan Pesan</a></li>
                     </ul>
                 </div>
 

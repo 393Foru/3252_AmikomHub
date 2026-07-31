@@ -65,7 +65,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.login.post') }}" method="POST" class="space-y-5">
+            <form action="{{ Route::is('admin.*') ? route('admin.login.post') : route('login.post') }}" method="POST" class="space-y-5">
                 @csrf
                 
                 <!-- Input Email -->
@@ -123,7 +123,7 @@
 
             <!-- Link Register -->
             <p class="text-center mt-8 text-sm text-slate-500 font-medium">
-                Don't have an account? <a href="#" class="text-indigo-600 font-bold hover:underline">Sign up</a>
+                Don't have an account? <a href="{{ route('register') }}" class="text-indigo-600 font-bold hover:underline">Sign up</a>
             </p>
 
         </div>
