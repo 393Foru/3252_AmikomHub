@@ -57,4 +57,29 @@ class HomeController extends Controller
     {
         return view('career');
     }
+
+    public function partnershipProgram()
+    {
+        return view('partnership-program');
+    }
+
+    public function dataProtection()
+    {
+        return view('data-protection');
+    }
+
+    public function helpCenter()
+    {
+        return view('help-center');
+    }
+
+    public function privacyPolicy()
+    {
+        return view('privacy-policy');
+    }
+
+    public function termsConditions()
+    {
+        return view('terms-conditions');
+    }
 }
