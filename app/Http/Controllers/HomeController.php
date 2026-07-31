@@ -67,4 +67,9 @@ class HomeController extends Controller
     {
         return view('data-protection');
     }
+
+    public function helpCenter()
+    {
+        return view('help-center');
+    }
 }
