@@ -26,28 +26,44 @@ $request->validate([
 'customer_phone' => 'required|string|max:20',
 ]);
 
-// 2. Cegah Check-out Jika Tiket Habis
-if ($event->stock <= 0) {
-return back()->with('error', 'Mohon maaf, tiket untuk acara ini
-sudah habis.');
+// Gunakan DB Transaction untuk mengamankan perubahan stock (Race Condition)
+\Illuminate\Support\Facades\DB::beginTransaction();
+
+try {
+    // 2. Lock event row untuk mengamankan pengecekan stock
+    $lockedEvent = \App\Models\Event::where('id', $event->id)->lockForUpdate()->first();
+
+    // 3. Cegah Check-out Jika Tiket Habis
+    if (!$lockedEvent || $lockedEvent->stock <= 0) {
+        \Illuminate\Support\Facades\DB::rollBack();
+        return back()->with('error', 'Mohon maaf, tiket untuk acara ini sudah habis.');
+    }
+
+    // 4. Kurangi stock sekarang (Reserve)
+    $lockedEvent->decrement('stock');
+
+    // 5. Generate Kode TRX (Unik)
+    $orderId = 'TRX-' . time() . '-' . Str::random(5);
+    $totalPrice = $lockedEvent->price + 5000; // Menambahkan biaya admin (dummy)
+
+    // 6. Merekam Transaksi ke Database
+    $transaction = Transaction::create([
+        'event_id' => $lockedEvent->id,
+        'order_id' => $orderId,
+        'customer_name' => $request->customer_name,
+        'customer_email' => $request->customer_email,
+        'customer_phone' => $request->customer_phone,
+        'total_price' => $totalPrice,
+        'status' => 'Pending', // Status Awal
+    ]);
+
+    \Illuminate\Support\Facades\DB::commit();
+} catch (\Exception $e) {
+    \Illuminate\Support\Facades\DB::rollBack();
+    return back()->with('error', 'Terjadi kesalahan sistem saat memproses pesanan: ' . $e->getMessage());
 }
 
-// 3. Generate Kode TRX (Unik)
-$orderId = 'TRX-' . time() . '-' . Str::random(5);
-$totalPrice = $event->price + 5000; // Menambahkan biaya admin (dummy)
-
-// 4. Merekam Transaksi ke Database
-$transaction = Transaction::create([
-'event_id' => $event->id,
-'order_id' => $orderId,
-'customer_name' => $request->customer_name,
-'customer_email' => $request->customer_email,
-'customer_phone' => $request->customer_phone,
-'total_price' => $totalPrice,
-'status' => 'Pending', // Status Awal
-]);
-
-// 5. 
+// 7. 
 // --- INTEGRASI SNAP MIDTRANS ---
 
 // Konfigurasi Kredensial Environment Midtrans
@@ -72,6 +88,10 @@ $params = [
         'error' => route('checkout.failed', $orderId),
         'pending' => route('checkout.success', $orderId),
     ],
+    'custom_expiry' => [
+        'expiry_duration' => 15,
+        'unit' => 'minute'
+    ],
 ];
 
 try {
@@ -86,6 +106,14 @@ try {
     $transaction->order_id);
 
 } catch (\Exception $e) {
+    // Jika gagal mendapatkan Snap Token, kembalikan stok tiket
+    if (isset($transaction) && $transaction->status === 'Pending') {
+        $transaction->update(['status' => 'failed']);
+        if ($transaction->event) {
+            $transaction->event->increment('stock');
+        }
+    }
+    
     return back()->with('error', 'Gagal memproses pembayaran jaringan: '
 . $e->getMessage());
 }
@@ -148,11 +176,7 @@ if (in_array($trx_status, ['settlement', 'capture'])) {
 if (strtolower($transaction->status) === 'pending') {
 $transaction->update(['status' => 'success']);
 
-if ($transaction->event && $transaction->event->stock > 0) {
-$transaction->event->stock =
-$transaction->event->stock - 1;
-$transaction->event->save();
-
+if ($transaction->event) {
 try {
 
 \Illuminate\Support\Facades\Mail::to($transaction->customer_email)

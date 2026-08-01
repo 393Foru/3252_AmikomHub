@@ -44,7 +44,11 @@ $this->processSuccess($transaction);
 $transaction->status = 'settlement';
 $this->processSuccess($transaction);
 } else if (in_array($transactionStatus, ['cancel', 'deny', 'expire'])) {
-$transaction->status = 'failed';
+    if (strtolower($transaction->status) === 'pending' && $transaction->event) {
+        // Kembalikan stok (release) karena pembayaran kedaluwarsa atau dibatalkan
+        $transaction->event->increment('stock');
+    }
+    $transaction->status = 'failed';
 } else if ($transactionStatus == 'pending') {
 $transaction->status = 'pending';
 }
@@ -57,11 +61,7 @@ private function processSuccess(Transaction $transaction)
 {
 $event = $transaction->event;
 
-// Jika tiket masih ada dan terhubung dengan data event, kurangi jumlahnya sebanyak 1
-if ($event && $event->stock > 0) {
-$event->stock = $event->stock - 1;
-$event->save();
-
+if ($event) {
 // Mengirimkan email E-Ticket ke pelanggan
 try {
 \Illuminate\Support\Facades\Mail::to($transaction->customer_email)->send(new
@@ -71,8 +71,7 @@ try {
 $e->getMessage());
 }
 } else {
-\Log::warning('Stock habis setelah pembayaran berhasil (Perlu proses
-refund opsional). Order: ' . $transaction->order_id);
+\Log::warning('Event tidak ditemukan saat proses email E-Ticket. Order: ' . $transaction->order_id);
 }
 }
 
