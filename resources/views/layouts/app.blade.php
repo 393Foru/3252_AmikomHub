@@ -9,6 +9,7 @@
     <!-- PWA Config -->
     <meta name="theme-color" content="#ffffff">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <link rel="icon" href="{{ asset('assets/icons/icon-192x192.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('assets/icons/icon-192x192.png') }}">
     
     <script src="https://cdn.tailwindcss.com"></script>
