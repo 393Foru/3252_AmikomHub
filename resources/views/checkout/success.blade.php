@@ -58,8 +58,16 @@
             <h3 class="text-xl md:text-2xl font-black mb-3 text-slate-800">Pembayaran Berhasil!</h3>
             <p class="text-slate-500 text-xs mb-8 leading-relaxed md:px-2">E-Ticket telah dikirimkan ke email Anda (<strong class="text-slate-700">{{ $transaction->customer_email }}</strong>). Silakan periksa kotak masuk atau folder spam Anda.</p>
 
-            <a href="{{ route('home') }}" class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold text-sm shadow-[0_4px_12px_-4px_rgba(79,70,229,0.5)] hover:bg-indigo-700 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all active:scale-95 flex items-center justify-center gap-2">
+            <a href="{{ route('home') }}" class="w-full py-4 bg-slate-100 text-slate-700 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-200 hover:-translate-y-0.5 transition-all active:scale-95 flex items-center justify-center gap-2 mb-3">
                 Ke Halaman Utama
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+            </a>
+
+            <!-- Review Button -->
+            <a href="{{ URL::signedRoute('reviews.create', ['transaction' => $transaction->id]) }}" class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-200 hover:shadow-xl hover:from-indigo-700 hover:to-purple-700 hover:-translate-y-0.5 transition-all active:scale-95 flex items-center justify-center gap-2">
+                Bagaimana Pengalaman Anda? (Review)
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>

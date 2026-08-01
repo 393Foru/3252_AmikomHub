@@ -317,5 +317,8 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
+
+        // 9. insert Review dummy data
+        $this->call(ReviewSeeder::class);
     }
 }
