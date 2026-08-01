@@ -23,7 +23,7 @@
             <!-- Event Info Card -->
             <div class="flex items-center gap-5 p-5 bg-white rounded-3xl border border-slate-100 shadow-sm mb-10 group hover:shadow-md transition-shadow">
                 <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-slate-100 shadow-inner relative">
-                    @if($transaction->event->poster_path && Storage::disk('public')->exists($transaction->event->poster_path))
+                    @if($transaction->event->poster_path)
                         <img src="{{ (\Illuminate\Support\Str::startsWith($transaction->event->poster_path, 'http') ? $transaction->event->poster_path : asset('storage/' . $transaction->event->poster_path)) }}" alt="{{ $transaction->event->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     @else
                         <div class="w-full h-full flex items-center justify-center text-slate-300">

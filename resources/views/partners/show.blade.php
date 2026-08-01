@@ -12,7 +12,7 @@
         <div class="lg:col-span-1 space-y-6">
             <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm text-center">
                 <div class="w-32 h-32 mx-auto mb-6 relative">
-                    @if($partner->logo_url && Storage::disk('public')->exists($partner->logo_url))
+                    @if($partner->logo_url)
                         <img src="{{ (\Illuminate\Support\Str::startsWith($partner->logo_url, 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url)) }}" alt="{{ $partner->name }}" class="w-full h-full object-contain bg-white rounded-2xl p-2 border border-slate-100 shadow-sm">
                     @else
                         <div class="w-full h-full rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-500 text-white font-bold text-5xl flex items-center justify-center shadow-sm">
@@ -53,7 +53,7 @@
                     @forelse($partner->ownedEvents as $event)
                         <a href="{{ route('events.show', $event) }}" class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition-colors group">
                             <div class="w-12 h-12 rounded-lg overflow-hidden bg-slate-100 shrink-0">
-                                @if($event->poster_path && Storage::disk('public')->exists($event->poster_path))
+                                @if($event->poster_path)
                                     <img src="{{ (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center"><i class="fas fa-image text-slate-300 text-xs"></i></div>

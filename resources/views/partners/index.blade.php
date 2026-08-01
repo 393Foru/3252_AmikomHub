@@ -38,7 +38,7 @@
             
             <a href="{{ route('partners.show', $partner->id) }}" class="block h-full bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 group">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mb-5 shrink-0 relative flex items-center justify-center">
-                    @if($partner->logo_url && Storage::disk('public')->exists($partner->logo_url))
+                    @if($partner->logo_url)
                         <div class="w-full h-full p-2 bg-white rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                             <img src="{{ (\Illuminate\Support\Str::startsWith($partner->logo_url, 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url)) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain">
                         </div>

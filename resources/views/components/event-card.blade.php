@@ -3,7 +3,7 @@
 <div class="group relative bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-full">
     {{-- Poster Section --}}
     <div class="relative aspect-[3/4] overflow-hidden bg-slate-100 shrink-0">
-        <img loading="lazy" src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) : 'https://placehold.co/600x800/e2e8f0/2563eb?text=' . urlencode(Str::limit($event->title, 15)) }}"
+        <img loading="lazy" src="{{ ($event->poster_path) ? (\Illuminate\Support\Str::startsWith($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) : 'https://placehold.co/600x800/e2e8f0/2563eb?text=' . urlencode(Str::limit($event->title, 15)) }}"
             alt="{{ $event->title }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
             
@@ -56,7 +56,7 @@
         {{-- Organizer Info --}}
         <div class="flex items-center gap-2 mb-3 relative z-10 pointer-events-none">
             <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-100 border border-slate-200 overflow-hidden shrink-0 flex items-center justify-center">
-                @if($event->owner && $event->owner->logo_url && Storage::disk('public')->exists($event->owner->logo_url))
+                @if($event->owner && $event->owner->logo_url)
                     <img loading="lazy" src="{{ (\Illuminate\Support\Str::startsWith($event->owner->logo_url, 'http') ? $event->owner->logo_url : asset('storage/' . $event->owner->logo_url)) }}" alt="{{ $event->owner->name }}" class="w-full h-full object-cover">
                 @else
                     <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
