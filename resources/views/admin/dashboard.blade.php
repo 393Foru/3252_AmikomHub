@@ -205,7 +205,8 @@
       </div>
 </div>
 
-<!-- Analytics Chart (Users) -->
+<!-- Analytics Chart (Users) - Only for Super Admin -->
+@if(auth()->user()->role === 'admin')
 <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm mb-10">
         <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
             <div>
@@ -224,6 +225,7 @@
             <canvas id="usersChart"></canvas>
         </div>
 </div>
+@endif
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
   <!-- Latest Sales Table -->
