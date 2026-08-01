@@ -7,8 +7,9 @@
             "use": "vercel-php@0.7.1",
             "config": {
                 "excludeFiles": [
-                    "public/**",
-                    "storage/**",
+                    "public/assets/**",
+                    "public/build/**",
+                    "storage/app/public/**",
                     "node_modules/**",
                     ".git/**"
                 ]
