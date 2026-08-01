@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Transaction;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -115,8 +116,12 @@ class DashboardController extends Controller
             })
             ->get(['id', 'created_at', 'total_price', 'event_id']);
             
+        $chartUsersData = User::where('created_at', '>=', $chartStartDate)
+            ->get(['id', 'created_at']);
+            
         $chartDates = [];
         $chartRevenue = [];
+        $chartUsers = [];
         
         if ($chartFilter === '7d' || $chartFilter === '1m') {
             $days = $chartFilter === '7d' ? 7 : 30;
@@ -125,6 +130,7 @@ class DashboardController extends Controller
                 $dateString = $date->format('Y-m-d');
                 $chartDates[] = $date->format('d M');
                 $chartRevenue[] = $chartTransactions->filter(fn($t) => $t->created_at->format('Y-m-d') === $dateString)->sum('total_price');
+                $chartUsers[] = $chartUsersData->filter(fn($u) => $u->created_at->format('Y-m-d') === $dateString)->count();
             }
         } elseif ($chartFilter === '3m' || $chartFilter === '6m') {
             $weeks = $chartFilter === '3m' ? 12 : 24;
@@ -133,6 +139,7 @@ class DashboardController extends Controller
                 $endOfWeek = now()->subWeeks($i)->endOfWeek();
                 $chartDates[] = $startOfWeek->format('d/m') . ' - ' . $endOfWeek->format('d/m');
                 $chartRevenue[] = $chartTransactions->filter(fn($t) => $t->created_at >= $startOfWeek && $t->created_at <= $endOfWeek)->sum('total_price');
+                $chartUsers[] = $chartUsersData->filter(fn($u) => $u->created_at >= $startOfWeek && $u->created_at <= $endOfWeek)->count();
             }
         } elseif ($chartFilter === '1y') {
             for ($i = 11; $i >= 0; $i--) {
@@ -140,6 +147,7 @@ class DashboardController extends Controller
                 $monthString = $date->format('Y-m');
                 $chartDates[] = $date->format('M Y');
                 $chartRevenue[] = $chartTransactions->filter(fn($t) => $t->created_at->format('Y-m') === $monthString)->sum('total_price');
+                $chartUsers[] = $chartUsersData->filter(fn($u) => $u->created_at->format('Y-m') === $monthString)->count();
             }
         }
 
@@ -241,6 +249,6 @@ class DashboardController extends Controller
             ->take(5)
             ->values();
 
-        return view('admin.dashboard', compact('totalRevenue', 'ticketsSold', 'activeEvents', 'pendingOrders', 'recentTransactions', 'chartDates', 'chartRevenue', 'categoryChartLabels', 'categoryChartData', 'filter', 'chartFilter', 'activityLogs', 'trends', 'topEvents', 'capacityEvents'));
+        return view('admin.dashboard', compact('totalRevenue', 'ticketsSold', 'activeEvents', 'pendingOrders', 'recentTransactions', 'chartDates', 'chartRevenue', 'chartUsers', 'categoryChartLabels', 'categoryChartData', 'filter', 'chartFilter', 'activityLogs', 'trends', 'topEvents', 'capacityEvents'));
     }
 }

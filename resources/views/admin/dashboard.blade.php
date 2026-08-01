@@ -205,6 +205,26 @@
       </div>
 </div>
 
+<!-- Analytics Chart (Users) -->
+<div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm mb-10">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
+            <div>
+                <h3 class="font-black text-xl text-slate-800">Pertumbuhan Pengguna Baru</h3>
+                <p class="text-sm text-slate-500">
+                    @if($chartFilter === '1m') 30 Hari Terakhir
+                    @elseif($chartFilter === '3m') 3 Bulan Terakhir
+                    @elseif($chartFilter === '6m') 6 Bulan Terakhir
+                    @elseif($chartFilter === '1y') 1 Tahun Terakhir
+                    @else 7 Hari Terakhir
+                    @endif
+                </p>
+            </div>
+        </div>
+        <div class="relative h-72 w-full">
+            <canvas id="usersChart"></canvas>
+        </div>
+</div>
+
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
   <!-- Latest Sales Table -->
   <div class="lg:col-span-2 bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
@@ -554,6 +574,113 @@
                 }
             });
         }
+        // Users Line Chart
+        const usersCanvas = document.getElementById('usersChart');
+        if (usersCanvas) {
+            const uCtx = usersCanvas.getContext('2d');
+            
+            // Create gradient for the line
+            const uGradientLine = uCtx.createLinearGradient(0, 0, 0, 400);
+            uGradientLine.addColorStop(0, 'rgba(16, 185, 129, 1)'); // Emerald
+            uGradientLine.addColorStop(1, 'rgba(16, 185, 129, 0.2)');
+
+            // Create gradient for the fill
+            const uGradientFill = uCtx.createLinearGradient(0, 0, 0, 400);
+            uGradientFill.addColorStop(0, 'rgba(16, 185, 129, 0.2)');
+            uGradientFill.addColorStop(1, 'rgba(16, 185, 129, 0)');
+
+            new Chart(uCtx, {
+                type: 'line',
+                data: {
+                    labels: {!! json_encode($chartDates) !!},
+                    datasets: [{
+                        label: 'Pengguna Baru',
+                        data: {!! json_encode($chartUsers) !!},
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        backgroundColor: uGradientFill,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: 'rgba(16, 185, 129, 1)',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleFont: {
+                                family: "'Plus Jakarta Sans', sans-serif",
+                                size: 13
+                            },
+                            bodyFont: {
+                                family: "'Plus Jakarta Sans', sans-serif",
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    let value = context.raw;
+                                    return value + ' Pengguna';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(241, 245, 249, 1)',
+                                drawBorder: false,
+                            },
+                            ticks: {
+                                font: {
+                                    family: "'Plus Jakarta Sans', sans-serif",
+                                    size: 11
+                                },
+                                color: '#94a3b8',
+                                stepSize: 1
+                            },
+                            border: {
+                                display: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false,
+                            },
+                            ticks: {
+                                font: {
+                                    family: "'Plus Jakarta Sans', sans-serif",
+                                    size: 11
+                                },
+                                color: '#94a3b8'
+                            },
+                            border: {
+                                display: false
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    },
+                }
+            });
+        }
+
         // Category Doughnut Chart
         const catCanvas = document.getElementById('categoryChart');
         if (catCanvas) {
