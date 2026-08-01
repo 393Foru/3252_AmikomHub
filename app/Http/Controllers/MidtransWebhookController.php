@@ -66,8 +66,11 @@ if ($event) {
 try {
 \Illuminate\Support\Facades\Mail::to($transaction->customer_email)->send(new
 \App\Mail\EventTicketMail($transaction));
+
+// Kirim E-Ticket via WhatsApp
+app(\App\Services\WhatsAppService::class)->sendETicket($transaction);
 } catch (\Exception $e) {
-    \Log::error('Gagal mengirim email E-Ticket: ' .
+    \Log::error('Gagal mengirim email/WA E-Ticket: ' .
 $e->getMessage());
 }
 } else {

@@ -65,12 +65,15 @@ try {
         try {
             \Illuminate\Support\Facades\Mail::to($transaction->customer_email)
                 ->send(new \App\Mail\EventTicketMail($transaction));
+                
+            // Kirim E-Ticket via WhatsApp
+            app(\App\Services\WhatsAppService::class)->sendETicket($transaction);
         } catch (\Exception $e) {
-            \Log::error('Gagal mengirim email E-Ticket untuk acara gratis: ' . $e->getMessage());
+            \Log::error('Gagal mengirim email/WA E-Ticket untuk acara gratis: ' . $e->getMessage());
         }
 
         return redirect()->route('checkout.success', $transaction->order_id)
-            ->with('success', 'Pendaftaran berhasil! E-Ticket telah dikirim ke email Anda.');
+            ->with('success', 'Pendaftaran berhasil! E-Ticket telah dikirim ke email & WhatsApp Anda.');
     }
 } catch (\Exception $e) {
     \Illuminate\Support\Facades\DB::rollBack();
@@ -103,7 +106,7 @@ $params = [
         'pending' => route('checkout.success', $orderId),
     ],
     'custom_expiry' => [
-        'expiry_duration' => 15,
+        'expiry_duration' => 60,
         'unit' => 'minute'
     ],
 ];
@@ -201,8 +204,11 @@ try {
 \Illuminate\Support\Facades\Mail::to($transaction->customer_email)
 ->send(new
 \App\Mail\EventTicketMail($transaction));
+
+// Kirim E-Ticket via WhatsApp
+app(\App\Services\WhatsAppService::class)->sendETicket($transaction);
 } catch (\Exception $e) {
-\Log::error('Gagal mengirim email E-Ticket
+\Log::error('Gagal mengirim email/WA E-Ticket
 secara manual (Bypass): ' . $e->getMessage());
 }
 }
