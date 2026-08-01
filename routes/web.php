@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\ScannerController;
 
 // Route User Area
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/offline', function () { return view('offline'); })->name('offline');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
