@@ -47,4 +47,30 @@ class Event extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function vouchers()
+    {
+        return $this->hasMany(Voucher::class);
+    }
+
+    public function ticketTiers()
+    {
+        return $this->hasMany(TicketTier::class);
+    }
+
+    public function getActiveTierAttribute()
+    {
+        $now = now();
+        return $this->ticketTiers()
+            ->where('is_active', true)
+            ->where('start_date', '<=', $now)
+            ->where('end_date', '>=', $now)
+            ->first();
+    }
+    
+    public function getCurrentPriceAttribute()
+    {
+        $activeTier = $this->active_tier;
+        return $activeTier ? $activeTier->price : $this->price;
+    }
 }
