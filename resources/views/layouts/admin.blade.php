@@ -46,7 +46,7 @@
             @php
                 $user = auth()->user();
                 $pendingOrdersCount = \App\Models\Transaction::where('status', 'pending')
-                    ->when($user->partner_id, function($q) use ($user) {
+                    ->when($user->role === 'partner', function($q) use ($user) {
                         $q->whereHas('event', function($eq) use ($user) {
                             $eq->where('partner_id', $user->partner_id);
                         });

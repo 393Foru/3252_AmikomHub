@@ -14,7 +14,7 @@ class PengurusController extends Controller implements HasMiddleware
     {
         return [
             function ($request, $next) {
-                if (auth()->check() && !auth()->user()->partner_id) {
+                if (auth()->check() && auth()->user()->role === 'admin') {
                     abort(403, 'Super Admin tidak memiliki akses ke halaman ini.');
                 }
                 return $next($request);
@@ -25,7 +25,9 @@ class PengurusController extends Controller implements HasMiddleware
     public function index()
     {
         $penguruses = Pengurus::with('jabatan')
-            ->where('partner_id', auth()->user()->partner_id)
+            ->when(auth()->user()->role === 'partner', function($q) {
+                $q->where('partner_id', auth()->user()->partner_id);
+            })
             ->latest()->paginate(10);
         return view('admin.pengurus.index', compact('penguruses'));
     }
@@ -46,7 +48,9 @@ class PengurusController extends Controller implements HasMiddleware
         ]);
 
         $data['created_by'] = auth()->user()->name;
-        $data['partner_id'] = auth()->user()->partner_id;
+        if (auth()->user()->role === 'partner') {
+            $data['partner_id'] = auth()->user()->partner_id;
+        }
         Pengurus::create($data);
 
         return redirect()->route('admin.pengurus.index')->with('success', 'Pengurus berhasil ditambahkan.');
@@ -59,7 +63,7 @@ class PengurusController extends Controller implements HasMiddleware
 
     public function edit(Pengurus $pengurus)
     {
-        if ($pengurus->partner_id != auth()->user()->partner_id) {
+        if (auth()->user()->role === 'partner' && $pengurus->partner_id != auth()->user()->partner_id) {
             abort(403, 'Unauthorized action.');
         }
         $jabatans = Jabatan::all(); 
@@ -68,7 +72,7 @@ class PengurusController extends Controller implements HasMiddleware
 
     public function update(Request $request, Pengurus $pengurus)
     {
-        if ($pengurus->partner_id != auth()->user()->partner_id) {
+        if (auth()->user()->role === 'partner' && $pengurus->partner_id != auth()->user()->partner_id) {
             abort(403, 'Unauthorized action.');
         }
         $data = $request->validate([
@@ -86,7 +90,7 @@ class PengurusController extends Controller implements HasMiddleware
 
     public function destroy(Pengurus $pengurus)
     {
-        if ($pengurus->partner_id != auth()->user()->partner_id) {
+        if (auth()->user()->role === 'partner' && $pengurus->partner_id != auth()->user()->partner_id) {
             abort(403, 'Unauthorized action.');
         }
         $pengurus->delete();

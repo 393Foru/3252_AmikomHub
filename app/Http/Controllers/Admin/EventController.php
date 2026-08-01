@@ -16,7 +16,7 @@ class EventController extends Controller
             $q->whereIn('status', ['settlement', 'success']);
         }])->orderBy('date', 'desc');
         
-        if ($user->partner_id) {
+        if ($user->role === 'partner') {
             $query->where('partner_id', $user->partner_id);
         }
 
@@ -78,7 +78,7 @@ class EventController extends Controller
             $data['poster_path'] = $response['secure_url'];
         }
 
-        if (auth()->user()->partner_id) {
+        if (auth()->user()->role === 'partner') {
             $data['partner_id'] = auth()->user()->partner_id;
         }
 
@@ -89,7 +89,7 @@ class EventController extends Controller
 
     public function destroy(Event $event)
     {
-        if (auth()->user()->partner_id && $event->partner_id != auth()->user()->partner_id) {
+        if (auth()->user()->role === 'partner' && $event->partner_id != auth()->user()->partner_id) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -115,7 +115,7 @@ class EventController extends Controller
 
     public function edit(Event $event)
     {
-        if (auth()->user()->partner_id && $event->partner_id != auth()->user()->partner_id) {
+        if (auth()->user()->role === 'partner' && $event->partner_id != auth()->user()->partner_id) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -125,7 +125,7 @@ class EventController extends Controller
 
     public function update(\Illuminate\Http\Request $request, Event $event)
     {
-        if (auth()->user()->partner_id && $event->partner_id != auth()->user()->partner_id) {
+        if (auth()->user()->role === 'partner' && $event->partner_id != auth()->user()->partner_id) {
             abort(403, 'Unauthorized action.');
         }
 
