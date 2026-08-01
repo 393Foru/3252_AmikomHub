@@ -16,7 +16,7 @@ class EventController extends Controller
             $q->whereIn('status', ['settlement', 'success']);
         }])->orderBy('date', 'desc');
         
-        if ($user->partner_id) {
+        if ($user->role === 'partner') {
             $query->where('partner_id', $user->partner_id);
         }
 

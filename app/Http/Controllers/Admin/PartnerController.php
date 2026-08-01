@@ -14,7 +14,7 @@ class PartnerController extends Controller implements HasMiddleware
     {
         return [
             function ($request, $next) {
-                if (auth()->check() && auth()->user()->partner_id) {
+                if (auth()->check() && auth()->user()->role === 'partner') {
                     abort(403, 'Unauthorized access.');
                 }
                 return $next($request);

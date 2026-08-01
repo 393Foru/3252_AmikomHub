@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Admin ' . $partner->name,
                 'email' => strtolower(str_replace(' ', '', $partner->name)) . '@partner.com',
                 'password' => bcrypt('password'),
-                'role' => 'admin',
+                'role' => 'partner',
                 'partner_id' => $partner->id,
             ]);
         }

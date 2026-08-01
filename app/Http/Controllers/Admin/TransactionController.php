@@ -13,7 +13,7 @@ class TransactionController extends Controller
         $user = auth()->user();
         $query = Transaction::with('event')->latest();
 
-        if ($user->partner_id) {
+        if ($user->role === 'partner') {
             $query->whereHas('event', function ($q) use ($user) {
                 $q->where('partner_id', $user->partner_id);
             });
