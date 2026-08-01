@@ -57,18 +57,19 @@ class DatabaseSeeder extends Seeder
         ];
 
         // 3. insert Partner (Total 10 Partners)
-        $partners = [
-            \App\Models\Partner::create(['name' => 'TechCorp', 'logo_url' => 'partners/techcorp.png']),
-            \App\Models\Partner::create(['name' => 'EduMedia', 'logo_url' => 'partners/edumedia.png']),
-            \App\Models\Partner::create(['name' => 'GoTix', 'logo_url' => 'partners/gotix.png']),
-            \App\Models\Partner::create(['name' => 'Dicoding Indonesia', 'logo_url' => 'partners/dicoding.png']),
-            \App\Models\Partner::create(['name' => 'Disnaker Yogyakarta', 'logo_url' => 'partners/disnaker.png']),
-            \App\Models\Partner::create(['name' => 'BEM Amikom', 'logo_url' => 'partners/bem-amikom.png']),
-            \App\Models\Partner::create(['name' => 'Asus ROG', 'logo_url' => 'partners/asus-rog.png']),
-            \App\Models\Partner::create(['name' => 'Tokopedia', 'logo_url' => 'partners/tokopedia.png']),
-            \App\Models\Partner::create(['name' => 'Gojek', 'logo_url' => 'partners/gojek.png']),
-            \App\Models\Partner::create(['name' => 'Bank Mandiri', 'logo_url' => 'partners/bank-mandiri.png']),
+        $partnerNames = [
+            'TechCorp', 'EduMedia', 'GoTix', 'Dicoding Indonesia', 'Disnaker Yogyakarta',
+            'BEM Amikom', 'Asus ROG', 'Tokopedia', 'Gojek', 'Bank Mandiri'
         ];
+
+        $partners = [];
+        foreach ($partnerNames as $index => $name) {
+            $logoNum = ($index % 8) + 1; // 1 to 8
+            $partners[] = \App\Models\Partner::create([
+                'name' => $name, 
+                'logo_url' => 'partners/partner-' . $logoNum . '.png'
+            ]);
+        }
 
         // 4. Akun Admin Partner (Satu Partner = Satu Akun Admin)
         foreach ($partners as $partner) {

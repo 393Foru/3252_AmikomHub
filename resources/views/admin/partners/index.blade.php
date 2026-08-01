@@ -88,7 +88,7 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="w-16 h-16 rounded-xl bg-white border border-slate-100 shadow-sm overflow-hidden flex items-center justify-center p-2">
-                            <img src="{{ Storage::url($partner->logo_url) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain">
+                            <img src="{{ (\Illuminate\Support\Str::startsWith($partner->logo_url, 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url)) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain">
                         </div>
                     </td>
                     <td class="px-6 py-4 font-bold text-sm text-slate-800">{{ $partner->name }}</td>
@@ -156,7 +156,7 @@
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">Update Logo (Opsional)</label>
                             <div class="flex items-center gap-4 mb-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                <img src="{{ Storage::url($partner->logo_url) }}" class="w-12 h-12 rounded-lg object-contain bg-white border border-slate-200 p-1">
+                                <img src="{{ (\Illuminate\Support\Str::startsWith($partner->logo_url, 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url)) }}" class="w-12 h-12 rounded-lg object-contain bg-white border border-slate-200 p-1">
                                 <span class="text-xs font-medium text-slate-500">Logo saat ini</span>
                             </div>
                             <input type="file" name="logo" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 transition-all">
