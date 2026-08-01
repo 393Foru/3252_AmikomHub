@@ -14,8 +14,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Mengecek apakah user sudah login DAN memiliki role 'admin'
-        if (Auth::check() && Auth::user()->role === 'admin') {
+        // Mengecek apakah user sudah login DAN memiliki akses admin (termasuk partner)
+        if (Auth::check() && Auth::user()->isAdmin()) {
             return $next($request);
         }
         // jika user biasa yang mencoba akses, tendang kembali ke halaman utama
