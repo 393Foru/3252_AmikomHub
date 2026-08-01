@@ -58,10 +58,21 @@
             </div>
         </div>
 
-        <div>
-            <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Poster Event (Opsional)</label>
-            <input type="file" name="poster" accept="image/*" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition font-medium text-slate-800 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100 cursor-pointer">
-            @error('poster') <span class="text-rose-500 text-sm mt-1 font-medium">{{ $message }}</span> @enderror
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Poster Event (Opsional)</label>
+                <input type="file" name="poster" accept="image/*" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition font-medium text-slate-800 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100 cursor-pointer">
+                @error('poster') <span class="text-rose-500 text-sm mt-1 font-medium">{{ $message }}</span> @enderror
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Fitur E-Certificate</label>
+                <label class="inline-flex items-center mt-3 cursor-pointer">
+                    <input type="checkbox" name="has_certificate" value="1" class="w-5 h-5 text-indigo-600 bg-slate-100 border-slate-300 rounded focus:ring-indigo-500 focus:ring-2" {{ old('has_certificate') ? 'checked' : '' }}>
+                    <span class="ml-3 text-slate-700 font-medium">Aktifkan E-Certificate Otomatis</span>
+                </label>
+                <p class="text-xs text-slate-400 mt-1">Sertifikat akan dikirim ke email peserta setelah check-in tiket.</p>
+                @error('has_certificate') <span class="text-rose-500 text-sm mt-1 font-medium">{{ $message }}</span> @enderror
+            </div>
         </div>
 
         <div class="pt-6 mt-6 flex justify-end gap-3 border-t border-slate-100">

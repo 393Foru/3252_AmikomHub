@@ -62,8 +62,11 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:1',
-            'poster' => 'nullable|image|max:15360' // Maksimal 15MB
+            'poster' => 'nullable|image|max:15360', // Maksimal 15MB
+            'has_certificate' => 'nullable|boolean'
         ]);
+
+        $data['has_certificate'] = $request->has('has_certificate') ? true : false;
 
         if ($request->hasFile('poster')) {
             $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
@@ -134,8 +137,11 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:1',
-            'poster' => 'nullable|image|max:15360' // Maksimal 15MB
+            'poster' => 'nullable|image|max:15360', // Maksimal 15MB
+            'has_certificate' => 'nullable|boolean'
         ]);
+
+        $data['has_certificate'] = $request->has('has_certificate') ? true : false;
 
         if ($request->hasFile('poster')) {
             // Hapus gambar lama jika sebelumnya sudah memiliki poster

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\Admin\PartnerController as AdminPartnerController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\ScannerController;
 
 
 // Route User Area
@@ -116,6 +117,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Perbaikan Route Transactions Admin sesuai Modul 10
         Route::get('transactions', [AdminTransactionController::class, 'index'])->name('transactions.index');
+
+        // Scanner Checkin Endpoint
+        Route::post('scanner/scan', [ScannerController::class, 'scan'])->name('scanner.scan');
 
         // Ini untuk URL: /admin/logout (mengatasi error RouteNotFoundExpection)
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
