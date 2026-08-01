@@ -28,7 +28,7 @@
                 </div>
                 <div class="flex justify-between items-center mb-4 pb-4 border-b border-dashed border-slate-200 relative z-10">
                     <span class="text-xs font-medium text-slate-500">Biaya Layanan</span>
-                    <span class="text-sm font-bold text-slate-700">Rp 5.000</span>
+                    <span class="text-sm font-bold text-slate-700">{{ $transaction->event->price > 0 ? 'Rp 5.000' : 'Rp 0' }}</span>
                 </div>
                 <div class="flex justify-between items-end relative z-10">
                     <p class="text-[10px] text-indigo-500 font-bold uppercase tracking-wider mb-1">Total Dibayar</p>

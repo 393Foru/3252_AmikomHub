@@ -85,13 +85,13 @@
                     </div>
                     <div class="flex justify-between text-slate-600 text-sm md:text-base">
                         <span>Biaya Layanan</span>
-                        <span class="font-semibold text-slate-800">Rp 5.000</span>
+                        <span class="font-semibold text-slate-800">Rp {{ $event->price > 0 ? '5.000' : '0' }}</span>
                     </div>
                     
                     <div class="pt-5 mt-3 border-t-2 border-dashed border-slate-200">
                         <div class="flex justify-between items-end">
                             <span class="text-sm md:text-base font-bold text-slate-800">Total Bayar</span>
-                            <span class="text-2xl md:text-3xl font-black text-indigo-600 tracking-tight">Rp {{ number_format($event->price + 5000, 0, ',', '.') }}</span>
+                            <span class="text-2xl md:text-3xl font-black text-indigo-600 tracking-tight">Rp {{ number_format($event->price > 0 ? $event->price + 5000 : 0, 0, ',', '.') }}</span>
                         </div>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
     <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
         <div class="flex-1">
             <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Total Bayar</p>
-            <p class="text-xl font-black text-indigo-600 leading-none">Rp {{ number_format($event->price + 5000, 0, ',', '.') }}</p>
+            <p class="text-xl font-black text-indigo-600 leading-none">Rp {{ number_format($event->price > 0 ? $event->price + 5000 : 0, 0, ',', '.') }}</p>
         </div>
         <button id="submitBtnMobile" type="button" disabled onclick="document.getElementById('checkoutForm').requestSubmit()" class="w-[60%] py-3.5 bg-indigo-600 text-white rounded-xl font-bold text-base shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:bg-slate-400 disabled:active:scale-100">
             <span class="btn-text">Bayar</span>
