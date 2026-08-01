@@ -68,7 +68,9 @@ class EventController extends Controller
         if ($request->hasFile('poster')) {
             $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
             $response = $cloudinary->uploadApi()->upload($request->file('poster')->getRealPath(), [
-                'folder' => 'events'
+                'folder' => 'events',
+                'format' => 'webp',
+                'quality' => 'auto'
             ]);
             $data['poster_path'] = $response['secure_url'];
         }
@@ -152,7 +154,9 @@ class EventController extends Controller
             // Upload gambar baru
             $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
             $response = $cloudinary->uploadApi()->upload($request->file('poster')->getRealPath(), [
-                'folder' => 'events'
+                'folder' => 'events',
+                'format' => 'webp',
+                'quality' => 'auto'
             ]);
             $data['poster_path'] = $response['secure_url'];
         }

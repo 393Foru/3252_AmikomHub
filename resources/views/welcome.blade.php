@@ -59,8 +59,11 @@
             </div>
             <div class="absolute -bottom-10 -right-10 w-48 md:w-64 h-48 md:h-64 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
             </div>
-            <img src="{{ asset('assets/concert.png') }}" alt="Concert"
-                class="rounded-[2rem] shadow-2xl relative z-10 w-full object-cover aspect-[4/5] object-center">
+            @php
+                $defaultImage = count($heroImages) > 0 ? $heroImages[0] : 'https://placehold.co/1200x600/e2e8f0/2563eb?text=AmikomHub';
+            @endphp
+            <img id="hero-poster" src="{{ $defaultImage }}" alt="Event Poster"
+                class="rounded-[2rem] shadow-2xl relative z-10 w-full object-cover aspect-[4/5] object-center transition-opacity duration-700 ease-in-out">
 
         <div class="absolute -bottom-4 md:-bottom-6 left-0 right-0 mx-auto md:mx-0 md:-left-6 w-[90%] md:w-auto glass p-3 sm:p-4 md:p-6 rounded-2xl shadow-xl z-20 border border-white">
             <div class="flex items-center justify-center md:justify-start gap-3 md:gap-4">
@@ -200,7 +203,7 @@
                             <div class="shrink-0 group relative flex items-center justify-center p-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <div class="w-auto min-w-[8rem] h-16 flex items-center justify-center">
                                     @if($partner->logo_url && (\Illuminate\Support\Str::startsWith($partner->logo_url, 'http') || Storage::disk('public')->exists($partner->logo_url)))
-                                        <img src="{{ (\Illuminate\Support\Str::startsWith($partner->logo_url, 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url)) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain transform group-hover:scale-105 transition-transform" title="{{ $partner->name }}" draggable="false">
+                                        <img loading="lazy" src="{{ (\Illuminate\Support\Str::startsWith($partner->logo_url, 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url)) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain transform group-hover:scale-105 transition-transform" title="{{ $partner->name }}" draggable="false">
                                     @else
                                         @php
                                             $words = explode(' ', $partner->name);
@@ -291,6 +294,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const walk = (x - startX) * 2; // scroll speed multiplier
         scroller.scrollLeft = scrollLeft - walk;
     });
+
+    // Hero Slideshow Logic (Every 30 seconds)
+    const heroImages = @json($heroImages);
+    if (heroImages && heroImages.length > 1) {
+        let currentImageIndex = 0;
+        const heroPoster = document.getElementById('hero-poster');
+        
+        setInterval(() => {
+            currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+            
+            // Fade out
+            heroPoster.style.opacity = 0;
+            
+            // Change source after short delay for fade effect
+            setTimeout(() => {
+                heroPoster.src = heroImages[currentImageIndex];
+                // Fade back in
+                heroPoster.style.opacity = 1;
+            }, 700);
+            
+        }, 30000);
+    }
 });
 </script>
 @endpush

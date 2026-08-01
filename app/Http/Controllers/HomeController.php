@@ -39,8 +39,14 @@ class HomeController extends Controller
 
         // Mengambil 4 event secara acak untuk Rekomendasi
         $recommendedEvents = Event::with('category')->where('date', '>=', now())->inRandomOrder()->limit(4)->get();
-
-        return view('welcome', compact('events', 'categories', 'partners', 'recommendedEvents'));
+        
+        // Mengambil daftar gambar untuk slideshow Hero Section
+        $heroImages = [];
+        if (file_exists(storage_path('app/hero_images.json'))) {
+            $heroImages = json_decode(file_get_contents(storage_path('app/hero_images.json')), true);
+        }
+        
+        return view('welcome', compact('events', 'categories', 'partners', 'recommendedEvents', 'heroImages'));
     }
 
     public function howToOrder()

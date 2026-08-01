@@ -214,9 +214,10 @@ class DatabaseSeeder extends Seeder
                 $price = $isFree ? 0 : $faker->randomElement([25000, 50000, 75000, 100000, 150000]);
                 $stock = $faker->randomElement([0, 5, 8, 15, 50, 100, 200]);
                 
-                // Tentukan poster path (cycle 1-6)
-                $posterNum = ($eventCount % 6) + 1;
-                $posterPath = 'posters/event-' . $posterNum . '.png';
+                // Tentukan poster path (menggunakan 40 gambar dari user)
+                $posterNum = $eventCount; // 1 to 40
+                $ext = in_array($posterNum, [1, 2, 3]) ? 'png' : 'jpg';
+                $posterPath = 'posters/event-' . $posterNum . '.' . $ext;
 
                 // Tentukan rundown berdasarkan kategori
                 $rundown = "";

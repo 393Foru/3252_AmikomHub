@@ -43,7 +43,9 @@ class PartnerController extends Controller implements HasMiddleware
         // Proses upload file ke folder storage/app/public/partners
         $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
         $response = $cloudinary->uploadApi()->upload($request->file('logo')->getRealPath(), [
-            'folder' => 'partners'
+            'folder' => 'partners',
+            'format' => 'webp',
+            'quality' => 'auto'
         ]);
         $logoPath = $response['secure_url'];
 
@@ -81,7 +83,9 @@ class PartnerController extends Controller implements HasMiddleware
             // Upload foto baru
             $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
             $response = $cloudinary->uploadApi()->upload($request->file('logo')->getRealPath(), [
-                'folder' => 'partners'
+                'folder' => 'partners',
+                'format' => 'webp',
+                'quality' => 'auto'
             ]);
             $data['logo_url'] = $response['secure_url'];
         }
