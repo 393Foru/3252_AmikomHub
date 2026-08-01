@@ -44,7 +44,8 @@ try {
 
     // 5. Generate Kode TRX (Unik)
     $orderId = 'TRX-' . time() . '-' . Str::random(5);
-    $totalPrice = $lockedEvent->price + 5000; // Menambahkan biaya admin (dummy)
+    $isAdminFeeApplied = $lockedEvent->price > 0;
+    $totalPrice = $lockedEvent->price + ($isAdminFeeApplied ? 5000 : 0); // Bebas admin fee jika gratis
 
     // 6. Merekam Transaksi ke Database
     $transaction = Transaction::create([
@@ -54,10 +55,23 @@ try {
         'customer_email' => $request->customer_email,
         'customer_phone' => $request->customer_phone,
         'total_price' => $totalPrice,
-        'status' => 'Pending', // Status Awal
+        'status' => $totalPrice == 0 ? 'success' : 'Pending', // Status Awal
     ]);
 
     \Illuminate\Support\Facades\DB::commit();
+
+    // 7. Bypass Logika untuk Free Event
+    if ($totalPrice == 0) {
+        try {
+            \Illuminate\Support\Facades\Mail::to($transaction->customer_email)
+                ->send(new \App\Mail\EventTicketMail($transaction));
+        } catch (\Exception $e) {
+            \Log::error('Gagal mengirim email E-Ticket untuk acara gratis: ' . $e->getMessage());
+        }
+
+        return redirect()->route('checkout.success', $transaction->order_id)
+            ->with('success', 'Pendaftaran berhasil! E-Ticket telah dikirim ke email Anda.');
+    }
 } catch (\Exception $e) {
     \Illuminate\Support\Facades\DB::rollBack();
     return back()->with('error', 'Terjadi kesalahan sistem saat memproses pesanan: ' . $e->getMessage());
@@ -153,6 +167,11 @@ $categories = \App\Models\Category::all();
 
 $transaction = Transaction::with('event')->where('order_id',
 $order_id)->firstOrFail();
+
+// Bypass Pengecekan Midtrans jika ini adalah transaksi gratis
+if ($transaction->total_price == 0 && strtolower($transaction->status) === 'success') {
+    return view('checkout.success', compact('transaction', 'categories'));
+}
 
 // Konfigurasi Midtrans untuk mengecek status transaksi langsung ke API
 \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
