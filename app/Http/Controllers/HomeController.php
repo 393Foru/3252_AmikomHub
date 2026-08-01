@@ -41,10 +41,16 @@ class HomeController extends Controller
         $recommendedEvents = Event::with('category')->where('date', '>=', now())->inRandomOrder()->limit(4)->get();
         
         // Mengambil daftar gambar untuk slideshow Hero Section
-        $heroImages = [];
-        if (file_exists(storage_path('app/hero_images.json'))) {
-            $heroImages = json_decode(file_get_contents(storage_path('app/hero_images.json')), true);
-        }
+        // Ambil dari 5 event terbaru yang memiliki poster
+        $heroImages = Event::whereNotNull('poster_path')
+            ->where('poster_path', '!=', '')
+            ->latest()
+            ->limit(5)
+            ->pluck('poster_path')
+            ->map(function($path) {
+                return \Illuminate\Support\Str::startsWith($path, 'http') ? $path : asset('storage/' . $path);
+            })
+            ->toArray();
         
         return view('welcome', compact('events', 'categories', 'partners', 'recommendedEvents', 'heroImages'));
     }
