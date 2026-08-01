@@ -13,7 +13,7 @@ class JabatanController extends Controller implements HasMiddleware
     {
         return [
             function ($request, $next) {
-                if (auth()->check() && auth()->user()->role === 'admin') {
+                if (auth()->check() && !auth()->user()->partner_id) {
                     abort(403, 'Super Admin tidak memiliki akses ke halaman ini.');
                 }
                 return $next($request);

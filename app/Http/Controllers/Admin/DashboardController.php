@@ -43,7 +43,7 @@ class DashboardController extends Controller
             if ($start) $q->where('created_at', '>=', $start);
             if ($end) $q->where('created_at', '<=', $end);
             
-            if ($user->role === 'partner') {
+            if ($user->partner_id) {
                 $q->whereHas('event', function($eq) use ($user) {
                     $eq->where('partner_id', $user->partner_id);
                 });
@@ -56,7 +56,7 @@ class DashboardController extends Controller
             if ($start) $q->where('created_at', '>=', $start);
             if ($end) $q->where('created_at', '<=', $end);
             
-            if ($user->role === 'partner') {
+            if ($user->partner_id) {
                 $q->where('partner_id', $user->partner_id);
             }
             return $q;
@@ -90,7 +90,7 @@ class DashboardController extends Controller
         
         // Recent transactions always show latest regardless of time filter
         $recentTransactions = Transaction::with('event')
-            ->when($user->role === 'partner', function($q) use ($user) {
+            ->when($user->partner_id, function($q) use ($user) {
                 return $q->whereHas('event', function($eq) use ($user) {
                     $eq->where('partner_id', $user->partner_id);
                 });
@@ -109,7 +109,7 @@ class DashboardController extends Controller
         $chartTransactions = Transaction::with('event.category')
             ->whereIn('status', ['settlement', 'success'])
             ->where('created_at', '>=', $chartStartDate)
-            ->when($user->role === 'partner', function($q) use ($user) {
+            ->when($user->partner_id, function($q) use ($user) {
                 return $q->whereHas('event', function($eq) use ($user) {
                     $eq->where('partner_id', $user->partner_id);
                 });
@@ -168,7 +168,7 @@ class DashboardController extends Controller
 
         // Fetch Recent Activity Logs
         $recentEventLogs = Event::with('owner')
-            ->when($user->role === 'partner', function($q) use ($user) {
+            ->when($user->partner_id, function($q) use ($user) {
                 return $q->where('partner_id', $user->partner_id);
             })
             ->latest()
@@ -186,7 +186,7 @@ class DashboardController extends Controller
 
         $recentTransactionLogs = Transaction::with('event')
             ->whereIn('status', ['settlement', 'success'])
-            ->when($user->role === 'partner', function($q) use ($user) {
+            ->when($user->partner_id, function($q) use ($user) {
                 return $q->whereHas('event', function($eq) use ($user) {
                     $eq->where('partner_id', $user->partner_id);
                 });
@@ -222,7 +222,7 @@ class DashboardController extends Controller
                       return $query->where('created_at', '>=', $startDate);
                   });
             }], 'total_price')
-            ->when($user->role === 'partner', function($q) use ($user) {
+            ->when($user->partner_id, function($q) use ($user) {
                 return $q->where('partner_id', $user->partner_id);
             })
             ->having('sales_count', '>', 0)
@@ -234,7 +234,7 @@ class DashboardController extends Controller
                 $q->whereIn('status', ['settlement', 'success']);
             }])
             ->where('date', '>=', now())
-            ->when($user->role === 'partner', function($q) use ($user) {
+            ->when($user->partner_id, function($q) use ($user) {
                 return $q->where('partner_id', $user->partner_id);
             })
             ->get()
