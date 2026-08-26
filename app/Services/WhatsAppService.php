@@ -64,6 +64,10 @@ class WhatsAppService
         }
 
         try {
+            Log::info("Mencoba mengirim pesan WA via Fonnte ke target: {$target}", [
+                'token_length' => strlen($token)
+            ]);
+
             $response = Http::withHeaders([
                 'Authorization' => $token
             ])->post('https://api.fonnte.com/send', [
@@ -72,8 +76,10 @@ class WhatsAppService
                 'countryCode' => '62', // Default kode negara Indonesia
             ]);
 
+            Log::info('Respons dari Fonnte: ' . $response->body());
+
             if (!$response->successful()) {
-                Log::error('Gagal mengirim WhatsApp via Fonnte: ' . $response->body());
+                Log::error('Gagal mengirim WhatsApp via Fonnte (HTTP ' . $response->status() . '): ' . $response->body());
             }
         } catch (\Exception $e) {
             Log::error('Exception saat mengirim WhatsApp via Fonnte: ' . $e->getMessage());
