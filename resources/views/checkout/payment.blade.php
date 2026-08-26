@@ -133,9 +133,8 @@
         btnSpinner.classList.add('hidden');
     }
 
-    // Timer Logic
-    const createdAtIso = "{{ $transaction->created_at->toISOString() }}";
-    const createdAt = new Date(createdAtIso).getTime();
+    // Menggunakan UNIX timestamp dari PHP agar lebih akurat dan terhindar dari masalah zona waktu browser
+    const createdAt = {{ $transaction->created_at->timestamp }} * 1000; 
     // Asumsi batas waktu adalah 24 jam dari waktu transaksi dibuat
     const expiredAt = createdAt + (24 * 60 * 60 * 1000); 
 
